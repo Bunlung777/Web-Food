@@ -43,7 +43,7 @@ if(isset($_GET['delete'])){
         <div class="modal-body">
             <form action="insert.php" method="post" enctype="multipart/form-data">
                 <div class="mb-3">
-                    <label for="firstname" class="col-form-label">รูปภาพของหมู่บ้าน :</label>
+                    <label for="firstname" class="col-form-label">รูปภาพของหมู่บ้าน11 :</label>
                     <input type="file" required class="form-control" name="img" id="imgInput" accept="image/*">
                     <img loading="lazy" width="100%" id="previewImg" alt="">
                 </div>
