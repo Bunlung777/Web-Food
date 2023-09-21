@@ -1,37 +1,22 @@
 <?php
 
 session_start();
-require_once ("Config/DB.php");
-include './Navbar/Navbar.php';
+include ("../Config/DB.php");
 
 if (isset($_POST['UpdateSet'])) {
     $id = $_POST['id'];
     $Village = $_POST['villageName'];
     $set = $_POST['setName'];
     $FoodName = $_POST['foodName'];
-    $img = $_FILES['imgSet'];
-    $img2 = $_POST['img2'];
-    $upload = $_FILES['imgSet']['name'];
+    $img = file_get_contents($_FILES['imgSet']['tmp_name']);
 
-    if($upload !=''){
-        $allow = array('jpg', 'jpeg', 'png');
-        $extension = explode('.', $img['name']);
-        $fileActExt = strtolower(end($extension));
-        $fileNew = rand() . "." . $fileActExt;  
-        $filePath = 'UploadSet/'.$fileNew;
-
-        if (in_array($fileActExt, $allow)) {
-            if ($img['size'] > 0 && $img['error'] == 0) {
-                move_uploaded_file($img['tmp_name'], $filePath);
-
-            }}
-    }else{
-        $fileNew = $img2;
-    }
+    
+        
+    
     $sql = $conn->prepare("UPDATE setfood SET VillageSet = :villageSet , ImgSet = :imgSet , SetName = :setName , FoodName = :foodName WHERE Idset = :id");
     $sql->bindParam(":id", $id  );
     $sql->bindParam(":villageSet", $Village);
-    $sql->bindParam(":imgSet", $fileNew);
+    $sql->bindParam(":imgSet", $img);
     $sql->bindParam(":setName", $set);
     $sql->bindParam(":foodName", $FoodName);
     $sql->execute();
@@ -43,14 +28,30 @@ if (isset($_POST['UpdateSet'])) {
         header("location: indexSetFood.php");
     }
 }
+$sql = "SELECT Name FROM user";
+$userVillage = $conn->prepare($sql);
+$userVillage->execute();
+
+// Store options in an array
+$options = $userVillage->fetchAll(PDO::FETCH_COLUMN);
+
+$sql = "SELECT FoodName FROM food";
+$foodName = $conn->prepare($sql);
+$foodName->execute();
+
+// Store options in an array
+$food = $foodName->fetchAll(PDO::FETCH_COLUMN);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="stylesheet" href="css.css"> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crud_PHP</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
 <style>
@@ -58,7 +59,8 @@ if (isset($_POST['UpdateSet'])) {
         max-width:px;
     }
     .center_div {
-    margin-left: 365px;
+    margin-left: 310px;
+    margin-bottom:10px ;
     width:100%;
     
 }
@@ -66,13 +68,11 @@ if (isset($_POST['UpdateSet'])) {
 <body>
 <!-- Modal -->
     
-    <div class="container mt-5">
-        <h1>Edit Data</h1>
-        <hr>
+    <div class="container ">
         <form action="editSetFood.php" method="post" enctype="multipart/form-data">
             <?php 
-                if(isset($_GET['id'])){ //รับค่าจาก id มาจาก index     ฟังก์ชั่น isset เป็นฟังก์ชั่นที่ใช้ในการตรวจสอบว่าตัวแปรนั้นมีการกำหนดค่าไว้หรือไม่
-                    $Id = $_GET['id'];
+                if(isset($_POST['userid'])){ //รับค่าจาก id มาจาก index     ฟังก์ชั่น isset เป็นฟังก์ชั่นที่ใช้ในการตรวจสอบว่าตัวแปรนั้นมีการกำหนดค่าไว้หรือไม่
+                    $Id = $_POST['userid'];
                     $stmt = $conn->query("SELECT * FROM setfood WHERE Idset = $Id");
                     $stmt->execute();
                     $data = $stmt->fetch();
@@ -84,12 +84,21 @@ if (isset($_POST['UpdateSet'])) {
                 </div>
                 <div class="mb-3">
                     <label for="img" class="col-form-label">รูปภาพสำรับอาหาร :</label>
-                    <input type="file" required class="form-control" id="imgInput" name="imgSet" value="<?php echo $data['ImgSet']; ?>">
-                    <img width="50%" src="UploadSet/<?php echo $data['ImgSet']; ?>" id="previewImg" alt="">
+                    <input type="file" required class="form-control" id="imgInput" name="imgSet" >
+                    <?php   echo '<img src="data:image/jpeg;base64,'.base64_encode($data['ImgSet']).'" alt=""  width=350px; id="previewImg" "/> '  ?>
                 </div>
                 <div class="mb-3">
                     <label for="firstname" class="col-form-label">ชื่อหมู่บ้าน :</label>
-                    <input type="text" value ="<?php echo $data['VillageSet']; ?>" required class="form-control" name="villageName" >
+                    <select class="form-control form-control-lg" name="villageName" id="options">
+                    <option><?php echo $data['VillageSet']; ?></option>"; 
+                <?php
+                // Generate the dropdown options
+                foreach ($options as $option) {
+                    echo "<option>$option</option>";
+                }
+                ?>
+                
+                </select>
                 </div>
                 <div class="mb-3">
                     <label for="firstname" class="col-form-label">ชื่อสำรับ :</label>
@@ -97,10 +106,19 @@ if (isset($_POST['UpdateSet'])) {
                 </div>
                 <div class="mb-3">
                     <label for="firstname" class="col-form-label">อาหาร :</label>
-                    <input type="text" value ="<?php echo $data['FoodName']; ?>" required class="form-control" name="foodName">
+                    <select class="form-control form-control-lg" name="foodName" id="options">
+                    <option><?php echo $data['FoodName']; ?></option>"; 
+                <?php
+                // Generate the dropdown options
+                foreach ($food as $food) {
+                    echo "<option>$food</option>";
+                }
+                ?>
+                
+                </select>
                 </div>
                 <div class="center_div" >
-                    <a href="index.php" class="btn btn-secondary padding">Go Back</a>
+                    <a href="indexsetFood.php" class="btn btn-secondary padding">Go Back</a>
                     <button type="submit" name="UpdateSet" class="btn btn-success">Update</button>
                 </div>
             </form>
@@ -127,5 +145,7 @@ if (isset($_POST['UpdateSet'])) {
         }
         
 </script>
+
+
 </body>
 </html>

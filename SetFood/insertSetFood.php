@@ -1,12 +1,12 @@
 <?php 
 
 session_start();
-require_once "config/DB.php";
+include ("../Config/DB.php");
 
 if (isset($_POST['submitSet'])) {
     $village = $_POST['village'];
     $SetName = $_POST['Setname'];
-    $foodname = $_POST['Foodname'];
+    $foodname = $_POST['foodName'];
     $img = file_get_contents($_FILES['imgSet']['tmp_name']);
     
 
@@ -20,7 +20,7 @@ if (isset($_POST['submitSet'])) {
                     $sql->execute();
 
                     if ($sql) {
-                        $_SESSION['success'] = "Data has been inserted successfully";
+                        $_SESSION['success'] = "เพิ่มข้อมูลเรียบร้อย";;
                         header("location: indexSetFood.php");
                     } else {
                         $_SESSION['error'] = "Data has not been inserted successfully";

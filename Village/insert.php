@@ -1,12 +1,12 @@
 <?php 
 
 session_start();
-require_once "config/DB.php";
+include ("../Config/DB.php");
 
 if (isset($_POST['submit'])) {
     $name = $_POST['name'];
     $province = $_POST['province'];
-    $district = $_POST['district'];
+    $district = $_POST['District'];
     $subdistrict = $_POST['subdistrict'];
     $img = file_get_contents($_FILES['img']['tmp_name']);
     $postalcode = $_POST['postalCode'];
@@ -30,7 +30,7 @@ if (isset($_POST['submit'])) {
                     $sql->execute();
 
                     if ($sql) {
-                        $_SESSION['success'] = "Data has been inserted successfully";
+                        $_SESSION['success'] = "เพิ่มข้อมูลเรียบร้อย";
                         header("location: index.php");
                     } else {
                         $_SESSION['error'] = "Data has not been inserted successfully";
