@@ -30,7 +30,7 @@ if (isset($_POST['submit'])) {
                     $sql->execute();
 
                     if ($sql) {
-                        $_SESSION['success'] = "เพิ่มข้อมูลเรียบร้อย";
+                        $_SESSION['success'] = "";
                         header("location: index.php");
                     } else {
                         $_SESSION['error'] = "Data has not been inserted successfully";

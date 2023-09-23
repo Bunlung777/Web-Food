@@ -1,0 +1,39 @@
+.thumbnail {
+    cursor: pointer;
+    overflow: hidden;
+  }
+  .images:hover {
+    transform: scale(1.5);
+  }    
+.container .popup-image{
+    position: fixed;
+    top: 0; left: 0;
+    background: rgba(0, 0, 0, 0.9);
+    height: 100%;
+    width: 100%;
+    z-index: 0;
+    display: none;
+} 
+.container .popup-image butto{
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    z-index: 1  ;
+}
+.container .popup-image img{
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 1000px;
+    object-fit: cover;
+}
+@media (max-width:768px){
+    .container .popup-image img{
+        width: 95%;
+    }
+}
+.images{
+    cursor: pointer;
+    transition-duration: 0.3s;
+    overflow: hidden;
+}
