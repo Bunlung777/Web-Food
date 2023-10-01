@@ -9,26 +9,48 @@ if (isset($_POST['Update'])) {
     $province = $_POST['province'];
     $district = $_POST['district'];
     $subdistrict = $_POST['subdistrict'];
-    $img = file_get_contents($_FILES['img']['tmp_name']);
     $postalcode = $_POST['postalCode'];
+
+    $img2 = $_FILES['img']['name'];
+
+    if($img2 != ''){    
+        $img = file_get_contents($_FILES['img']['tmp_name']);
+        $sql = $conn->prepare("UPDATE user SET Name = :name, Img = :img, Province = :province, District = :district, Subdistrict = :subdistrict, PostalCode = :postalcode WHERE id = :id");
+        $sql->bindParam(":id", $id);
+        $sql->bindParam(":name", $name);
+        $sql->bindParam(":img", $img);
+        $sql->bindParam(":province", $province);
+        $sql->bindParam(":district", $district);
+        $sql->bindParam(":subdistrict", $subdistrict);
+        $sql->bindParam(":postalcode", $postalcode);
+        $sql->execute();
+        if ($sql) {
+            $_SESSION['editsuccess'] = "";
+            header("location: index.php");
+        } else {
+            $_SESSION['error'] = "";
+            header("location: index.php");
+        }
+    }else {
+
+        $sql = $conn->prepare("UPDATE user SET Name = :name, Province = :province, District = :district, Subdistrict = :subdistrict, PostalCode = :postalcode WHERE id = :id");
+        $sql->bindParam(":id", $id);
+        $sql->bindParam(":name", $name);
+        $sql->bindParam(":province", $province);
+        $sql->bindParam(":district", $district);
+        $sql->bindParam(":subdistrict", $subdistrict);
+        $sql->bindParam(":postalcode", $postalcode);
+        $sql->execute();
+        if ($sql) {
+            $_SESSION['editsuccess'] = "";
+            header("location: index.php");
+        } else {
+            $_SESSION['error'] = "";
+            header("location: index.php");
+        }
+    }
     
 
-    $sql = $conn->prepare("UPDATE user SET Name = :name, Img = :img, Province = :province, District = :district, Subdistrict = :subdistrict, PostalCode = :postalcode WHERE id = :id");
-    $sql->bindParam(":id", $id);
-    $sql->bindParam(":name", $name);
-    $sql->bindParam(":img", $img);
-    $sql->bindParam(":province", $province);
-    $sql->bindParam(":district", $district);
-    $sql->bindParam(":subdistrict", $subdistrict);
-    $sql->bindParam(":postalcode", $postalcode);
-    $sql->execute();
-    if ($sql) {
-        $_SESSION['editsuccess'] = "";
-        header("location: index.php");
-    } else {
-        $_SESSION['error'] = "Data has not been inserted successfully";
-        header("location: index.php");
-    }
 }
 ?>
 
@@ -57,15 +79,7 @@ if (isset($_POST['Update'])) {
 
         <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <a class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" href="index.php">
-                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                </svg>
-                <span class="sr-only">Close modal</span>
-            </a>
             <div class="px-6 py-6 lg:px-8">
-                <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">แก้ไขข้อมูลหมู่บ้าน</h3>
-                <hr>
                 <form class="space-y-6" action="edit.php" method="post" enctype="multipart/form-data">
                 <?php 
                 if(isset($_POST['userid'])){ //รับค่าจาก id มาจาก index     ฟังก์ชั่น isset เป็นฟังก์ชั่นที่ใช้ในการตรวจสอบว่าตัวแปรนั้นมีการกำหนดค่าไว้หรือไม่
@@ -81,8 +95,9 @@ if (isset($_POST['Update'])) {
                     </div>
                     <div>
                         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">รูปภาพของหมู่บ้าน</label>
-                        <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="imgInput" type="file" name="img" required>
-                        <img src="data:image/jpeg;base64,<?php echo base64_encode($data['Img']); ?>" alt="" width="350px" id="previewImg" />
+                        <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="imgInputs" type="file" name="img">
+                        <img src="data:image/jpeg;base64,<?php echo base64_encode($data['Img']); ?>" alt="" width="100%" id="previewImgs" class="rounded-lg" name="img2" />
+                        
                     </div>
                     <div>
                         <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ชื่อหมู่บ้าน</label>
@@ -115,8 +130,8 @@ if (isset($_POST['Update'])) {
                 </form>
             </div>
         </div>
-    </div>
-</div> 
+   
+
   
 
 
@@ -124,17 +139,18 @@ if (isset($_POST['Update'])) {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>  
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
-<script>
-        let imgInput = document.getElementById('imgInput');
-        let previewImg = document.getElementById('previewImg');
 
-        imgInput.onchange = evt => {
+<script>
+        let imgInput = document.getElementById('imgInputs');
+        let previewImg = document.getElementById('previewImgs');
+
+        imgInput.onchange = evt => { //OnChange  การดำเนินการเพื่อดำเนินการเมื่อผู้ใช้เปลี่ยนแปลงค่าของตัวควบคุม ใช้กับตัวควบคุม เพิ่มรูปภาพ, ดรอปดาวน์
             const [file] = imgInput.files;
                 if (file) {
                     previewImg.src = URL.createObjectURL(file)
             }
         }
-        
 </script>
+
 </body>
 </html>

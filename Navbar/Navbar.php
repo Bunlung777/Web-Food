@@ -11,7 +11,7 @@
 <body>
   
   
-<nav class="bg-gray-800">
+<nav class="bg-gray-800" id="navbar">
   <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
     <div class="relative flex h-16 items-center justify-between">
       <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -39,12 +39,14 @@
       </div>
       <div class="flex flex-1 items-center sm:items-stretch sm:justify-start">
         <div class="flex flex-shrink-0 items-center">
-          <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company">
+          <a href="/Web-Food/Village/">
+          <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" >
+          </a>
         </div>
         <div class="hidden sm:ml-6 sm:block">
           <div class="flex space-x-4">
             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-            <a href="/Web-Food/Village/" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium no-underline" aria-current="page">เพิ่มหมูบ้าน</a>
+            <a id="link1" href="/Web-Food/Village/" class=" text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium no-underline" onclick="changeBackgroundColor(event)">เพิ่มหมูบ้าน</a>
             <a href="/Web-Food/SetFood/indexsetFood.php" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium no-underline">เพิ่มสำรับอาหาร</a>
             <a href="/Web-Food/Food/Foodindex.php" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium no-underline">เพิ่มอาหาร</a>
           </div>
@@ -99,5 +101,23 @@
         }
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
+    <script>
+// Get a reference to the link with the id "link1"
+function changeBackgroundColor(event) {
+    // Prevent the default link behavior (e.g., navigating to a new page)
+    event.preventDefault();
+
+    // Get a reference to the link that was clicked
+    const link = event.currentTarget;
+
+    // Change the background color of the link when it's clicked
+    link.classList.toggle('bg-red-500'); // Change to your desired background color class
+
+    // Navigate to the URL specified in the link's href attribute
+    window.location.href = link.getAttribute('href');
+}
+
+
+    </script>
 </body>
 </html>

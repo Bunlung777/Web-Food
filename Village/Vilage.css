@@ -1,9 +1,8 @@
-.thumbnail {
-    cursor: pointer;
-    overflow: hidden;
-  }
+
   .images:hover {
     transform: scale(1.5);
+    box-shadow: rgb(0, 0, 0) 10px 15px 30px -10px;
+
   }    
 .container .popup-image{
     position: fixed;
@@ -14,12 +13,6 @@
     z-index: 0;
     display: none;
 } 
-.container .popup-image butto{
-    position: absolute;
-    top: 50%;
-    left: 10%;
-    z-index: 1  ;
-}
 .container .popup-image img{
     position: absolute;
     top: 50%; left: 50%;
@@ -37,3 +30,30 @@
     transition-duration: 0.3s;
     overflow: hidden;
 }
+
+.noti{
+    animation: noti 0.5s forwards;
+}
+    @keyframes noti {
+        from{
+            opacity: 0;
+            transform: translateY(0);
+        }
+        to{
+            opacity: 10 ;
+            transform: translateY(10px);
+        }
+    }
+    .fadeout{
+        animation: fadeout 0.5s forwards;
+    }
+        @keyframes fadeout {
+            from {
+                opacity: 10; 
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-10px); 
+            }
+        }
