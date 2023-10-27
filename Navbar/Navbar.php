@@ -46,9 +46,10 @@
         <div class="hidden sm:ml-6 sm:block">
           <div class="flex space-x-4">
             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-            <a id="link1" href="/Web-Food/Village/" class=" text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium no-underline" onclick="changeBackgroundColor(event)">เพิ่มหมูบ้าน</a>
-            <a href="/Web-Food/SetFood/indexsetFood.php" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium no-underline">เพิ่มสำรับอาหาร</a>
-            <a href="/Web-Food/Food/Foodindex.php" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium no-underline">เพิ่มอาหาร</a>
+            <a id="link1" href="/Web-Food/Village/" class=" text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium no-underline z-10" onclick="changeBackgroundColor(event)">เพิ่มหมูบ้าน</a>
+            <a href="/Web-Food/SetFood/indexsetFood.php" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium no-underline z-10">เพิ่มสำรับอาหาร</a>
+            <a href="/Web-Food/Food/Foodindex.php" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium no-underline z-10">เพิ่มอาหาร</a>
+            <a href="/Web-Food/ingredients/indexingre.php" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium no-underline ">เพิ่มส่วนประกอบ</a>
           </div>
         </div>
       </div>
@@ -113,7 +114,6 @@ function changeBackgroundColor(event) {
     // Change the background color of the link when it's clicked
     link.classList.toggle('bg-red-500'); // Change to your desired background color class
 
-    // Navigate to the URL specified in the link's href attribute
     window.location.href = link.getAttribute('href');
 }
 

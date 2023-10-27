@@ -6,7 +6,7 @@ include '../Navbar/Navbar.php';
 
 if(isset($_GET['delete'])){
     $delete_id = $_GET['delete'];
-    $delestmt = $conn->query("DELETE FROM user WHERE id = $delete_id");
+    $delestmt = $conn->query("DELETE FROM village WHERE id = $delete_id");
 
     if($delestmt){
         $_SESSION['deletedata'] = "";
@@ -24,12 +24,15 @@ if(isset($_GET['delete'])){
     <title>Crud_PHP</title>
     <link href="Vilage.css" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
-<body>
+<body >
     
 <!-- Modal -->
 <div id="userModal" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -104,8 +107,7 @@ if(isset($_GET['delete'])){
     </div>
     </div>
     
-
-        <div class="flex justify-center absolute inset-x-0 top-0" >
+        <div class="flex justify-center absolute inset-x-0 top-0 " >
         <?php if(isset($_SESSION['success'])) {?>
             <div id="notification" class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 noti" role="alert">
     <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
@@ -121,14 +123,15 @@ if(isset($_GET['delete'])){
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
         </svg>
     </button>
-</div>
+
             <?php 
                   unset($_SESSION['success']);
             ?>
            
         <?php }?>
-
-        
+        </div>
+        </div>
+        <div class="flex justify-center absolute inset-x-0 top-0 " >
         <?php if(isset($_SESSION['editsuccess'])) {?>
             <div id="notification" class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 noti" role="alert">
     <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
@@ -144,11 +147,12 @@ if(isset($_GET['delete'])){
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
         </svg>
     </button>
-</div>
-            <?php unset($_SESSION['editsuccess']);?>
 
-           </div>
-        <?php }?>
+            <?php unset($_SESSION['editsuccess']);?>
+            <?php }?>
+            </div>
+            </div>
+    <div class="flex justify-center absolute inset-x-0 top-0 " >  
         <?php if(isset($_SESSION['deletedata'])) {?>
             <div id="notification" class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 noti" role="alert">
     <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-green-800 dark:text-green-200">
@@ -164,7 +168,7 @@ if(isset($_GET['delete'])){
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
         </svg>
     </button>
-</div>
+
             <?php echo$_SESSION['deletedata'];  
                   unset($_SESSION['deletedata']);
             ?>
@@ -175,52 +179,69 @@ if(isset($_GET['delete'])){
             <?php echo$_SESSION['error'];  
                   unset($_SESSION['error']);
             ?>
-           </div>
+           
         <?php }?>
+        </div>
+        </div>
+
+
+        </div>
+    <!-- ตารางข้อมูล -->
+    <div class="flex flex-col mt-6 container ">
+        
+        <div class="-mx-4 -my-2  sm:-mx-6 lg:-mx-8">
+            <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8 ">
+                <div class="overflow-hidden md:rounded-lg shadow p-3">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                    
+                    
+    <div class="container ">
+        <div class="py-2  ">
+        <div style="float:left" class="mt-1">
+            <p class="text-[30px] prompt">รายการหมู่บ้าน</p>
+        </div>
+        <div class="flex justify-end ">
+            <button type="button" class="h-12 px-8 m-2 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm py-2.5 text-center mr-2 mb-2" data-modal-target="userModal" data-modal-toggle="userModal">เพิ่มส่วนประกอบ</button>
+        </div>
+        </div>
     </div>
-    <div class="container mt-5">
-    <div style="float:left">
-                <h1>รายการหมู่บ้าน</h1>
+        <hr>
+                        <div class="grid grid-cols-2 gap-4 ">
+        <div class="flex">
+                            <label for="text" class="block mb-2 text-l text-gray-500 dark:text-white mr-3 mt-8">Show  </label>
+                            <select class=" mt-6 h-10 mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="village" id="options">
+                                <option>10</option>
+                                <option>20</option>
+                                <option>30</option>
+                                <option>40</option>
+                            </select>
+                            <label for="text" class="block mb-2 text-l  text-gray-500 dark:text-white ml-3 mt-8">entries  </label>
+                        </div>
+                        
+                        <div>
+                        <form method="post">
+            <div class="flex justify-end mt-3 mb-4 ">
+            <div class="relative flex items-center ">
+            <div class="mr-4 text-l font-medium  text-gray-500 dark:text-gray-400">
+                <label for="">Seach: </label>
             </div>
-            <div class="flex justify-end" >
-                <button type="button" class="h-12 px-8 m-2 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-normal rounded-lg text-sm py-2.5 text-center mr-2 mb-2" data-modal-target="userModal" data-modal-toggle="userModal">เพิ่มหมูบ้าน</button>
-            </div>
-            <hr class="h-0.5 mx-auto my-3 bg-gray-700 border-0 rounded md:my-10 dark:bg-gray-700">
-            <form method="post">
-            <div class="flex justify-end">
-            <div class="relative flex items-center">
-            <span class="absolute">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-3 text-gray-400 dark:text-gray-600">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                </svg>
-            </span>
-            <input type="text" placeholder="Search" class="block w-full py-1.5 text-gray-700 bg-white border border-gray-200 rounded-lg md:w-80 placeholder-gray-400/70 pl-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-500 focus:outline-none focus:ring-2 focus:ring-opacity-40"
-            name="search">
-             <button type="submit" class="absolute top-0 right-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                </svg>
-            </button>
+            <input type="text" placeholder="" class="shadow-md block w-[15rem] py-2 text-gray-700 bg-white border border-gray-300 rounded-lg placeholder-gray-400  dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-500 focus:outline-none focus:ring-2 focus:ring-opacity-40" name="search">
         </div>
         </div>
         </form>
         </div>
-    <!-- ตารางข้อมูล -->
-    <div class="flex flex-col mt-6 container">
-        <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div class=" min-w-full py-2 align-middle md:px-6 lg:px-8">
-                <div class="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
-                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                        <thead class="bg-gray-50 dark:bg-gray-800">
+          </div>
+
+                    <thead class=" bg-gray-100 dark:bg-gray-900">
                             <tr>
 
-    <th scope="col" class="px-6 py-3  text-l font-normal  text-gray-500 dark:text-gray-400 ">Id</th>
-      <th scope="col" class="px-6 py-3 text-l font-normal  text-gray-500 dark:text-gray-400 ">รูปภาพของหมู่บ้าน</th>
-      <th scope="col" class="px-6 py-3 text-l font-normal  text-gray-500 dark:text-gray-400 ">ชื่อหมู่บ้าน</th>
-      <th scope="col" class="px-6 py-3 text-l font-normal  text-gray-500 dark:text-gray-400 ">จังหวัด</th>
-      <th scope="col" class="px-6 py-3 text-l font-normal  text-gray-500 dark:text-gray-400 ">อำเภอ</th>
-      <th scope="col" class="px-6 py-3 text-l font-normal  text-gray-500 dark:text-gray-400 ">ตำบล</th>
-      <th scope="col" class="px-6 py-3 text-l font-normal  text-gray-500 dark:text-gray-400 ">รหัสไปรษณี</th>
+    <th scope="col" class="px-6 py-3  text-l font-medium  text-gray-500 dark:text-gray-400 ">Id</th>
+      <th scope="col" class="px-6 py-3 text-l font-medium  text-gray-500 dark:text-gray-400 ">รูปภาพของหมู่บ้าน</th>
+      <th scope="col" class="px-6 py-3 text-l font-medium  text-gray-500 dark:text-gray-400 ">ชื่อหมู่บ้าน</th>
+      <th scope="col" class="px-6 py-3 text-l font-medium  text-gray-500 dark:text-gray-400 ">จังหวัด</th>
+      <th scope="col" class="px-6 py-3 text-l font-medium  text-gray-500 dark:text-gray-400 ">อำเภอ</th>
+      <th scope="col" class="px-6 py-3 text-l font-medium  text-gray-500 dark:text-gray-400 ">ตำบล</th>
+      <th scope="col" class="px-6 py-3 text-l font-medium  text-gray-500 dark:text-gray-400 ">รหัสไปรษณีย์</th>
       <th></th>
      
     </tr>
@@ -228,7 +249,7 @@ if(isset($_GET['delete'])){
   </thead>
   <tbody>
     <?php
-      $stmt = $conn->query("SELECT * FROM user ");
+      $stmt = $conn->query("SELECT * FROM village ");
       $stmt -> execute();
       $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
        
@@ -236,7 +257,7 @@ if(isset($_GET['delete'])){
 
        if (isset($_POST['search'])){//ถ้าไม่มีข้อมูลใน user
         $search = $_POST['search'];
-        $query = $conn->query("SELECT * FROM user WHERE Name LIKE '%$search%' ");
+        $query = $conn->query("SELECT * FROM village WHERE Name LIKE '%$search%' ");
         $query -> execute();
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         
@@ -245,10 +266,9 @@ if(isset($_GET['delete'])){
             foreach($result as $result)
             {
                 ?>
-        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-        <td scope="row" class="px-6 py-4 font-normal text-gray-600 "><?php echo $result['Id']; ?></td>
-        <td><?php echo '<img src="data:image/jpeg;base64,'.base64_encode($result['Img']).'" alt="Upload Image"  style="width: 150px; height: 100px" class="rounded-lg images "  "/>' ?></td>
-
+        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 mt-5">
+        <td scope="row" class="px-6 py-3 font-normal text-gray-600 "><?php echo $result['Id']; ?></td>
+        <td><?php echo '<img src="data:image/jpeg;base64,'.base64_encode($result['Img']).'" alt="Upload Image"  style="width: 150px; height: 100px" class="rounded-md images "  "/>' ?></td>
         <td class="px-6 py-4 font-normal text-gray-600 "><?php echo $result['Name']; ?></td>
         <td class="px-6 py-4 font-normal text-gray-600 "><?php echo $result['Province']; ?></td>
         <td class="px-6 py-4 font-normal text-gray-600 "><?php echo $result['District']; ?></td>
@@ -273,7 +293,7 @@ if(isset($_GET['delete'])){
     ?>
         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
         <td scope="row" class="px-6 py-4 font-normal text-gray-600 "><?php echo $user['Id']; ?></td>
-        <td><?php echo '<img src="data:image/jpeg;base64,'.base64_encode($user['Img']).'" alt="Upload Image"  style="width: 150px; height: 100px" class="rounded-lg images "  "/>' ?></td>
+        <td class="p-2"><?php echo '<img src="data:image/jpeg;base64,'.base64_encode($user['Img']).'" alt="Upload Image"  style="width: 150px; height: 100px" class="rounded-md images "  "/>' ?></td>
 
         <td class="px-6 py-4 font-normal text-gray-600 "><?php echo $user['Name']; ?></td>
         <td class="px-6 py-4 font-normal text-gray-600 "><?php echo $user['Province']; ?></td>
@@ -313,6 +333,9 @@ if(isset($_GET['delete'])){
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>  
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApVHPsORFwKnrYs6PUgzQABPiJk3QWRxk"
+    ></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
@@ -371,5 +394,6 @@ document.querySelector('.popup-image').addEventListener('click', (e) => {
         // Automatically hide the notification after 5 seconds (adjust as needed)
         setTimeout(hideNotification, 4000);
     </script>
+
 </body>
 </html>

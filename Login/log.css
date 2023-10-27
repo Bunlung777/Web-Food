@@ -1,0 +1,26 @@
+.noti{
+    animation: noti 0.5s forwards;
+}
+    @keyframes noti {
+        from{
+            opacity: 0;
+            transform: translateY(0);
+        }
+        to{
+            opacity: 10 ;
+            transform: translateY(10px);
+        }
+    }
+    .fadeout{
+        animation: fadeout 0.5s forwards;
+    }
+        @keyframes fadeout {
+            from {
+                opacity: 10; 
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-10px); 
+            }
+        }

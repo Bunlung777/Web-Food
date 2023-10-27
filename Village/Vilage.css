@@ -55,5 +55,14 @@
             to {
                 opacity: 0;
                 transform: translateY(-10px); 
+                display: none;
             }
         }
+        .prompt{
+            font-family: 'Prompt', sans-serif;
+        }
+        .map {
+            height: 400px;
+            width: 100%;
+        }
+        

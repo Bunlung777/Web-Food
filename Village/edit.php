@@ -15,7 +15,7 @@ if (isset($_POST['Update'])) {
 
     if($img2 != ''){    
         $img = file_get_contents($_FILES['img']['tmp_name']);
-        $sql = $conn->prepare("UPDATE user SET Name = :name, Img = :img, Province = :province, District = :district, Subdistrict = :subdistrict, PostalCode = :postalcode WHERE id = :id");
+        $sql = $conn->prepare("UPDATE village SET Name = :name, Img = :img, Province = :province, District = :district, Subdistrict = :subdistrict, PostalCode = :postalcode WHERE id = :id");
         $sql->bindParam(":id", $id);
         $sql->bindParam(":name", $name);
         $sql->bindParam(":img", $img);
@@ -33,7 +33,7 @@ if (isset($_POST['Update'])) {
         }
     }else {
 
-        $sql = $conn->prepare("UPDATE user SET Name = :name, Province = :province, District = :district, Subdistrict = :subdistrict, PostalCode = :postalcode WHERE id = :id");
+        $sql = $conn->prepare("UPDATE village SET Name = :name, Province = :province, District = :district, Subdistrict = :subdistrict, PostalCode = :postalcode WHERE id = :id");
         $sql->bindParam(":id", $id);
         $sql->bindParam(":name", $name);
         $sql->bindParam(":province", $province);
@@ -84,7 +84,7 @@ if (isset($_POST['Update'])) {
                 <?php 
                 if(isset($_POST['userid'])){ //รับค่าจาก id มาจาก index     ฟังก์ชั่น isset เป็นฟังก์ชั่นที่ใช้ในการตรวจสอบว่าตัวแปรนั้นมีการกำหนดค่าไว้หรือไม่
                     $Id = $_POST['userid'];
-                    $stmt = $conn->query("SELECT * FROM user WHERE Id = $Id");
+                    $stmt = $conn->query("SELECT * FROM village WHERE Id = $Id");
                     $stmt->execute();
                     $data = $stmt->fetch();
                 }
