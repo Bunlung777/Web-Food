@@ -66,3 +66,12 @@
             width: 100%;
         }
         
+.text-container {
+            max-width: 20em; 
+            margin: auto;
+        }       
+.font {
+            font-family: 'Taviraj', serif;
+            font-family: 'Niramit', sans-serif;
+          }
+          

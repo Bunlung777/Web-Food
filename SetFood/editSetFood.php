@@ -129,9 +129,16 @@ $foodId = $foodId->fetchAll(PDO::FETCH_COLUMN);
                 if(isset($_POST['userid'])){ 
                     $Id = $_POST['userid'];
                     $stmt = $conn->query("SELECT S.Idset, S.ImgSet, V.Name, S.SetName,V.Id,
+					S.FoodName0 AS FoodId0,
+                    S.FoodName1 AS FoodId1,
+                    S.FoodName2 AS FoodId2,
+                    S.FoodName3 AS FoodId3,
+                    S.FoodName4 AS FoodId4,
+                    S.FoodName5 AS FoodId5,
+                    S.FoodName6 AS FoodId6,
                     F.FoodName AS FoodName0, 
                     F1.FoodName AS FoodName1, 
-                    F2.FoodName AS FoodName2, 
+                    F2.FoodName AS FoodName2,   
                     F3.FoodName AS FoodName3, 
                     F4.FoodName AS FoodName4, 
                     F5.FoodName AS FoodName5, 
@@ -153,16 +160,15 @@ $foodId = $foodId->fetchAll(PDO::FETCH_COLUMN);
             ?>
 
                  <div>
-                        <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ID :</label>
+                        <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">ID :</label>
                         <input type="text" readonly value ="<?php echo $data['Idset']; ?>" required name="idd" id="text"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
                     </div>
                     <div>
-                        <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ชื่อหมู่บ้าน</label>
+                        <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">ชื่อหมู่บ้าน</label>
                         <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="villageName" id="options">
                     <option value="<?php echo $data['Id']; ?>"><?php echo $data['Name']; ?></option>"; 
 
                     <?php
-                                // Generate the dropdown options
                                 foreach (array_combine($options, $Idvi) as $options => $idvi) {
                                 ?>
                                     <option value="<?php echo $idvi; ?>"><?php echo $options ?></option>
@@ -171,36 +177,32 @@ $foodId = $foodId->fetchAll(PDO::FETCH_COLUMN);
                 </select>
                     </div>
                     <div>
-                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">รูปภาพอาหาร :</label>
+                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">รูปภาพอาหาร :</label>
                         <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="imgInput1" type="file" name="imgfood" >
                         <img src="data:image/jpeg;base64,<?php echo base64_encode($data['ImgSet']); ?>" alt="" width="100%" id="previewImg1" class="rounded-lg" />
                     </div>
                     <div>
-                        <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ชื่อสำรับ</label>
+                        <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">ชื่อสำรับ</label>
                         <input type="text" value="<?php echo $data['SetName']; ?>" name="setName" id="text"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
                     </div>
                     
                     <div class="field">               
                     <?php
-// Your existing code for fetching data remains here
-
-// Count the number of non-null FoodName columns
 $totalFoodNames = 0;
-for ($i = 0; $i < 7; $i++) { // Assuming you have 7 FoodName columns
+for ($i = 0; $i < 7; $i++) { 
     if ($data['FoodName' . $i] != null) {
         $totalFoodNames++;
     } else {
-        break; // Stop counting when encountering a null value
+        break;
     }
 }
 
-// Loop for displaying dropdowns based on the count
 for ($i = 0; $i < $totalFoodNames; $i++) {
     ?>
     <div class="food-select-<?php echo $i; ?>">
-        <label for="text" class="block mb-2 mt-3 text-sm font-medium text-gray-900 dark:text-white">ตำรับอาหาร <?php echo $i + 1 ?></label>
+        <label for="text" class="block mb-2 mt-3 text-sm font-medium text-gray-900 dark:text-white font">ตำรับอาหาร <?php echo $i + 1 ?></label>
         <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="food" name="foodName<?php echo $i; ?>">
-        <option value="<?php echo $foodid; ?>"><?php echo $data['FoodName'.$i]; ?></option>
+        <option value="<?php echo $data['FoodId'.$i]; ?>"><?php echo $data['FoodName'.$i]; ?></option>
           <?php
             foreach (array_combine($food, $foodId) as $foodItem => $foodid) {
                 ?>
@@ -254,21 +256,19 @@ for ($i = 0; $i < $totalFoodNames; $i++) {
 </script>
 <script>
     $(document).ready(function () {
-        var counter = <?php echo $totalFoodNames; ?>; // Set the initial counter based on existing selects
-        var timesToClone = 7; // Set the number of times to clone
+        var counter = <?php echo $totalFoodNames; ?>;
+        var timesToClone = 7; 
 
         $("#add").click(function () {
             if (counter < timesToClone) {
-                var clonedContainer = $(".food-select-0").first().clone(); // Clone the first container
+                var clonedContainer = $(".food-select-0").first().clone(); 
 
-                // Change the label and select name attributes with incremental numbers
                 clonedContainer.find("label").text("ตำรับอาหาร " + (counter + 1));
                 clonedContainer.find("select").attr("name", "foodName" + counter);
 
-                // Increment the counter for the next clone
                 counter++;
 
-                $(".field").append(clonedContainer); // Use the appropriate class or ID for the field
+                $(".field").append(clonedContainer); 
             }
         });
     });

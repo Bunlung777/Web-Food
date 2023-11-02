@@ -8,7 +8,7 @@ if (isset($_POST['submitSet'])) {
     $SetName = $_POST['Setname'];
     $img = file_get_contents($_FILES['imgSet']['tmp_name']);
 
-    $maxFoods = 6; // Define the maximum number of foods to handle
+    $maxFoods = 6; 
 
     for ($i = 1; $i <= $maxFoods; $i++) {
         $foodNameKey = 'foodName' . $i;
@@ -38,7 +38,7 @@ if (isset($_POST['submitSet'])) {
                 $_SESSION['error'] = "Data has not been inserted successfully";
             }
             header("location: indexSetFood.php");
-            break; // Break the loop after the insertion
+            break; 
         }
     }
 }

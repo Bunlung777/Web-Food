@@ -29,6 +29,8 @@ if (isset($_GET['delete'])) {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Niramit:wght@500&family=Taviraj&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Taviraj:ital,wght@1,200&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@500&display=swap" rel="stylesheet">
@@ -49,16 +51,16 @@ if (isset($_GET['delete'])) {
                     <span class="sr-only">Close modal</span>
                 </button>
                 <div class="px-6 py-6 lg:px-8">
-                    <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">เพิ่มส่วนประกอบ</h3>
+                    <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white font">เพิ่มส่วนประกอบ</h3>
                     <hr>
                     <form class="space-y-6" action="insertingre.php" method="post" enctype="multipart/form-data">
                         <div>
-                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">รูปภาพส่วนประกอบ : </label>
+                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">รูปภาพส่วนประกอบ : </label>
                             <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="imgInput" type="file" name="imgIngre">
                             <img class="h-auto max-w-lg rounded-lg" width="100%" id="previewImg" alt="">
                         </div>
                         <div>
-                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ชื่อส่วนประกอบ : </label>
+                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">ชื่อส่วนประกอบ : </label>
                             <input type="text" name="Ingrename" id="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
                         </div>
                         <div class="flex justify-end space-x-4">
@@ -80,7 +82,7 @@ if (isset($_GET['delete'])) {
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">แก้ไขส่วนประกอบ</h5>
+                        <h5 class="modal-title" id="exampleModalLabel font">แก้ไขส่วนประกอบ</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body4">
@@ -181,10 +183,10 @@ if (isset($_GET['delete'])) {
     <div class="container ">
         <div class="py-2  ">
         <div style="float:left" class="mt-1">
-            <p class="text-[30px] prompt">รายการส่วนประกอบ</p>
+            <p class="text-[30px] font">รายการส่วนประกอบ</p>
         </div>
         <div class="flex justify-end ">
-            <button type="button" class="h-12 px-8 m-2 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm py-2.5 text-center mr-2 mb-2" data-modal-target="FoodModal" data-modal-toggle="FoodModal">เพิ่มส่วนประกอบ</button>
+            <button type="button" class="font h-12 px-8 m-2 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm py-2.5 text-center mr-2 mb-2" data-modal-target="FoodModal" data-modal-toggle="FoodModal">เพิ่มส่วนประกอบ</button>
         </div>
         </div>
     </div>
@@ -217,9 +219,9 @@ if (isset($_GET['delete'])) {
 
                     <thead class=" bg-gray-100 dark:bg-gray-900">
     <tr>
-        <th scope="col" class="px-6 py-3  text-l font-normal  text-gray-500 dark:text-gray-400">Id</th>
-        <th scope="col" class="px-6 py-3  text-l font-normal  text-gray-500 dark:text-gray-400">รูปภาพส่วนประกอบ</th>
-        <th scope="col" class="px-6 py-3  text-l font-normal  text-gray-500 dark:text-gray-400">ชื่อส่วนประกอบ</th>
+        <th scope="col" class="px-6 py-3  text-l font-normal  text-gray-500 dark:text-gray-400 font">Id</th>
+        <th scope="col" class="px-6 py-3  text-l font-normal  text-gray-500 dark:text-gray-400 font">รูปภาพส่วนประกอบ</th>
+        <th scope="col" class="px-6 py-3  text-l font-normal  text-gray-500 dark:text-gray-400 font">ชื่อส่วนประกอบ</th>
         <th></th>
         <th></th>
         </div>
@@ -244,11 +246,11 @@ if (isset($_GET['delete'])) {
                         ?>
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
 
-                        <td scope="row" class="px-6 py-4 font-normal text-gray-600 font-medium text-gray-900 whitespace-nowrap dark:text-white"><?php echo $result['Idingre']; ?></td>
+                        <td scope="row" class="px-6 py-4 font-normal text-gray-600 font-medium text-gray-900 whitespace-nowrap dark:text-white font"><?php echo $result['Idingre']; ?></td>
                         <div>
                             <td><?php echo '<img src="data:image/jpeg;base64,' . base64_encode($result['ImgIngre']) . '" alt="Upload Image"  style="width: 150px; height: 100px" class="rounded-lg thumbnail "  "/>' ?></td>
                         </div>
-                        <td class="px-6 py-4 font-normal text-gray-600"><?php echo $result['ingredientsName']; ?></td>
+                        <td class="px-6 py-4 font-normal text-gray-600 font"><?php echo $result['ingredientsName']; ?></td>
                         <td>
                             <button data-id="<?php echo $result['Idingre']; ?>" class="userinfo text-white bg-gradient-to-r from-yellow-300  to-amber-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-3 py-2.5 text-center mr-1 mb-2 ">
                             <i class="fa-solid fa-utensils" style="color: #ffffff;"></i></button>
@@ -264,11 +266,11 @@ if (isset($_GET['delete'])) {
                 foreach ($ingredients as $ingredients) { // loop ข้อมูล 
             ?> <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
 
-            <td scope="row" class="px-6 py-4 font-normal text-gray-600 font-medium text-gray-900 whitespace-nowrap dark:text-white"><?php echo $ingredients['Idingre']; ?></td>
+            <td scope="row" class="px-6 py-4 font-normal text-gray-600 font-medium text-gray-900 whitespace-nowrap dark:text-white font"><?php echo $ingredients['Idingre']; ?></td>
             <div>
                 <td><?php echo '<img src="data:image/jpeg;base64,' . base64_encode($ingredients['ImgIngre']) . '" alt="Upload Image"  style="width: 150px; height: 100px" class="rounded-lg thumbnail "  "/>' ?></td>
             </div>
-            <td class="px-6 py-4 font-normal text-gray-600"><?php echo $ingredients['ingredientsName']; ?></td>
+            <td class="px-6 py-4 font-normal text-gray-600 font"><?php echo $ingredients['ingredientsName']; ?></td>
             <td>
                 <button data-id="<?php echo $ingredients['Idingre']; ?>" class="userinfo text-white bg-gradient-to-r from-yellow-300  to-amber-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-3 py-2.5 text-center mr-1 mb-2 ">
                 <i class="fa-solid fa-utensils" style="color: #ffffff;"></i></button>
@@ -354,13 +356,10 @@ if (isset($_GET['delete'])) {
     });
 </script>
 <script>
-        // Function to hide the notification
         function hideNotification() {
             const notification = document.getElementById('notification');
             notification.classList.add('fadeout');
         }
-
-        // Automatically hide the notification after 5 seconds (adjust as needed)
         setTimeout(hideNotification, 4000);
     </script>
     

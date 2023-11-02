@@ -27,6 +27,8 @@ if(isset($_GET['delete'])){
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Niramit:wght@500&family=Taviraj&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Taviraj:ital,wght@1,200&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
@@ -46,33 +48,29 @@ if(isset($_GET['delete'])){
                 <span class="sr-only">Close modal</span>
             </button>
             <div class="px-6 py-6 lg:px-8">
-                <h3 class="mb-4 text-xl font-normal text-gray-900 dark:text-white">เพิ่มหมูบ้าน</h3>
+                <h3 class="mb-4 text-xl font-normal text-gray-900 dark:text-white font">เพิ่มหมูบ้าน</h3>
                 <hr>
                 <form class="space-y-6" action="insert.php" method="post" enctype="multipart/form-data">
                     <div>
-                        <label for="email" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">รูปภาพของหมู่บ้าน</label>
+                        <label for="email" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white font">รูปภาพของหมู่บ้าน</label>
                         <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="imgInput" type="file" name="img">
                         <img class="h-auto max-w-lg rounded-lg" width="100%" id="previewImg" alt="">
                     </div>
                     <div>
-                        <label for="text" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">ชื่อหมู่บ้าน</label>
+                        <label for="text" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white font">ชื่อหมู่บ้าน</label>
                         <input type="text" name="name" id="text"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
                     </div>
                     <div>
-                        <label for="text" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">จังหวัด</label>
-                        <input type="text" name="province" id="text"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                        <label for="text" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white font">รายละเอียด</label>
+                        <input type="text" name="Detail" id="text"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
                     </div>
                     <div>
-                        <label for="text" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">อำเภอ</label>
-                        <input type="text" name="District" id="text"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                        <label for="text" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white font">ความหมาย</label>
+                        <input type="text" name="Meaning" id="text"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
                     </div>
                     <div>
-                        <label for="text" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">ตำบล</label>
-                        <input type="text" name="subdistrict" id="text"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
-                    </div>
-                    <div>
-                        <label for="text" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">รหัสไปรษณี</label>
-                        <input type="text" name="postalCode" id="text"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                        <label for="text" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white font">ที่อยู่</label>
+                        <input type="text" name="Location" id="text"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
                     </div>
                     <div class="flex justify-end space-x-4">
                         <div>
@@ -198,10 +196,10 @@ if(isset($_GET['delete'])){
     <div class="container ">
         <div class="py-2  ">
         <div style="float:left" class="mt-1">
-            <p class="text-[30px] prompt">รายการหมู่บ้าน</p>
+            <p class="text-[30px] font">รายการหมู่บ้าน</p>
         </div>
         <div class="flex justify-end ">
-            <button type="button" class="h-12 px-8 m-2 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm py-2.5 text-center mr-2 mb-2" data-modal-target="userModal" data-modal-toggle="userModal">เพิ่มส่วนประกอบ</button>
+            <button type="button" class="font h-12 px-8 m-2 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm py-2.5 text-center mr-2 mb-2" data-modal-target="userModal" data-modal-toggle="userModal">เพิ่มส่วนประกอบ</button>
         </div>
         </div>
     </div>
@@ -235,13 +233,10 @@ if(isset($_GET['delete'])){
                     <thead class=" bg-gray-100 dark:bg-gray-900">
                             <tr>
 
-    <th scope="col" class="px-6 py-3  text-l font-medium  text-gray-500 dark:text-gray-400 ">Id</th>
-      <th scope="col" class="px-6 py-3 text-l font-medium  text-gray-500 dark:text-gray-400 ">รูปภาพของหมู่บ้าน</th>
-      <th scope="col" class="px-6 py-3 text-l font-medium  text-gray-500 dark:text-gray-400 ">ชื่อหมู่บ้าน</th>
-      <th scope="col" class="px-6 py-3 text-l font-medium  text-gray-500 dark:text-gray-400 ">จังหวัด</th>
-      <th scope="col" class="px-6 py-3 text-l font-medium  text-gray-500 dark:text-gray-400 ">อำเภอ</th>
-      <th scope="col" class="px-6 py-3 text-l font-medium  text-gray-500 dark:text-gray-400 ">ตำบล</th>
-      <th scope="col" class="px-6 py-3 text-l font-medium  text-gray-500 dark:text-gray-400 ">รหัสไปรษณีย์</th>
+    <th scope="col" class="px-6 py-3  text-l font-medium  text-gray-500 dark:text-gray-400 font ">Id</th>
+      <th scope="col" class="px-6 py-3 text-l font-medium  text-gray-500 dark:text-gray-400 font">รูปภาพของหมู่บ้าน</th>
+      <th scope="col" class="px-6 py-3 text-l font-medium  text-gray-500 dark:text-gray-400 font">ชื่อหมู่บ้าน</th>
+      <th scope="col" class="px-6 py-3 text-l font-medium  text-gray-500 dark:text-gray-400 font">ที่อยู่</th>
       <th></th>
      
     </tr>
@@ -267,14 +262,11 @@ if(isset($_GET['delete'])){
             {
                 ?>
         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 mt-5">
-        <td scope="row" class="px-6 py-3 font-normal text-gray-600 "><?php echo $result['Id']; ?></td>
-        <td><?php echo '<img src="data:image/jpeg;base64,'.base64_encode($result['Img']).'" alt="Upload Image"  style="width: 150px; height: 100px" class="rounded-md images "  "/>' ?></td>
-        <td class="px-6 py-4 font-normal text-gray-600 "><?php echo $result['Name']; ?></td>
-        <td class="px-6 py-4 font-normal text-gray-600 "><?php echo $result['Province']; ?></td>
-        <td class="px-6 py-4 font-normal text-gray-600 "><?php echo $result['District']; ?></td>
-        <td class="px-6 py-4 font-normal text-gray-600 "><?php echo $result['Subdistrict']; ?></td>
-        <td class="px-6 py-4 font-normal text-gray-600 "><?php echo $result['PostalCode']; ?></td>
-        
+        <td scope="row" class="px-6 py-3 font-normal text-gray-600 font"><?php echo $result['Id']; ?></td>
+        <td><?php echo '<img src="data:image/jpeg;base64,'.base64_encode($result['Img']).'"  "/>' ?></td>
+        <td class="px-6 py-4 font-normal text-gray-600 font"><?php echo $result['Name']; ?></td>
+        <td class="px-6 py-4 font-normal text-gray-600 font"><?php echo $result['Detail']; ?></td>
+        <td class="px-6 py-4 font-normal text-gray-600 font"><?php echo $result['Location']; ?></td>
         <td >
         <button data-id="<?php echo $result['Id']; ?>" class="userinfo text-white bg-gradient-to-r from-yellow-300  to-amber-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:focus:ring-green-800 font-normal rounded-lg text-sm px-3 py-2.5 text-center mr-1 mb-2 "><i class="fa-solid fa-pen-to-square"></i></button> 
         <a href="edit.php?id=<?php echo $result['Id']; ?>" class="text-white bg-gradient-to-r from-yellow-300  to-amber-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:focus:ring-green-800 font-normal rounded-lg text-sm px-3 py-2.5 text-center mr-1 mb-2 "><i class="bi bi-house-gear-fill" style="color: #ffffff;"></i></a>
@@ -292,14 +284,11 @@ if(isset($_GET['delete'])){
            
     ?>
         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-        <td scope="row" class="px-6 py-4 font-normal text-gray-600 "><?php echo $user['Id']; ?></td>
+        <td scope="row" class="px-6 py-4 font-normal text-gray-600 font"><?php echo $user['Id']; ?></td>
         <td class="p-2"><?php echo '<img src="data:image/jpeg;base64,'.base64_encode($user['Img']).'" alt="Upload Image"  style="width: 150px; height: 100px" class="rounded-md images "  "/>' ?></td>
 
-        <td class="px-6 py-4 font-normal text-gray-600 "><?php echo $user['Name']; ?></td>
-        <td class="px-6 py-4 font-normal text-gray-600 "><?php echo $user['Province']; ?></td>
-        <td class="px-6 py-4 font-normal text-gray-600 "><?php echo $user['District']; ?></td>
-        <td class="px-6 py-4 font-normal text-gray-600 "><?php echo $user['Subdistrict']; ?></td>
-        <td class="px-6 py-4 font-normal text-gray-600 "><?php echo $user['PostalCode']; ?></td>
+        <td class="px-6 py-4 font-normal text-gray-600 font"><?php echo $user['Name']; ?></td>
+        <td class="px-6 py-4 font-normal text-gray-600 text-container font"><?php echo $user['Location']; ?></td>
         
         <td >
         <a href="edit.php?id=<?php echo $user['Id']; ?>" class="text-white bg-gradient-to-r from-yellow-300  to-amber-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:focus:ring-green-800 font-normal rounded-lg text-sm px-3 py-2.5 text-center mr-1 mb-2 "><i class="bi bi-house-gear-fill" style="color: #ffffff;"></i></a>
@@ -385,13 +374,10 @@ document.querySelector('.popup-image').addEventListener('click', (e) => {
 });
 </script>
 <script>
-        // Function to hide the notification
         function hideNotification() {
             const notification = document.getElementById('notification');
             notification.classList.add('fadeout');
         }
-
-        // Automatically hide the notification after 5 seconds (adjust as needed)
         setTimeout(hideNotification, 4000);
     </script>
 

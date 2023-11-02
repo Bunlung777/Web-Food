@@ -53,6 +53,8 @@ if (isset($_GET['delete'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Niramit:wght@500&family=Taviraj&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Taviraj:ital,wght@1,200&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@500&display=swap" rel="stylesheet">
@@ -73,15 +75,14 @@ if (isset($_GET['delete'])) {
                     <span class="sr-only">Close modal</span>
                 </button>
                 <div class="px-6 py-6 lg:px-8">
-                    <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">เพิ่มสำรับอาหาร</h3>
+                    <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white font">เพิ่มสำรับอาหาร</h3>
                     <hr>
                     <form class="space-y-6" action="insertSetFood.php" method="post" enctype="multipart/form-data" id="foodForm">
                         <div>
-                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ชื่อหมู่บ้าน : </label>
+                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">ชื่อหมู่บ้าน : </label>
                             <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="village" id="options">
 
                                 <?php
-                                // Generate the dropdown options
                                 foreach (array_combine($options, $Idvill) as $option => $id) {
                                 ?>
                                     <option value="<?php echo $id; ?>"><?php echo $option ?></option>
@@ -90,19 +91,18 @@ if (isset($_GET['delete'])) {
                             </select>
                         </div>
                         <div>
-                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">รูปภาพสำรับอาหาร : </label>
+                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">รูปภาพสำรับอาหาร : </label>
                             <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="imgInput" type="file" name="imgSet" require>
                             <img class="h-auto max-w-lg rounded-lg" width="100%" id="previewImg" alt="">
                         </div>
                         <div>
-                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ชื่อสำรับ : </label>
+                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">ชื่อสำรับ : </label>
                             <input type="text" name="Setname" id="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
                         </div>
                         <div id="field">
-                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">อาหาร : </label>
+                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">อาหาร : </label>
                             <select class="mt-1 mb-1 additem w-80 inline-block bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="foodName" id="food">
                             <?php
-                            // Generate the dropdown options
                             foreach (array_combine($food, $Id) as $foodItem => $id) {
                             ?>
                                 <option value="<?php echo $id; ?>"><?php echo $foodItem; ?></option>
@@ -133,7 +133,7 @@ if (isset($_GET['delete'])) {
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">แก้ไขข้อมูลสำรับอาหาร</h5>
+                        <h5 class="modal-title font" id="exampleModalLabel">แก้ไขข้อมูลสำรับอาหาร</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body2">
@@ -245,10 +245,10 @@ if (isset($_GET['delete'])) {
     <div class="container ">
         <div class="py-2  ">
         <div style="float:left" class="mt-1">
-            <p class="text-[30px] prompt">รายการสำรับอาหาร</p>
+            <p class="text-[30px] font">รายการสำรับอาหาร</p>
         </div>
         <div class="flex justify-end ">
-            <button type="button" class="h-12 px-8 m-2 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm py-2.5 text-center mr-2 mb-2" data-modal-target="userModal" data-modal-toggle="userModal">เพิ่มสำรับอหาร</button>
+            <button type="button" class="font h-12 px-8 m-2 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm py-2.5 text-center mr-2 mb-2" data-modal-target="userModal" data-modal-toggle="userModal">เพิ่มสำรับอหาร</button>
         </div>
         </div>
     </div>
@@ -281,10 +281,10 @@ if (isset($_GET['delete'])) {
 
                     <thead class=" bg-gray-100 dark:bg-gray-900">
                             <tr>
-                    <th scope="col" class="px-6 py-3  text-l font-normal  text-gray-500 dark:text-gray-400">Id</th>
-                    <th scope="col" class="px-6 py-3  text-l font-normal  text-gray-500 dark:text-gray-400">รูปภาพสำรับอาหาร</th>
-                    <th scope="col" class="px-6 py-3  text-l font-normal  text-gray-500 dark:text-gray-400">ชื่อหมู่บ้าน</th>
-                    <th scope="col" class="px-6 py-3  text-l font-normal  text-gray-500 dark:text-gray-400">ชื่อสำรับ</th>
+                    <th scope="col" class="px-6 py-3  text-l font-normal  text-gray-500 dark:text-gray-400 font">Id</th>
+                    <th scope="col" class="px-6 py-3  text-l font-normal  text-gray-500 dark:text-gray-400 font">รูปภาพสำรับอาหาร</th>
+                    <th scope="col" class="px-6 py-3  text-l font-normal  text-gray-500 dark:text-gray-400 font">ชื่อหมู่บ้าน</th>
+                    <th scope="col" class="px-6 py-3  text-l font-normal  text-gray-500 dark:text-gray-400 font">ชื่อสำรับ</th>
                     <th></th>
                 </tr>
         </thead>
@@ -294,12 +294,10 @@ if (isset($_GET['delete'])) {
             $displayLimit = 10;
             $offset = ($page - 1) * $displayLimit;
 
-            // Fetch total count of rows
             $stmt = $conn->query("SELECT COUNT(*) as total FROM setfood");
             $stmt->execute();
             $totalRows = $stmt->fetch()['total'];
 
-            // Fetch data for the current page
             $stmt = $conn->prepare("SELECT * FROM setfood AS S JOIN village AS V ON S.VillageSet = V.Id LIMIT :limit OFFSET :offset");
             $stmt->bindParam(':limit', $displayLimit, PDO::PARAM_INT);
             $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
@@ -308,7 +306,6 @@ if (isset($_GET['delete'])) {
             $totalPages = ceil($totalRows / $displayLimit);
 
             
-            //$slicedSetFood = array_slice($setfood, $displaystart, $displayLimit); //การดึงข้อมูลจาก array ตั้งแต่ตำแหน่งและจำนวนที่กำหนด
 
             if (isset($_POST['search'])){//ถ้าไม่มีข้อมูลใน user
                 $search = $_POST['search'];
@@ -322,12 +319,12 @@ if (isset($_GET['delete'])) {
                     {
                         ?>
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <td scope="row" class="px-6 py-4 font-normal text-gray-600 "><?php echo $result['Idset']; ?></td>
+                <td scope="row" class="px-6 py-4 font-normal text-gray-600 font "><?php echo $result['Idset']; ?></td>
                 <td><?php echo '<img src="data:image/jpeg;base64,'.base64_encode($result['ImgSet']).'" alt="Upload Image"  style="width: 150px; height: 100px" class="rounded-lg thumbnail "  "/>' ?></td>
         
-                <td class="px-6 py-4 font-normal text-gray-600 "><?php echo $result['Name']; ?></td>
-                <td class="px-6 py-4 font-normal text-gray-600 "><?php echo $result['SetName']; ?></td>
-                <td class="px-6 py-4 font-normal text-gray-600 "><?php echo $result['FoodName']; ?></td>
+                <td class="px-6 py-4 font-normal text-gray-600 font"><?php echo $result['Name']; ?></td>
+                <td class="px-6 py-4 font-normal text-gray-600 font"><?php echo $result['SetName']; ?></td>
+                <td class="px-6 py-4 font-normal text-gray-600 font"><?php echo $result['FoodName']; ?></td>
                 
                 <td >
                 <button data-id="<?php echo $result['Idset']; ?>" class="userinfo text-white bg-gradient-to-r from-yellow-300  to-amber-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-3 py-2.5 text-center mr-1 mb-2 ">
@@ -343,11 +340,11 @@ if (isset($_GET['delete'])) {
             foreach ($setfood as $setfood) { // loop ข้อมูล 
             ?>
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <td scope="row" class="px-6 py-4 font-normal text-gray-600 "><?php echo $setfood['Idset']; ?></td>
+                <td scope="row" class="px-6 py-4 font-normal text-gray-600 font"><?php echo $setfood['Idset']; ?></td>
                 <td><?php echo '<img src="data:image/jpeg;base64,'.base64_encode($setfood['ImgSet']).'" alt="Upload Image"  style="width: 150px; height: 100px" class="rounded-lg thumbnail "  "/>' ?></td>
         
-                <td class="px-6 py-4 font-normal text-gray-600 "><?php echo $setfood['Name']; ?></td>
-                <td class="px-6 py-4 font-normal text-gray-600 "><?php echo $setfood['SetName']; ?></td>
+                <td class="px-6 py-4 font-normal text-gray-600 font"><?php echo $setfood['Name']; ?></td>
+                <td class="px-6 py-4 font-normal text-gray-600 font"><?php echo $setfood['SetName']; ?></td>
                 
                 <td >
                 <button data-id="<?php echo $setfood['Idset']; ?>" class="userinfo text-white bg-gradient-to-r from-yellow-300  to-amber-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-3 py-2.5 text-center mr-1 mb-2 ">
@@ -485,29 +482,23 @@ if (isset($_GET['delete'])) {
     });
 </script>
 <script>
-        // Function to hide the notification
         function hideNotification() {
             const notification = document.getElementById('notification');
             notification.classList.add('fadeout');
         }
-
-        // Automatically hide the notification after 5 seconds (adjust as needed)
         setTimeout(hideNotification, 4000); 
     </script>
 <script>
 $(document).ready(function () {
-    // Initialize a counter variable
     var counter = 1;
-    var timesToClone = 7; // Set the number of times to clone
+    var timesToClone = 7; 
 
     $("#addaaa").click(function () {
         if (counter < timesToClone) {
             var clonedSelect = $("#food").clone();
 
-            // Change the name attribute of the cloned select element with an incremental number
             clonedSelect.attr("name", "foodName" + counter);
 
-            // Increment the counter for the next clone
             counter++;
 
             $("#field").append(clonedSelect);

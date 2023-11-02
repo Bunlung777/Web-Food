@@ -1,0 +1,392 @@
+@media (max-width: 1300px) {
+  .footer {
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media (max-width: 1100px) {
+  .footer {
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media (max-width: 950px) {
+  header {
+    max-width: 100%;
+  }
+  nav {
+    max-width: 90%;
+  }
+  .bg_slide {
+    width: 100%;
+    margin: 0rem 0;
+    height: 50vh;
+    box-shadow: 0px 0px 10px rgb(192, 192, 192);
+    background-size: cover;
+  }
+  .slideshow-container {
+    margin: 0rem 0;
+    width: 100%;
+    position: relative;
+    height: 50vh;
+    overflow: hidden;
+  }
+  .text {
+    color: #000000;
+    font-size: 3vh;
+    position: absolute;
+    bottom: -10%;
+    width: 70%;
+    margin: 0 auto;
+    margin-left: 10%;
+    height: 50vh;
+    text-align: left;
+    display: flex;
+  }
+  .slide-main {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+  .slider_slide {
+    max-width: 100%;
+  }
+  .slide {
+    max-width: 90%;
+  }
+  .btn {
+    max-width: 800px;
+  }
+  /*  */
+  .footer {
+    height: 30vh;
+  }
+  /*  */
+  .bg-main {
+    max-width: 95%;
+  }
+}
+@media (max-width: 820px) {
+  .bg_slide {
+    width: 100%;
+    margin: 0rem 0;
+    height: 60vh;
+    box-shadow: 0px 0px 10px rgb(192, 192, 192);
+    background-size: cover;
+  }
+
+  .slideshow-container {
+    margin: 0rem 0;
+    width: 100%;
+    position: relative;
+    height: 60vh;
+    overflow: hidden;
+  }
+
+  .text {
+    color: #000000;
+    font-size: 3vh;
+    position: absolute;
+    bottom: 0%;
+    width: 70%;
+    margin: 0 auto;
+    margin-left: 10%;
+    height: 50vh;
+    text-align: left;
+    display: flex;
+  }
+
+  .btn-prev,
+  .btn-next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px 1rem;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    margin: 0;
+  }
+  .prev:hover,
+  .next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  /*  */
+  .slide-Lmain {
+    max-width: 100%;
+    overflow: hidden;
+  }
+  .slide {
+    max-width: 100%;
+  }
+
+  /* about */
+  .slide-main {
+    background-color: #fff;
+    max-width: 100%;
+    margin: 0rem auto;
+    height: auto;
+    overflow: hidden;
+    padding: 1rem;
+  }
+
+  .about-flex {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    border-radius: 0 0 10px 10px;
+    padding: 1rem;
+  }
+
+  /* footer */
+  .footer {
+    margin: 2rem 0 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: 100%;
+    background: linear-gradient(100deg, rgb(0, 0, 0), rgb(2, 14, 45));
+    height: 100%;
+  }
+  .logo-foot {
+    max-width: 100%;
+  }
+  .about-footer {
+    max-width: 30%;
+    display: grid;
+    justify-content: center;
+  }
+  .address-footer {
+    max-width: 30%;
+  }
+  .contact-footer {
+    max-width: 30%;
+  }
+}
+
+@media (max-width: 600px) {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  /*  */
+  .text {
+    color: #000000;
+    font-size: 1vh;
+    position: absolute;
+    bottom: 10%;
+    width: 70%;
+    margin: 0 auto;
+    margin-left: 10%;
+    height: 50vh;
+    text-align: left;
+    display: flex;
+  }
+
+  .text h1 {
+    font-size: 35px;
+    line-height: 40px;
+  }
+
+  .text p {
+    font-size: 12px;
+    line-height: 15px;
+    max-width: 100%;
+  }
+
+  /* about */
+  .about-flex {
+    max-width: 100%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 2rem;
+    border-radius: 0 0 10px 10px;
+    padding: 1rem;
+  }
+  .text-about h1 {
+    font-size: 3vw;
+  }
+  .text-about p {
+    font-size: 2vw;
+  }
+
+  /* slide */
+  .slide-main {
+    background-color: #fff;
+    max-width: 100%;
+    margin: 0rem auto;
+  }
+
+  .slide-Lmain {
+    max-width: 100%;
+    margin: 1rem auto;
+    padding: 0.5rem;
+    overflow-y: auto;
+    height: 30rem;
+  }
+
+  .slider_slide {
+    display: grid;
+    grid-template-columns: auto;
+    transition: transform 0.5s ease;
+  }
+
+  .slide {
+    flex: 0 0 100%;
+    max-width: 100%;
+    display: grid;
+  }
+
+  .slide .image {
+    box-sizing: border-box;
+    max-width: 100%;
+    flex: 0 0 100%;
+    overflow: hidden;
+  }
+
+  .btn {
+    display: none;
+    justify-content: space-between;
+    margin: 0 auto;
+    margin: 2rem;
+  }
+  .text_slide a {
+    font-size: 2vw;
+  }
+
+  /* footer */
+  .footer {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 100%;
+    background: linear-gradient(100deg, rgb(0, 0, 0), rgb(2, 14, 45));
+  }
+
+  .logo-foot {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .logo-foot i {
+    font-size: 2rem;
+    color: #ffffff;
+  }
+
+  .about-footer {
+    max-width: 50%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .about-footer h1 {
+    font-size: 0.7rem;
+  }
+
+  .about-footer p {
+    font-size: 0.5rem;
+  }
+
+  .address-footer {
+    max-width: 45%;
+  }
+  .address-footer h1 {
+    font-size: 0.7rem;
+  }
+
+  .address-footer p {
+    font-size: 0.5rem;
+  }
+
+  .contact-footer {
+    width: 100%;
+    display: grid;
+    justify-content: center;
+  }
+  .contact-footer h1 {
+    font-size: 0.7rem;
+    line-height: 20px;
+  }
+
+  .contact-footer p {
+    font-size: 0.5rem;
+  }
+
+  .contact-footer i {
+    font-size: 0.5rem;
+    line-height: 20px;
+  }
+}
+@media (max-width: 550px) {
+  .about-main {
+    padding: 0 1.5rem;
+  }
+  .contact-footer {
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}
+@media (max-width: 500px) {
+  .about-main {
+    padding: 0 10px;
+  }
+  .contact-footer {
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .text {
+    color: #000000;
+    font-size: 1vh;
+    position: absolute;
+    bottom: 0%;
+    width: 70%;
+    margin: 0 auto;
+    margin-left: 10%;
+    height: 50vh;
+    text-align: left;
+    display: flex;
+  }
+}
+@media (max-width: 350px) {
+  .text {
+    color: #000000;
+    font-size: 1vh;
+    position: absolute;
+    bottom: 10%;
+    width: 70%;
+    margin: 0 auto;
+    margin-left: 10%;
+    height: 50vh;
+    text-align: left;
+    display: flex;
+  }
+  .footer {
+    height: 100%;
+  }
+  .about-footer {
+    max-width: 45%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .address-footer {
+    max-width: 45%;
+  }
+  .address p {
+    font-size: 0.5px;
+  }
+}

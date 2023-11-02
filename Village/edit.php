@@ -6,23 +6,21 @@ include ("../Config/DB.php");
 if (isset($_POST['Update'])) {
     $id = $_POST['idd'];
     $name = $_POST['name'];
-    $province = $_POST['province'];
-    $district = $_POST['district'];
-    $subdistrict = $_POST['subdistrict'];
-    $postalcode = $_POST['postalCode'];
+    $Detail = $_POST['Detail'];
+    $Meaning = $_POST['Meaning'];
+    $Location = $_POST['Location'];
 
     $img2 = $_FILES['img']['name'];
 
     if($img2 != ''){    
         $img = file_get_contents($_FILES['img']['tmp_name']);
-        $sql = $conn->prepare("UPDATE village SET Name = :name, Img = :img, Province = :province, District = :district, Subdistrict = :subdistrict, PostalCode = :postalcode WHERE id = :id");
+        $sql = $conn->prepare("UPDATE village SET Name = :name, Img = :img, Detail = :Detail, Meaning = :Meaning, Location = :Location WHERE id = :id");
         $sql->bindParam(":id", $id);
         $sql->bindParam(":name", $name);
         $sql->bindParam(":img", $img);
-        $sql->bindParam(":province", $province);
-        $sql->bindParam(":district", $district);
-        $sql->bindParam(":subdistrict", $subdistrict);
-        $sql->bindParam(":postalcode", $postalcode);
+        $sql->bindParam(":Detail", $Detail);
+        $sql->bindParam(":Meaning", $Meaning);
+        $sql->bindParam(":Location", $Location);
         $sql->execute();
         if ($sql) {
             $_SESSION['editsuccess'] = "";
@@ -33,13 +31,12 @@ if (isset($_POST['Update'])) {
         }
     }else {
 
-        $sql = $conn->prepare("UPDATE village SET Name = :name, Province = :province, District = :district, Subdistrict = :subdistrict, PostalCode = :postalcode WHERE id = :id");
+        $sql = $conn->prepare("UPDATE village SET Name = :name, Detail = :Detail, Meaning = :Meaning, Location = :Location WHERE id = :id");
         $sql->bindParam(":id", $id);
         $sql->bindParam(":name", $name);
-        $sql->bindParam(":province", $province);
-        $sql->bindParam(":district", $district);
-        $sql->bindParam(":subdistrict", $subdistrict);
-        $sql->bindParam(":postalcode", $postalcode);
+        $sql->bindParam(":Detail", $Detail);
+        $sql->bindParam(":Meaning", $Meaning);
+        $sql->bindParam(":Location", $Location);
         $sql->execute();
         if ($sql) {
             $_SESSION['editsuccess'] = "";
@@ -90,34 +87,27 @@ if (isset($_POST['Update'])) {
                 }
             ?>
                     <div>
-                        <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ชื่อหมู่บ้าน</label>
-                        <input type="text" readonly value ="<?php echo $data['Id']; ?>" required name="idd" id="text"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                        <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">ชื่อหมู่บ้าน</label>
+                        <input type="text" value="<?php echo $data['Name']; ?>" required name="name" id="text"  class="font block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" required>
+                        <input type="text" hidden value="<?php echo $data['Id']; ?>" required name="idd" id="text"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
                     </div>
                     <div>
-                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">รูปภาพของหมู่บ้าน</label>
+                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">รูปภาพของหมู่บ้าน</label>
                         <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="imgInputs" type="file" name="img">
                         <img src="data:image/jpeg;base64,<?php echo base64_encode($data['Img']); ?>" alt="" width="100%" id="previewImgs" class="rounded-lg" name="img2" />
                         
                     </div>
                     <div>
-                        <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ชื่อหมู่บ้าน</label>
-                        <input type="text" value="<?php echo $data['Name']; ?>" name="name" id="text"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                        <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">รายละเอียด</label>
+                        <input type="text" value="<?php echo $data['Detail']; ?>" name="Detail" id="text"  class="font bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
                     </div>
                     <div>
-                        <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">จังหวัด</label>
-                        <input type="text" value="<?php echo $data['Province']; ?>" name="province" id="text"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                        <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">ความหมาย</label>
+                        <input type="text" value="<?php echo $data['meaning']; ?>" name="Meaning" id="text"  class="font bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
                     </div>
                     <div>
-                        <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">อำเภอ</label>
-                        <input type="text" value="<?php echo $data['District']; ?>" name="district" id="text"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
-                    </div>
-                    <div>
-                        <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ตำบล</label>
-                        <input type="text" value="<?php echo $data['Subdistrict']; ?>" name="subdistrict" id="text"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
-                    </div>
-                    <div>
-                        <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">รหัสไปรษณี</label>
-                        <input type="text" value="<?php echo $data['PostalCode']; ?>" name="postalCode" id="text"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                        <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">ที่อยู่</label>
+                        <input type="text" value="<?php echo $data['Location']; ?>" name="Location" id="text"  class="font bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
                     </div>
                     <div class="flex justify-end space-x-4">
                         <div>

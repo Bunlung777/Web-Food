@@ -20,7 +20,6 @@ if (isset($_POST['UpdateFood'])) {
         $sql->bindParam(":Detail", $detail);
         $sql->bindParam(":id", $id);
         
-        // Bind the food names dynamically
         for ($i = 0; $i < 7; $i++) {
             $Ingredients = 'Ingredients' . $i;
             if (isset($_POST[$Ingredients])) {
@@ -47,7 +46,6 @@ if (isset($_POST['UpdateFood'])) {
         $sql->bindParam(":Detail", $detail);
         $sql->bindParam(":id", $id);
         
-        // Bind the food names dynamically
         for ($i = 0; $i < 7; $i++) {
             $Ingredients = 'Ingredients' . $i;
             if (isset($_POST[$Ingredients])) {
@@ -129,41 +127,37 @@ if (isset($_POST['UpdateFood'])) {
                 }
             ?>
                  <div>
-                        <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ID :</label>
+                        <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">ID :</label>
                         <input type="text" readonly value ="<?php echo $data['IdFood']; ?>" required name="idd" id="text"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
                     </div>
                     <div>
-                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">รูปภาพอาหาร :</label>
+                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">รูปภาพอาหาร :</label>
                         <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="imgInput2" type="file" name="imgfood" >
                         <img src="data:image/jpeg;base64,<?php echo base64_encode($data['ImgFood']); ?>" alt="" width="100%" id="previewImg2" class="rounded-lg"/>
                     </div>
                     <div>
-                        <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ชื่อสำรับ</label>
+                        <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">ชื่อสำรับ</label>
                         <input type="text" value="<?php echo $data['FoodName']; ?>" name="FoodName" id="text"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
                     </div>
                     <div>
-                        <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">รายละเอียดอาหาร</label>
+                        <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">รายละเอียดอาหาร</label>
                         <input type="text" value="<?php echo $data['Detail']; ?>" name="detail" id="text"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
                     </div>
                      <div class=" ">
                                         <?php
-                    // Your existing code for fetching data remains here
-
-                    // Count the number of non-null Ingredients columns
                     $totalIngredients = 0;
-                    for ($i = 0; $i < 7; $i++) { // Assuming you have 7 Ingredients columns
+                    for ($i = 0; $i < 7; $i++) { 
                         if ($data['IngredientsName' . $i] != null) {
                             $totalIngredients++;
                         } else {
-                            break; // Stop counting when encountering a null value
+                            break; 
                         }
                     }
 
-                    // Loop for displaying dropdowns based on the count
                     for ($i = 0; $i < $totalIngredients; $i++) {
                         ?>
   <div class="ingredient-select-<?php echo $i; ?>">
-            <label for="text" class="block mb-2 mt-3 text-sm font-medium text-gray-900 dark:text-white">ส่วนประกอบ <?php echo $i + 1 ?></label>
+            <label for="text" class="block mb-2 mt-3 text-sm font-medium text-gray-900 dark:text-white font">ส่วนประกอบ <?php echo $i + 1 ?></label>
             <div class="flex">
             <select class="flex bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="Ingredients<?php echo $i; ?>">
                 <?php
@@ -180,7 +174,9 @@ if (isset($_POST['UpdateFood'])) {
                         <?php
                     }
 ?>
-  <button class="ml-5 mt-1 text-white bg-gradient-to-r from-red-400  to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-3 h-[2.7rem] text-center" onclick="deleteIngredientSelect(this)"><i class="fa-solid fa-trash"></i></button>
+  <button class="ml-5 mt-1 text-white bg-gradient-to-r from-red-400  to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-3 h-[2.7rem] text-center"
+   onclick="deleteIngredientSelect(this
+)"><i class="fa-solid fa-trash"></i></button>
     </div>
     </div>
 <div class="flex justify-end">
@@ -227,15 +223,13 @@ if (isset($_POST['UpdateFood'])) {
 
         $("#add").click(function () {
             if (counterIngredients < timesToCloneIngredients) {
-                var clonedContainer = $(".ingredient-select-0").first().clone(); // Clone the first container
+                var clonedContainer = $(".ingredient-select-0").first().clone(); 
 
-                // Change the label and select name attributes with incremental numbers
                 clonedContainer.find("label").text("ส่วนประกอบ " + (counterIngredients + 1));
                 clonedContainer.find("select").attr("name", "Ingredients" + counterIngredients);
 
-                // Increment the counter for the next clone
                 counterIngredients++;
-                $(".field").append(clonedContainer); // Use the appropriate class or ID for the field
+                $(".field").append(clonedContainer); 
             }
         });
         
@@ -244,7 +238,7 @@ if (isset($_POST['UpdateFood'])) {
     
 </script>
 <script>
-    var i = 6; // กำหนดค่าเริ่มต้นของ i เพื่อเป็นจำนวนองค์ประกอบทั้งหมด
+    var i = <?php echo $totalIngredients; ?>-1 ;
 
     function deleteIngredientSelect(element) {
         if (i > 0) {

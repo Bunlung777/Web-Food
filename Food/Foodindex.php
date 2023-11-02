@@ -39,6 +39,8 @@ $Id = $IdFood->fetchAll(PDO::FETCH_COLUMN);
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Niramit:wght@500&family=Taviraj&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Taviraj:ital,wght@1,200&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@500&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
@@ -59,24 +61,24 @@ $Id = $IdFood->fetchAll(PDO::FETCH_COLUMN);
                     <span class="sr-only">Close modal</span>
                 </button>
                 <div class="px-6 py-6 lg:px-8">
-                    <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">เพิ่มสำรับอาหาร</h3>
+                    <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white font">เพิ่มสำรับอาหาร</h3>
                     <hr>
                     <form class="space-y-6" action="insertFood.php" method="post" enctype="multipart/form-data">
                         <div>
-                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">รูปภาพอาหาร : </label>
+                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">รูปภาพอาหาร : </label>
                             <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="imgInput" type="file" name="imgSet" required>
                             <img class="h-auto max-w-lg rounded-lg" width="100%" id="previewImg" alt="">
                         </div>
                         <div>
-                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ชื่ออาหาร : </label>
+                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">ชื่ออาหาร : </label>
                             <input type="text" name="Foodname" id="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
                         </div>
                         <div>
-                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">รายละเอียดอาหาร : </label>
+                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">รายละเอียดอาหาร : </label>
                             <input type="text" name="detail" id="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
                         </div>
                         <div id="field">
-                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ส่วนประกอบ : </label>
+                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">ส่วนประกอบ : </label>
                             <select class="mt-1 mb-1 additem w-80 inline-block bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="ingredients" id="food">
                             <?php
                             // Generate the dropdown options
@@ -108,7 +110,7 @@ $Id = $IdFood->fetchAll(PDO::FETCH_COLUMN);
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">แก้ไขข้อมูลตำรับอาหาร</h5>
+                        <h5 class="modal-title" id="exampleModalLabel font">แก้ไขข้อมูลตำรับอาหาร</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body3">
@@ -208,10 +210,10 @@ $Id = $IdFood->fetchAll(PDO::FETCH_COLUMN);
     <div class="container ">
         <div class="py-2  ">
         <div style="float:left" class="mt-1">
-            <p class="text-[30px] prompt">รายการอาหาร</p>
+            <p class="text-[30px] font">รายการอาหาร</p>
         </div>
         <div class="flex justify-end ">
-            <button type="button" class="h-12 px-8 m-2 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm py-2.5 text-center mr-2 mb-2" data-modal-target="FoodModal" data-modal-toggle="FoodModal">เพิ่มอาหาร</button>
+            <button type="button" class="font h-12 px-8 m-2 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm py-2.5 text-center mr-2 mb-2" data-modal-target="FoodModal" data-modal-toggle="FoodModal">เพิ่มอาหาร</button>
         </div>
         </div>
     </div>
@@ -244,10 +246,10 @@ $Id = $IdFood->fetchAll(PDO::FETCH_COLUMN);
 
                     <thead class=" bg-gray-100 dark:bg-gray-900">
                             <tr>
-                    <th scope="col" class="px-6 py-3  text-l font-normal  text-gray-500 dark:text-gray-400">Id</th>
-                    <th scope="col" class="px-6 py-3  text-l font-normal  text-gray-500 dark:text-gray-400">รูปภาพสำรับอาหาร</th>
-                    <th scope="col" class="px-6 py-3  text-l font-normal  text-gray-500 dark:text-gray-400">ชื่ออาหาร</th>
-                    <th scope="col" class="px-6 py-3  text-l font-normal  text-gray-500 dark:text-gray-400">รายละเอียดอาหาร</th>
+                    <th scope="col" class="px-6 py-3  text-l font-normal  text-gray-500 dark:text-gray-400 font">Id</th>
+                    <th scope="col" class="px-6 py-3  text-l font-normal  text-gray-500 dark:text-gray-400 font">รูปภาพสำรับอาหาร</th>
+                    <th scope="col" class="px-6 py-3  text-l font-normal  text-gray-500 dark:text-gray-400 font">ชื่ออาหาร</th>
+                    <th scope="col" class="px-6 py-3  text-l font-normal  text-gray-500 dark:text-gray-400 font">รายละเอียดอาหาร</th>
                     <th></th>
                 </tr>
         </thead>
@@ -269,12 +271,12 @@ $Id = $IdFood->fetchAll(PDO::FETCH_COLUMN);
                         ?>
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
 
-                        <td scope="row" class="px-6 py-4 font-normal text-gray-600 font-medium text-gray-900 whitespace-nowrap dark:text-white"><?php echo $result['IdFood']; ?></td>
+                        <td scope="row" class="px-6 py-4 font-normal text-gray-600 font-medium text-gray-900 whitespace-nowrap dark:text-white font"><?php echo $result['IdFood']; ?></td>
                         <div>
                             <td><?php echo '<img src="data:image/jpeg;base64,' . base64_encode($result['ImgFood']) . '" alt="Upload Image"  style="width: 150px; height: 100px" class="rounded-lg thumbnail "  "/>' ?></td>
                         </div>
-                        <td class="px-6 py-4 font-normal text-gray-600"><?php echo $result['FoodName']; ?></td>
-                        <td class="px-6 py-4 font-normal text-gray-600"><?php echo $result['Detail']; ?></td>
+                        <td class="px-6 py-4 font-normal text-gray-600 font"><?php echo $result['FoodName']; ?></td>
+                        <td class="px-6 py-4 font-normal text-gray-600 font"><?php echo $result['Detail']; ?></td>
                         <td>
                             <button data-id="<?php echo $result['IdFood']; ?>" class="userinfo text-white bg-gradient-to-r from-yellow-300  to-amber-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-3 py-2.5 text-center mr-1 mb-2 ">
                             <i class="fa-solid fa-utensils" style="color: #ffffff;"></i></button>
@@ -290,12 +292,12 @@ $Id = $IdFood->fetchAll(PDO::FETCH_COLUMN);
                 foreach ($food as $food) { // loop ข้อมูล 
             ?> <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
 
-            <td scope="row" class="px-6 py-4 font-normal text-gray-600 font-medium text-gray-900 whitespace-nowrap dark:text-white"><?php echo $food['IdFood']; ?></td>
+            <td scope="row" class="px-6 py-4 font-normal text-gray-600 font-medium text-gray-900 whitespace-nowrap dark:text-white font"><?php echo $food['IdFood']; ?></td>
             <div>
                 <td><?php echo '<img src="data:image/jpeg;base64,' . base64_encode($food['ImgFood']) . '" alt="Upload Image"  style="width: 150px; height: 100px" class="rounded-lg thumbnail "  "/>' ?></td>
             </div>
-            <td class="px-6 py-4 font-normal text-gray-600"><?php echo $food['FoodName']; ?></td>
-            <td class="px-6 py-4 font-normal text-gray-600"><?php echo $food['Detail']; ?></td>
+            <td class="px-6 py-4 font-normal text-gray-600 font"><?php echo $food['FoodName']; ?></td>
+            <td class="px-6 py-4 font-normal text-gray-600 font"><?php echo $food['Detail']; ?></td>
             <td>
                 <button data-id="<?php echo $food['IdFood']; ?>" class="userinfo text-white bg-gradient-to-r from-yellow-300  to-amber-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-3 py-2.5 text-center mr-1 mb-2 ">
                 <i class="fa-solid fa-utensils" style="color: #ffffff;"></i></button>
