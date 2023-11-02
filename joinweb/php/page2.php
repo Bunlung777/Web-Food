@@ -1,5 +1,5 @@
 <?php
-include 'server.php';
+include (".../Config/DB.php");
 
 $id = $_GET['id'];
 $stmt = $conn->query("SELECT * FROM village WHERE Id = $id");

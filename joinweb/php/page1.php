@@ -1,5 +1,5 @@
 <?php
-include 'server.php';
+include (".../Config/DB.php");
 ?>
 
 <!DOCTYPE html>

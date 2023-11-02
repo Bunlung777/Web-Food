@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-include 'server.php';
+include (".../Config/DB.php");
 include '../include/navbar_2.php' ;
 $id = $_GET['id'];
 $village = $conn->query("SELECT S.Idset, S.ImgSet, V.Name, S.SetName,V.Id,
