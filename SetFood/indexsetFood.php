@@ -100,8 +100,9 @@ if (isset($_GET['delete'])) {
                             <input type="text" name="Setname" id="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
                         </div>
                         <div id="field">
-                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">อาหาร : </label>
-                            <select class="mt-1 mb-1 additem w-80 inline-block bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="foodName" id="food">
+                            <div class="food">
+                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">ตำรับอาหารที่ 1 </label>
+                            <select class="mt-1 mb-1 additem w-full inline-block bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="foodName" >
                             <?php
                             foreach (array_combine($food, $Id) as $foodItem => $id) {
                             ?>
@@ -110,16 +111,19 @@ if (isset($_GET['delete'])) {
 
 
                             </select>
-                            <input type="button" name="addaaa" id="addaaa" value="Add" class="inline-block h-12 px-6 text-white bg-gradient-to-r from-gray-400 via-Neutral-500 to-gray-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800 font-medium rounded-lg text-sm py-2.5 text-center">
                             </div>
-                            <input type="hidden" name="combinedValues" id="combinedValues" value="">
+                            </div>
+                            <div class="flex justify-end space-x-4">
+                        <input type="button" name="addaaa" id="addaaa" value="เพิ่ม" class="inline-block h-12 px-6 text-white bg-gradient-to-r from-gray-400 via-Neutral-500 to-gray-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800 font-medium rounded-lg text-sm py-2.5 text-center">
+                        </div>
+                            <!-- <input type="hidden" name="combinedValues" id="combinedValues" value=""> -->
                         <div class="flex justify-end space-x-4">
                             <div>
-                                <button type="submit" name="submit" class="h-12 px-6 text-white bg-gradient-to-r from-gray-400 via-Neutral-500 to-gray-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800 font-medium rounded-lg text-sm py-2.5 text-center" data-modal-hide="userModal">Close</button>
+                                <button type="submit" name="submit" class="h-12 px-6 text-white bg-gradient-to-r from-gray-400 via-Neutral-500 to-gray-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800 font-medium rounded-lg text-sm py-2.5 text-center" data-modal-hide="userModal">ยกเลิก</button>
                             </div>
                             
                             <div>
-                                <button type="submit" name="submitSet" class=" h-12 px-6 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm py-2.5 text-center">Submit</button>
+                                <button type="submit" name="submitSet" class=" h-12 px-6 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm py-2.5 text-center">บันทึก</button>
                             </div>
                         </div>
                     </form>
@@ -205,7 +209,7 @@ if (isset($_GET['delete'])) {
             </div>
     <div class="flex justify-center absolute inset-x-0 top-0 " >  
         <?php if(isset($_SESSION['deletedata'])) {?>
-            <div id="notification" class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 noti" role="alert">
+            <div id="notification" class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 notired" role="alert">
     <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-green-800 dark:text-green-200">
         <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
             <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
@@ -290,6 +294,7 @@ if (isset($_GET['delete'])) {
         </thead>
         <tbody>
             <?php
+            //หน้า page
             $page = isset($_GET['page']) ? $_GET['page'] : 1;
             $displayLimit = 10;
             $offset = ($page - 1) * $displayLimit;
@@ -297,15 +302,14 @@ if (isset($_GET['delete'])) {
             $stmt = $conn->query("SELECT COUNT(*) as total FROM setfood");
             $stmt->execute();
             $totalRows = $stmt->fetch()['total'];
+            
+            $totalPages = ceil($totalRows / $displayLimit);
 
             $stmt = $conn->prepare("SELECT * FROM setfood AS S JOIN village AS V ON S.VillageSet = V.Id LIMIT :limit OFFSET :offset");
             $stmt->bindParam(':limit', $displayLimit, PDO::PARAM_INT);
             $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
             $stmt->execute();
             $setfood = $stmt->fetchAll();
-            $totalPages = ceil($totalRows / $displayLimit);
-
-            
 
             if (isset($_POST['search'])){//ถ้าไม่มีข้อมูลใน user
                 $search = $_POST['search'];
@@ -336,7 +340,7 @@ if (isset($_GET['delete'])) {
                         <?php
                     }
                 } 
-            } else 
+            } else
             foreach ($setfood as $setfood) { // loop ข้อมูล 
             ?>
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
@@ -491,14 +495,14 @@ if (isset($_GET['delete'])) {
 <script>
 $(document).ready(function () {
     var counter = 1;
-    var timesToClone = 7; 
+    var timesToClone = 12; 
 
     $("#addaaa").click(function () {
         if (counter < timesToClone) {
-            var clonedSelect = $("#food").clone();
+            var clonedSelect = $(".food").first().clone();
 
-            clonedSelect.attr("name", "foodName" + counter);
-
+            clonedSelect.find("label").text("ตำรับอาหารที่ " + (counter + 1));
+            clonedSelect.find("select").attr("name", "foodName" + counter);
             counter++;
 
             $("#field").append(clonedSelect);
@@ -506,10 +510,7 @@ $(document).ready(function () {
     });
 });
 
-
-
 </script>
-
 </body>
 
 </html>

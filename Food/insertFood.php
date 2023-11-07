@@ -8,15 +8,33 @@ if (isset($_POST['submitFood'])) {
     $detail = $_POST['detail'];
     $img = file_get_contents($_FILES['imgSet']['tmp_name']);
 
-    $maxFoods = 6; // Define the maximum number of foods to handle
+    if(isset($_POST['ingredients'])&& empty($_POST['ingredients1'])){
+        $sql = $conn->prepare("INSERT INTO food(ImgFood, FoodName, Detail, Ingredients0) VALUES(:ImgFood, :FoodName, :Detail, :ingredients)");
+        $sql->bindParam(":ImgFood", $img, PDO::PARAM_LOB);
+        $sql->bindParam(":FoodName", $foodName);
+        $sql->bindParam(":Detail", $detail);
+        $sql->bindParam(":ingredients", $_POST['ingredients']);
+                    $sql->execute();
 
+                    if ($sql) {
+                        $_SESSION['success'] = "";
+                        header("location: Foodindex.php");
+                    } else {
+                        $_SESSION['error'] = "Data has not been inserted successfully";
+                        header("location: Foodindex.php");
+                    }
+    }else{
+
+    $maxFoods = 12; 
     for ($i = 1; $i <= $maxFoods; $i++) {
         $ingredientsKey = 'ingredients' . $i;
         if (!empty($_POST[$ingredientsKey]) && empty($_POST['ingredients' . ($i + 1)])) {
             $sql = $conn->prepare("INSERT INTO food(ImgFood, FoodName, Detail,
-            Ingredients0, Ingredients1, Ingredients2, Ingredients3, Ingredients4, Ingredients5, Ingredients6) 
+            Ingredients0, Ingredients1, Ingredients2, Ingredients3, Ingredients4, Ingredients5, Ingredients6,
+            Ingredients7, Ingredients8, Ingredients9, Ingredients10, Ingredients11, Ingredients12) 
             VALUES(:ImgFood, :FoodName, :Detail, 
-            :ingredients, :ingredients1, :ingredients2, :ingredients3, :ingredients4, :ingredients5, :ingredients6)");
+            :ingredients, :ingredients1, :ingredients2, :ingredients3, :ingredients4, :ingredients5, :ingredients6,
+            :ingredients7, :ingredients8, :ingredients9, :ingredients10, :ingredients11, :ingredients12)");
             $sql->bindParam(":ImgFood", $img, PDO::PARAM_LOB);
             $sql->bindParam(":FoodName", $foodName);
             $sql->bindParam(":Detail", $detail);
@@ -41,6 +59,7 @@ if (isset($_POST['submitFood'])) {
             break; // Break the loop after the insertion
         }
     }
+}
 }
 
 

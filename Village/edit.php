@@ -88,7 +88,7 @@ if (isset($_POST['Update'])) {
             ?>
                     <div>
                         <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">ชื่อหมู่บ้าน</label>
-                        <input type="text" value="<?php echo $data['Name']; ?>" required name="name" id="text"  class="font block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" required>
+                        <input type="text" value="<?php echo $data['Name']; ?>" required name="name" id="text"  class="font block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" required>
                         <input type="text" hidden value="<?php echo $data['Id']; ?>" required name="idd" id="text"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
                     </div>
                     <div>
@@ -99,11 +99,11 @@ if (isset($_POST['Update'])) {
                     </div>
                     <div>
                         <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">รายละเอียด</label>
-                        <input type="text" value="<?php echo $data['Detail']; ?>" name="Detail" id="text"  class="font bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                        <textarea type="text" value="" name="Detail" id="text"  class="h-[150px] font bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required><?php echo $data['Detail']; ?></textarea>
                     </div>
                     <div>
                         <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">ความหมาย</label>
-                        <input type="text" value="<?php echo $data['meaning']; ?>" name="Meaning" id="text"  class="font bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                        <textarea type="text" value="" name="Meaning" id="text"  class="h-[150px] font bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required><?php echo $data['meaning']; ?></textarea>
                     </div>
                     <div>
                         <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">ที่อยู่</label>
@@ -111,10 +111,10 @@ if (isset($_POST['Update'])) {
                     </div>
                     <div class="flex justify-end space-x-4">
                         <div>
-                     <a  type="submit" name="close" class="no-underline h-12 px-6 text-white bg-gradient-to-r from-gray-400 via-Neutral-500 to-gray-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800 font-medium rounded-lg py-2.5 text-center" href="index.php" >Close</a>
+                     <a  type="submit" name="close" class="no-underline h-12 px-6 text-white bg-gradient-to-r from-gray-400 via-Neutral-500 to-gray-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800 font-medium rounded-lg py-2.5 text-center" href="index.php" >ยกเลิก</a>
                     </div> 
                     <div>
-                    <button type="submit" name="Update" class=" h-12 px-6 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg py-2.5 text-center" >Submit</button>
+                    <button type="submit" name="Update" class=" h-12 px-6 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg py-2.5 text-center" >บันทึก</button>
                     </div>   
                 </div>
                 </form>

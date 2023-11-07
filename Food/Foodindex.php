@@ -15,15 +15,12 @@ if (isset($_GET['delete'])) {
     }
 }
 
-$sql = "SELECT ingredientsName	 FROM ingredients";
+$sql = "SELECT * FROM ingredients";
 $foodName = $conn->prepare($sql);
 $foodName->execute();
-$ingredient = $foodName->fetchAll(PDO::FETCH_COLUMN);
+$ingredient = $foodName->fetchAll();
 
-$sqlFood = "SELECT Idingre FROM ingredients";
-$IdFood = $conn->prepare($sqlFood);
-$IdFood->execute();
-$Id = $IdFood->fetchAll(PDO::FETCH_COLUMN);
+
 
 ?>
 
@@ -75,28 +72,31 @@ $Id = $IdFood->fetchAll(PDO::FETCH_COLUMN);
                         </div>
                         <div>
                             <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">รายละเอียดอาหาร : </label>
-                            <input type="text" name="detail" id="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                            <textarea type="text" name="detail" id="text" class="h-[100px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required></textarea>
                         </div>
                         <div id="field">
-                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">ส่วนประกอบ : </label>
-                            <select class="mt-1 mb-1 additem w-80 inline-block bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="ingredients" id="food">
+                            <div class="food">
+                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">ส่วนประกอบที่ 1 </label>
+                            <select class="mt-1 mb-1 additem w-full inline-block bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="ingredients">
                             <?php
                             // Generate the dropdown options
-                            foreach (array_combine($ingredient, $Id) as $ingredient => $id) {
+                            foreach ($ingredient as $row => $ingredient) {
                             ?>
-                                <option value="<?php echo $id; ?>"><?php echo $ingredient; ?></option>
+                                <option value="<?php echo $ingredient['Idingre']; ?>"><?php echo $row+1 ,". ",$ingredient['ingredientsName']; ?></option>
                             <?php } ?>
-
-
+                            <option>ไม่มี</option>
                             </select>
-                            <input type="button" name="addaaa" id="addaaa" value="เพิ่ม" class="inline-block h-12 px-6 text-white bg-gradient-to-r from-gray-400 via-Neutral-500 to-gray-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800 font-medium rounded-lg text-sm py-2.5 text-center">
                             </div>
+                        </div>
+                        <div class="flex justify-end space-x-4">
+                        <input type="button" name="addaaa" id="addaaa" value="เพิ่ม" class="inline-block h-12 px-6 text-white bg-gradient-to-r from-gray-400 via-Neutral-500 to-gray-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800 font-medium rounded-lg text-sm py-2.5 text-center">
+                        </div>
                         <div class="flex justify-end space-x-4">
                             <div>
-                                <button type="submit" name="submit" class="h-12 px-6 text-white bg-gradient-to-r from-gray-400 via-Neutral-500 to-gray-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800 font-medium rounded-lg text-sm py-2.5 text-center" data-modal-hide="FoodModal">Close</button>
+                                <button type="submit" name="submit" class="h-12 px-6 text-white bg-gradient-to-r from-gray-400 via-Neutral-500 to-gray-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800 font-medium rounded-lg text-sm py-2.5 text-center" data-modal-hide="FoodModal">ยกเลิก</button>
                             </div>
                             <div>
-                                <button type="submit" name="submitFood" class=" h-12 px-6 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm py-2.5 text-center">Submit</button>
+                                <button type="submit" name="submitFood" class=" h-12 px-6 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm py-2.5 text-center">บันทึก</button>
                             </div>
                         </div>
                     </form>
@@ -170,7 +170,7 @@ $Id = $IdFood->fetchAll(PDO::FETCH_COLUMN);
             </div>
     <div class="flex justify-center absolute inset-x-0 top-0 " >  
         <?php if(isset($_SESSION['deletedata'])) {?>
-            <div id="notification" class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 noti" role="alert">
+            <div id="notification" class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 notired" role="alert">
     <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-green-800 dark:text-green-200">
         <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
             <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
@@ -210,7 +210,7 @@ $Id = $IdFood->fetchAll(PDO::FETCH_COLUMN);
     <div class="container ">
         <div class="py-2  ">
         <div style="float:left" class="mt-1">
-            <p class="text-[30px] font">รายการอาหาร</p>
+            <p class="text-[30px] font">รายการตำรับอาหาร</p>
         </div>
         <div class="flex justify-end ">
             <button type="button" class="font h-12 px-8 m-2 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm py-2.5 text-center mr-2 mb-2" data-modal-target="FoodModal" data-modal-toggle="FoodModal">เพิ่มอาหาร</button>
@@ -246,10 +246,10 @@ $Id = $IdFood->fetchAll(PDO::FETCH_COLUMN);
 
                     <thead class=" bg-gray-100 dark:bg-gray-900">
                             <tr>
-                    <th scope="col" class="px-6 py-3  text-l font-normal  text-gray-500 dark:text-gray-400 font">Id</th>
-                    <th scope="col" class="px-6 py-3  text-l font-normal  text-gray-500 dark:text-gray-400 font">รูปภาพสำรับอาหาร</th>
+                    <th scope="col" class="px-6 py-3  text-l font-normal  text-gray-500 dark:text-gray-400 font">ID</th>
+                    <th scope="col" class=" py-3  text-l font-normal  text-gray-500 dark:text-gray-400 font">รูปภาพสำรับอาหาร</th>
                     <th scope="col" class="px-6 py-3  text-l font-normal  text-gray-500 dark:text-gray-400 font">ชื่ออาหาร</th>
-                    <th scope="col" class="px-6 py-3  text-l font-normal  text-gray-500 dark:text-gray-400 font">รายละเอียดอาหาร</th>
+                    <!-- <th scope="col" class=" py-3  text-l font-normal  text-gray-500 dark:text-gray-400 font">รายละเอียดอาหาร</th> -->
                     <th></th>
                 </tr>
         </thead>
@@ -258,6 +258,16 @@ $Id = $IdFood->fetchAll(PDO::FETCH_COLUMN);
             $stmt = $conn->query("SELECT * FROM food ");
             $stmt->execute();
             $food = $stmt->fetchAll(); // Fetch ข้อมูลทั้งหมดมาเก็บไว้ในตัวแปร
+            //หน้า page
+            $page = isset($_GET['page']) ? $_GET['page'] : 1;
+            $displayLimit = 10;
+            $offset = ($page - 1) * $displayLimit;
+     
+            $stmt = $conn->query("SELECT COUNT(*) as total FROM food");
+            $stmt->execute();
+            $totalRows = $stmt->fetch()['total'];
+            
+            $totalPages = ceil($totalRows / $displayLimit);
 
             if (isset($_POST['search'])){//ถ้าไม่มีข้อมูลใน user
                 $search = $_POST['search'];
@@ -266,17 +276,17 @@ $Id = $IdFood->fetchAll(PDO::FETCH_COLUMN);
                 $result = $query->fetchAll(PDO::FETCH_ASSOC);
 
         //ถ้าไม่มีข้อมูลใน user
-                if ($result > 0){
-                    foreach($result as $result){
+                if ($result > 0 ){
+                    foreach($result as $row => $result){
                         ?>
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
 
-                        <td scope="row" class="px-6 py-4 font-normal text-gray-600 font-medium text-gray-900 whitespace-nowrap dark:text-white font"><?php echo $result['IdFood']; ?></td>
+                        <td scope="row" class="px-6 py-4 font-normal text-gray-600 font-medium text-gray-900 whitespace-nowrap dark:text-white font"><?php echo $row + 1?></td>
                         <div>
-                            <td><?php echo '<img src="data:image/jpeg;base64,' . base64_encode($result['ImgFood']) . '" alt="Upload Image"  style="width: 150px; height: 100px" class="rounded-lg thumbnail "  "/>' ?></td>
+                            <td class="p-2"><?php echo '<img src="data:image/jpeg;base64,' . base64_encode($result['ImgFood']) . '" alt="Upload Image"  style="width: 150px; height: 100px" class="rounded-lg thumbnail "  "/>' ?></td>
                         </div>
                         <td class="px-6 py-4 font-normal text-gray-600 font"><?php echo $result['FoodName']; ?></td>
-                        <td class="px-6 py-4 font-normal text-gray-600 font"><?php echo $result['Detail']; ?></td>
+                        <td class="px-6 py-4 font-normal text-gray-600 font text-container"><?php echo $result['Detail']; ?></td>
                         <td>
                             <button data-id="<?php echo $result['IdFood']; ?>" class="userinfo text-white bg-gradient-to-r from-yellow-300  to-amber-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-3 py-2.5 text-center mr-1 mb-2 ">
                             <i class="fa-solid fa-utensils" style="color: #ffffff;"></i></button>
@@ -289,28 +299,74 @@ $Id = $IdFood->fetchAll(PDO::FETCH_COLUMN);
                     <?php }
                 } 
             } else {
-                foreach ($food as $food) { // loop ข้อมูล 
-            ?> <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-
-            <td scope="row" class="px-6 py-4 font-normal text-gray-600 font-medium text-gray-900 whitespace-nowrap dark:text-white font"><?php echo $food['IdFood']; ?></td>
-            <div>
-                <td><?php echo '<img src="data:image/jpeg;base64,' . base64_encode($food['ImgFood']) . '" alt="Upload Image"  style="width: 150px; height: 100px" class="rounded-lg thumbnail "  "/>' ?></td>
-            </div>
-            <td class="px-6 py-4 font-normal text-gray-600 font"><?php echo $food['FoodName']; ?></td>
-            <td class="px-6 py-4 font-normal text-gray-600 font"><?php echo $food['Detail']; ?></td>
+                foreach ($food as $row => $item) {
+            ?><tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+            <td scope="row" class="px-6 py-4 font-normal text-gray-600 font-medium text-gray-900 whitespace-nowrap dark:text-white font"><?php echo $row + 1; ?></td>
+            <td class="p-2">
+                <img src="data:image/jpeg;base64,<?php echo base64_encode($item['ImgFood']); ?>" alt="Food Image" style="width: 150px; height: 100px" class="rounded-lg thumbnail">
+            </td>
+            <td class="px-6 py-4 font-normal text-gray-600 font"><?php echo $item['FoodName']; ?></td>
+            <!-- <td class="px-6 py-4 font-normal text-gray-600 font text-container" maxlength="8"><?php echo $item['Detail']; ?></td> -->
             <td>
-                <button data-id="<?php echo $food['IdFood']; ?>" class="userinfo text-white bg-gradient-to-r from-yellow-300  to-amber-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-3 py-2.5 text-center mr-1 mb-2 ">
-                <i class="fa-solid fa-utensils" style="color: #ffffff;"></i></button>
-
-                <a href="?delete=<?= $food['IdFood']; ?>" class="text-white bg-gradient-to-r from-red-400  to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-3 py-2.5 text-center mr-2 mb-2" onclick="return confirm('ยืนยันการลบข้อมูล');">
+                <button data-id="<?php echo $item['IdFood']; ?>" class="userinfo text-white bg-gradient-to-r from-yellow-300  to-amber-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-3 py-2.5 text-center mr-1 mb-2 ">
+                    <i class="fa-solid fa-utensils" style="color: #ffffff;"></i>
+                </button>
+                <a href="?delete=<?php echo $item['IdFood']; ?>" class="text-white bg-gradient-to-r from-red-400  to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-3 py-2.5 text-center mr-2 mb-2" onclick="return confirm('Confirm data deletion');">
                     <i class="fa-solid fa-trash"></i>
                 </a>
             </td>
         </tr>
-        <?php } } ?>
+        <?php } }  ?>
 
         </tbody>
     </table>
+    <div class="grid grid-cols-2 gap-4 ">
+        <div class="flex">
+        <div class="mt-4 mb-3 ml-5">
+        <label class="font-[500]   text-gray-400 dark:text-gray-400"><?php echo "Showing 1 to 10 entries"  ?></label>
+        </div>
+        </div>
+                        
+            <div>
+            <div class="relative z-0 flex justify-end mt-3  ">
+                <div class="border flex rounded-full w-[19rem] bg-gray-200">
+                <div class=" px-4 py-2  text-sm leading ">
+                <?php  
+                    echo "<a href='?page=1' class='  no-underline text-gray-700 '>First</a>";
+                
+                ?>
+                </div>
+                <div class="">
+                    <a href="#" class="inline-flex items-center  px-2 py-2  text-sm leading-5 font-medium text-gray-500 hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150" aria-label="Previous" v-on:click.prevent="changePage(pagination.current_page - 1)">
+                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                </div>
+                <div class="items-center px-4 py-2  text-sm leading-5 font-medium  -mr-4 -ml-4">
+                <?php 
+                for ($i = 1; $i <= $totalPages; $i++) {
+                    echo "<a href='?page=$i' class='mr-[10px] ml-[10px] no-underline text-gray-700  '>$i</a>";
+                }
+                ?>
+                </div>
+                <div v-if="pagination.current_page < pagination.last_page ">
+                    <a href="#" class=" relative inline-flex items-center px-2 py-2  text-sm leading-5 font-medium text-gray-500 hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150" aria-label="Next">
+                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                </div>
+                <div class=" px-4 py-2  text-sm leading-5 ">
+                <?php  
+                    echo "<a href='?page=$totalPages' class='  no-underline text-gray-700  '>Last</a>";
+                
+                ?>
+                </div>
+                </div>
+            </div>
+        </div>
+          </div>
     <div class="popup-image">
         <?php echo '<img src="data:image/jpeg;base64,' . base64_encode($food['ImgFood']) . '" alt="img" " class="rounded-lg " "/>'  ?>
         <button type="button" class="absolute top-6 right-6 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white ">
@@ -382,37 +438,29 @@ $Id = $IdFood->fetchAll(PDO::FETCH_COLUMN);
     });
 </script>
 <script>
-        // Function to hide the notification
         function hideNotification() {
             const notification = document.getElementById('notification');
             notification.classList.add('fadeout');
         }
-
-        // Automatically hide the notification after 5 seconds (adjust as needed)
         setTimeout(hideNotification, 4000);
     </script>
 <script>
 $(document).ready(function () {
-    // Initialize a counter variable
     var counter = 1;
-    var timesToClone = 7; // Set the number of times to clone
+    var timesToClone = 13; 
 
     $("#addaaa").click(function () {
         if (counter < timesToClone) {
-            var clonedSelect = $("#food").clone();
+            var clonedSelect = $(".food").first().clone();
 
-            // Change the name attribute of the cloned select element with an incremental number
-            clonedSelect.attr("name", "ingredients" + counter);
-
-            // Increment the counter for the next clone
+            clonedSelect.find("label").text("ส่วนประกอบที่ " + (counter + 1));
+            clonedSelect.find("select").attr("name", "ingredients" + counter);
             counter++;
 
             $("#field").append(clonedSelect);
         }
     });
 });
-
-
 
 </script>
 </body>

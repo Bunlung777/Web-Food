@@ -9,8 +9,9 @@ if (isset($_POST['login'])) {
     $password = $_POST['password'];
 
     
-        $stmt = $conn->prepare("SELECT * FROM user WHERE username = :username");
+        $stmt = $conn->prepare("SELECT * FROM user WHERE username = :username && password = :password");
         $stmt->bindParam(':username', $username);
+        $stmt->bindParam(':password', $password);
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 

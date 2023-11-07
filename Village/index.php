@@ -62,11 +62,13 @@ if(isset($_GET['delete'])){
                     </div>
                     <div>
                         <label for="text" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white font">รายละเอียด</label>
-                        <input type="text" name="Detail" id="text"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                        <textarea type="text" name="Detail" id="text"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required></textarea>
                     </div>
                     <div>
                         <label for="text" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white font">ความหมาย</label>
-                        <input type="text" name="Meaning" id="text"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                        <textarea 
+                        type="text" name="Meaning" id="text"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                        </textarea>
                     </div>
                     <div>
                         <label for="text" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white font">ที่อยู่</label>
@@ -74,10 +76,10 @@ if(isset($_GET['delete'])){
                     </div>
                     <div class="flex justify-end space-x-4">
                         <div>
-                     <button type="submit" name="submit" class="h-12 px-6 text-white bg-gradient-to-r from-gray-400 via-Neutral-500 to-gray-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800 font-normal rounded-lg text-sm py-2.5 text-center" data-modal-hide="userModal" >Close</button>
+                     <button type="submit"  class="h-12 px-6 text-white bg-gradient-to-r from-gray-400 via-Neutral-500 to-gray-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800 font-normal rounded-lg text-sm py-2.5 text-center" data-modal-hide="userModal" >ยกเลิก</button>
                     </div> 
                     <div>
-                    <button type="submit" name="submit" class=" h-12 px-6 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-normal rounded-lg text-sm py-2.5 text-center" >Submit</button>
+                    <button type="submit" name="submit" class=" h-12 px-6 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-normal rounded-lg text-sm py-2.5 text-center" >บันทึก</button>
                     </div>   
                 </div>
                 </form>
@@ -152,7 +154,7 @@ if(isset($_GET['delete'])){
             </div>
     <div class="flex justify-center absolute inset-x-0 top-0 " >  
         <?php if(isset($_SESSION['deletedata'])) {?>
-            <div id="notification" class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 noti" role="alert">
+            <div id="notification" class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 notired" role="alert">
     <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-green-800 dark:text-green-200">
         <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
             <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
@@ -247,9 +249,19 @@ if(isset($_GET['delete'])){
       $stmt = $conn->query("SELECT * FROM village ");
       $stmt -> execute();
       $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
-       
        // Fetch ข้อมูลทั้งหมดมาเก็บไว้ในตัวแปร
 
+       //หน้า page
+       $page = isset($_GET['page']) ? $_GET['page'] : 1;
+       $displayLimit = 10;
+       $offset = ($page - 1) * $displayLimit;
+
+       $stmt = $conn->query("SELECT COUNT(*) as total FROM village");
+       $stmt->execute();
+       $totalRows = $stmt->fetch()['total'];
+
+       $totalPages = ceil($totalRows / $displayLimit);
+       
        if (isset($_POST['search'])){//ถ้าไม่มีข้อมูลใน user
         $search = $_POST['search'];
         $query = $conn->query("SELECT * FROM village WHERE Name LIKE '%$search%' ");
@@ -261,15 +273,14 @@ if(isset($_GET['delete'])){
             foreach($result as $result)
             {
                 ?>
-        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 mt-5">
-        <td scope="row" class="px-6 py-3 font-normal text-gray-600 font"><?php echo $result['Id']; ?></td>
-        <td><?php echo '<img src="data:image/jpeg;base64,'.base64_encode($result['Img']).'"  "/>' ?></td>
+              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+        <td scope="row" class="px-6 py-4 font-normal text-gray-600 font"><?php echo $result['Id']; ?></td>
+        <td class="p-2"><?php echo '<img src="data:image/jpeg;base64,'.base64_encode($result['Img']).'" alt="Upload Image"  style="width: 150px; height: 100px" class="rounded-md images "  "/>' ?></td>
         <td class="px-6 py-4 font-normal text-gray-600 font"><?php echo $result['Name']; ?></td>
-        <td class="px-6 py-4 font-normal text-gray-600 font"><?php echo $result['Detail']; ?></td>
-        <td class="px-6 py-4 font-normal text-gray-600 font"><?php echo $result['Location']; ?></td>
+        <td class="px-6 py-4 font-normal text-gray-600 text-container font"><?php echo $result['Location']; ?></td>
         <td >
-        <button data-id="<?php echo $result['Id']; ?>" class="userinfo text-white bg-gradient-to-r from-yellow-300  to-amber-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:focus:ring-green-800 font-normal rounded-lg text-sm px-3 py-2.5 text-center mr-1 mb-2 "><i class="fa-solid fa-pen-to-square"></i></button> 
         <a href="edit.php?id=<?php echo $result['Id']; ?>" class="text-white bg-gradient-to-r from-yellow-300  to-amber-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:focus:ring-green-800 font-normal rounded-lg text-sm px-3 py-2.5 text-center mr-1 mb-2 "><i class="bi bi-house-gear-fill" style="color: #ffffff;"></i></a>
+        <button data-id="<?php echo $result['Id']; ?>" class="userinfo text-white bg-gradient-to-r from-yellow-300  to-amber-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:focus:ring-green-800 font-normal rounded-lg text-sm px-3 py-2.5 text-center mr-1 mb-2 "><i class="fa-solid fa-pen-to-square"></i></button> 
         <a href="?delete=<?= $result['Id']; ?>" class="text-white bg-gradient-to-r from-red-400  to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-normal rounded-lg text-sm px-3 py-2.5 text-center mr-2 mb-2" onclick="return confirm('ยืนยันการลบข้อมูล');">
         <i class="fa-solid fa-trash"></i>
         </a>
@@ -286,12 +297,10 @@ if(isset($_GET['delete'])){
         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
         <td scope="row" class="px-6 py-4 font-normal text-gray-600 font"><?php echo $user['Id']; ?></td>
         <td class="p-2"><?php echo '<img src="data:image/jpeg;base64,'.base64_encode($user['Img']).'" alt="Upload Image"  style="width: 150px; height: 100px" class="rounded-md images "  "/>' ?></td>
-
         <td class="px-6 py-4 font-normal text-gray-600 font"><?php echo $user['Name']; ?></td>
         <td class="px-6 py-4 font-normal text-gray-600 text-container font"><?php echo $user['Location']; ?></td>
-        
         <td >
-        <a href="edit.php?id=<?php echo $user['Id']; ?>" class="text-white bg-gradient-to-r from-yellow-300  to-amber-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:focus:ring-green-800 font-normal rounded-lg text-sm px-3 py-2.5 text-center mr-1 mb-2 "><i class="bi bi-house-gear-fill" style="color: #ffffff;"></i></a>
+        <!-- <a href="edit.php?id=<?php echo $user['Id']; ?>" class="text-white bg-gradient-to-r from-yellow-300  to-amber-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:focus:ring-green-800 font-normal rounded-lg text-sm px-3 py-2.5 text-center mr-1 mb-2 "><i class="bi bi-house-gear-fill" style="color: #ffffff;"></i></a> -->
         <button data-id="<?php echo $user['Id']; ?>" class="userinfo text-white bg-gradient-to-r from-yellow-300  to-amber-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:focus:ring-green-800 font-normal rounded-lg text-sm px-3 py-2.5 text-center mr-1 mb-2 "><i class="fa-solid fa-pen-to-square"></i></button> 
         <a href="?delete=<?= $user['Id']; ?>" class="text-white bg-gradient-to-r from-red-400  to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-normal rounded-lg text-sm px-3 py-2.5 text-center mr-2 mb-2" onclick="return confirm('ยืนยันการลบข้อมูล');">
         <i class="fa-solid fa-trash"></i>
@@ -304,6 +313,53 @@ if(isset($_GET['delete'])){
 </tbody>
 
                   </table>
+                  <div class="grid grid-cols-2 gap-4 ">
+        <div class="flex">
+        <div class="mt-4 mb-3 ml-5">
+        <label class="font-[500]   text-gray-400 dark:text-gray-400"><?php echo "Showing 1 to 10 entries"  ?></label>
+        </div>
+        </div>
+                        
+            <div>
+            <div class="relative z-0 flex justify-end mt-3  ">
+                <div class="border flex rounded-full w-[19rem] bg-gray-200">
+                <div class=" px-4 py-2  text-sm leading ">
+                <?php  
+                    echo "<a href='?page=1' class='  no-underline text-gray-700 '>First</a>";
+                
+                ?>
+                </div>
+                <div class="">
+                    <a href="#" class="inline-flex items-center  px-2 py-2  text-sm leading-5 font-medium text-gray-500 hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150" aria-label="Previous" v-on:click.prevent="changePage(pagination.current_page - 1)">
+                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                </div>
+                <div class="items-center px-4 py-2  text-sm leading-5 font-medium  -mr-4 -ml-4">
+                <?php 
+                for ($i = 1; $i <= $totalPages; $i++) {
+                    echo "<a href='?page=$i' class='mr-[10px] ml-[10px] no-underline text-gray-700  '>$i</a>";
+                }
+                ?>
+                </div>
+                <div v-if="pagination.current_page < pagination.last_page ">
+                    <a href="#" class=" relative inline-flex items-center px-2 py-2  text-sm leading-5 font-medium text-gray-500 hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150" aria-label="Next">
+                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                </div>
+                <div class=" px-4 py-2  text-sm leading-5 ">
+                <?php  
+                    echo "<a href='?page=$totalPages' class='  no-underline text-gray-700  '>Last</a>";
+                
+                ?>
+                </div>
+                </div>
+            </div>
+        </div>
+          </div>
         <div class="popup-image">            
         <?php   echo '<img src="data:image/jpeg;base64,'.base64_encode($user['Img']).'" alt="img" " class="rounded-lg " "/>'  ?>
         <button type="button" class="absolute top-6 right-6 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white ">

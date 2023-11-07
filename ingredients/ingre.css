@@ -36,9 +36,12 @@
     animation: noti 0.5s linear forwards;
     width: 100%;
     height: 100%;
-    border-left: 6px solid #4070f4;
+    border-left: 6px solid #46c461;
   }
-  
+  .notired{
+    animation: noti 0.5s forwards;
+    border-left: 6px solid #db3030;
+  }
   
   @keyframes noti {
     100%{

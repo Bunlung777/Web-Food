@@ -33,7 +33,12 @@
 
 .noti{
     animation: noti 0.5s forwards;
+    border-left: 6px solid #46c461;
 }
+.notired{
+    animation: noti 0.5s forwards;
+    border-left: 6px solid #db3030;
+  }
     @keyframes noti {
         from{
             opacity: 0;

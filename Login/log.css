@@ -13,6 +13,7 @@
     }
     .fadeout{
         animation: fadeout 0.5s forwards;
+        display: none;
     }
         @keyframes fadeout {
             from {
@@ -24,3 +25,8 @@
                 transform: translateY(-10px); 
             }
         }
+        .profileimage {
+            cursor: pointer;
+        }
+
+    

@@ -213,9 +213,7 @@ for ($i = 0; $i < $totalFoodNames; $i++) {
         </select>
         
     </div>
-    <?php
-}
-?>
+    <?php } ?>
 </div>
 <div class="flex justify-end">
     
@@ -224,10 +222,10 @@ for ($i = 0; $i < $totalFoodNames; $i++) {
 
                     <div class="flex justify-end space-x-4 mt-3">
                         <div>
-                     <a  type="submit" name="close" class="no-underline h-12 px-6 text-white bg-gradient-to-r from-gray-400 via-Neutral-500 to-gray-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800 font-medium rounded-lg py-2.5 text-center" href="indexsetFood.php" >Close</a>
+                     <a  type="submit" name="close" class="no-underline h-12 px-6 text-white bg-gradient-to-r from-gray-400 via-Neutral-500 to-gray-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800 font-medium rounded-lg py-2.5 text-center" href="indexsetFood.php" >ยกเลิก</a>
                     </div> 
                     <div>
-                    <button type="submit" name="UpdateSet" class=" h-12 px-6 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg py-2.5 text-center" >Submit</button>
+                    <button type="submit" name="UpdateSet" class=" h-12 px-6 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg py-2.5 text-center" >บันทึก</button>
                     </div>   
                 </div>
                 </form>
@@ -269,6 +267,7 @@ for ($i = 0; $i < $totalFoodNames; $i++) {
                 counter++;
 
                 $(".field").append(clonedContainer); 
+                console.log(counter)
             }
         });
     });

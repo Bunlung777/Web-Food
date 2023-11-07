@@ -1,4 +1,13 @@
+<?php
+include("../Config/DB.php");
 
+if (isset($_SESSION['user_id'])) {
+    $id = $_SESSION['user_id'];
+      $stmt = $conn->query("SELECT * FROM user WHERE Iduser = $id ");
+      $stmt->execute();
+      $user = $stmt->fetch(PDO::FETCH_ASSOC);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,16 +48,16 @@
       </div>
       <div class="flex flex-1 items-center sm:items-stretch sm:justify-start">
         <div class="flex flex-shrink-0 items-center">
-          <a href="/Web-Food/Village/">
+          <!-- <a href="/Web-Food/Village/">
           <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" >
-          </a>
+          </a> -->
         </div>
         <div class="hidden sm:ml-6 sm:block">
           <div class="flex space-x-4">
             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
             <a id="link1" href="/Web-Food/Village/" class=" text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium no-underline z-10" onclick="changeBackgroundColor(event)">เพิ่มหมูบ้าน</a>
             <a href="/Web-Food/SetFood/indexsetFood.php" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium no-underline z-10">เพิ่มสำรับอาหาร</a>
-            <a href="/Web-Food/Food/Foodindex.php" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium no-underline z-10">เพิ่มอาหาร</a>
+            <a href="/Web-Food/Food/Foodindex.php" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium no-underline z-10">เพิ่มตำรับอาหาร</a>
             <a href="/Web-Food/ingredients/indexingre.php" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium no-underline ">เพิ่มส่วนประกอบ</a>
           </div>
         </div>
@@ -60,32 +69,26 @@
         <img class="w-8 h-8 rounded-full" src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE= " alt="user photo">
       </button>
       <!-- Dropdown menu -->
-      <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
+      <div class="z-50 w-[200px] hidden text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
         <div class="px-4 py-3">
-          <span class="block text-sm text-gray-900 dark:text-white">Bonnie Green</span>
-          <span class="block text-sm  text-gray-500 truncate dark:text-gray-400">name@flowbite.com</span>
+          <span class="block text-sm text-gray-900 dark:text-white"><?php echo $user['username']; ?></span>
+          <span class="block text-sm  text-gray-500 truncate dark:text-gray-400"><?php echo $user['Email']; ?></span>
         </div>
-        <ul class="py-2" aria-labelledby="user-menu-button">
+        <!-- <ul class="py-2 mr-5" aria-labelledby="user-menu-button"> -->
           <li>
-            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
+            <a href="/Web-Food/Login/detail.php" class="no-underline block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Your Profile</a>
           </li>
           <li>
-            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
+            <a href="#" class="no-underline block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
           </li>
-          <li>
-            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Earnings</a>
-          </li>
-          <li>
-            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
-          </li>
-        </ul>
+        <!-- </ul> -->
       </div>
 
   <!-- Mobile menu, show/hide based on menu state. -->
   <div class="sm:hidden" id="mobile-menu">
     <div class="space-y-1 px-2 pb-3 pt-2">
       <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-      <a href="#" class="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium" aria-current="page">Dashboard</a>
+      <a href="/Web-Food/Login/detail.php" class="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium" aria-current="page">Your Profile</a>
       <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Team</a>
       <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Projects</a>
       <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Calendar</a>
