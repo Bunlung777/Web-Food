@@ -1,5 +1,5 @@
 <?php
-include (".../Config/DB.php");
+include ("../Config/DB.php");
 
 $id = $_GET['id'];
 $stmt = $conn->query("SELECT * FROM village WHERE Id = $id");
@@ -8,7 +8,7 @@ $data = $stmt->fetch();
 
 $village = $conn->query("SELECT * FROM setfood WHERE VillageSet = $id");
 $village->execute();
-$setfood = $village->fetch();
+$setfood = $village->fetchAll();
 
 ?>
 <!DOCTYPE html>
@@ -125,32 +125,20 @@ $setfood = $village->fetch();
     </div>
     <div class="food-village" id="food-table">
       <h1 class="text-2xl text-left text-slate-700">สำรับอาหาร</h1>
+      <?php foreach($setfood as $row => $setfood){ ?>
       <div class="food-item">
         <div class="food-image">
           <a href="/joinweb/php/page3.php"><img
           <?php echo 'src="data:image/jpeg;base64,'.base64_encode($setfood['ImgSet']).'" ' ?> /></a>
         </div>
         <div class="food-text">
-          <h1 class="fs-4 text-left text-xl mt-2 text_h1">สำรับอาหารชุดที่ 1</h1>
-          <a href="/supilin-main/joinweb/php/page3.php?id=<?php echo $data['Id']; ?>" type="button" class="btn-food" >
+          <h1 class="fs-4 text-left text-xl mt-2 text_h1">สำรับอาหารชุดที่ <?php echo $row+1 ?> </h1>
+          <a href="/Web-Food/php/page3.php?id=<?php echo $data['Id']; ?>" type="button" class="btn-food" >
             ข้อมูลเพิ่มเติม
           </a>
         </div>
       </div>
-      <div class="food-item">
-        <div class="food-image">
-          <a href="/php/page3.html"><img
-              src="https://media.istockphoto.com/id/1242028017/th/%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%96%E0%B9%88%E0%B8%B2%E0%B8%A2/%E0%B8%A1%E0%B8%B8%E0%B8%A1%E0%B8%A1%E0%B8%AD%E0%B8%87%E0%B8%88%E0%B8%B2%E0%B8%81%E0%B8%94%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%9A%E0%B8%99%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%9C%E0%B8%AA%E0%B8%A1%E0%B8%9C%E0%B8%AA%E0%B8%B2%E0%B8%99%E0%B8%A3%E0%B8%B0%E0%B8%AB%E0%B8%A7%E0%B9%88%E0%B8%B2%E0%B8%87%E0%B9%80%E0%B8%AD%E0%B9%80%E0%B8%8A%E0%B8%B5%E0%B8%A2%E0%B8%95%E0%B8%B0%E0%B8%A7%E0%B8%B1%E0%B8%99%E0%B8%AD%E0%B8%AD%E0%B8%81%E0%B9%80%E0%B8%89%E0%B8%B5%E0%B8%A2%E0%B8%87%E0%B9%83%E0%B8%95%E0%B9%89%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%AD%E0%B9%80%E0%B8%8A%E0%B8%B5%E0%B8%A2%E0%B8%97%E0%B8%B1%E0%B9%88%E0%B8%A7%E0%B9%84%E0%B8%9B.webp?b=1&s=170667a&w=0&k=20&c=XgVYDjVB9RjBmeN6ApMeyysntAEG9bWrkuv5MK1Aw-k="
-              alt="" />
-          </a>
-        </div>
-        <div class="food-text">
-          <h1 class="fs-4 text-left text-xl mt-2 text_h1">สำรับอาหารชุดที่ 2</h1>
-          <a href="/joinweb/php/page3.php" type="button" class="btn-food">
-            ข้อมูลเพิ่มเติม
-          </a>
-        </div>
-      </div>
+      <?php } ?>
     </div>
   </div>
  <?php include '../include/footer.php' ?>

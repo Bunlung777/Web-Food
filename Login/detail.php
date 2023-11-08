@@ -2,7 +2,6 @@
 session_start();
 include '../Navbar/Navbar.php';
 include("../Config/DB.php");
-
 if (isset($_SESSION['user_id'])) {
     $id = $_SESSION['user_id'];
       $stmt = $conn->query("SELECT * FROM user WHERE Iduser = $id ");

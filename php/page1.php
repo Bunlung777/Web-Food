@@ -1,5 +1,5 @@
 <?php
-include (".../Config/DB.php");
+include "../Config/DB.php";
 ?>
 
 <!DOCTYPE html>
@@ -83,7 +83,7 @@ include (".../Config/DB.php");
       <h1 class="text-left text-2xl p-2 text-slate-600 font-bold">หมู่บ้านในโครงการ</h1>
       <div class="slider_slide">
 <?php
- $stmt = $conn->query("SELECT * FROM village ");
+ $stmt = $conn->query("SELECT * FROM village");
  $stmt -> execute();
  $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
 foreach($user as $user){  
@@ -97,7 +97,7 @@ foreach($user as $user){
           <div class="text_slide">
             <h1>ชื่อหมู่บ้าน :<?php echo $user['Name']; ?> </h1>
             <p>ที่อยู่ : <?php echo $user['Location']; ?></p>
-            <a href="/supilin-main/joinweb/php/page2.php?id=<?php echo $user['Id']; ?>" type="button" class="bg-white text-white font-bold py-2 px-4 rounded">
+            <a href="/Web-Food/php/page2.php?id=<?php echo $user['Id']; ?>" type="button" class="bg-white text-white font-bold py-2 px-4 rounded">
     ข้อมูลเพิ่มเติม
 </a>
 
