@@ -16,6 +16,15 @@ if (isset($_SESSION['user_id'])) {
   <title>Navbar</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css" rel="stylesheet" />
   <link href="navbar.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Niramit:wght@500&family=Taviraj&display=swap" rel="stylesheet">
+<style>
+    .font-body{
+      font-family: 'Taviraj', serif;
+      font-family: 'Niramit', sans-serif;
+    }
+</style>
 </head>
 <body>
   

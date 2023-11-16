@@ -2,24 +2,42 @@
 
 session_start();
 include ("../Config/DB.php");
-
 if (isset($_POST['UpdateSet'])) {
     $id = $_POST['idd'];
     $Village = $_POST['villageName'];
     $set = $_POST['setName'];
-    $img2 = $_FILES['imgfood']['name'];
+    $img2 = $_FILES['imgSet']['name'];
     
-    if($img2 != ''){
-    $img = file_get_contents($_FILES['imgfood']['tmp_name']);
-    $sql = $conn->prepare("UPDATE setfood SET VillageSet = :village, ImgSet = :img , SetName = :setName, FoodName0 = :foodName0, FoodName1 = :foodName1, FoodName2 = :foodName2, FoodName3 = :foodName3, FoodName4 = :foodName4, FoodName5 = :foodName5, FoodName6 = :foodName6 WHERE Idset = :id");
-    
-        // Bind parameters
+        $images = array();
+        foreach ($_FILES['imgSet']['tmp_name'] as $key => $imgTmpName) {
+            if ($_FILES['imgSet']['error'][$key] === UPLOAD_ERR_OK) {
+                $img = file_get_contents($imgTmpName);
+                $images[] = $img;
+            } else {
+                $_SESSION['success'] = "";
+                header("location: indexSetFood.php");
+                exit();
+            }
+        }
+        $numImages = count($images);
+        $maxImg = 4;
+        
+        $sql = $conn->prepare("UPDATE setfood SET VillageSet = :village,ImgSet1 = :ImgSet1,ImgSet2 = :ImgSet2, ImgSet3 = :ImgSet3, ImgSet4 = :ImgSet4, SetName = :setName, FoodName0 = :foodName0, FoodName1 = :foodName1, 
+        FoodName2 = :foodName2, FoodName3 = :foodName3, FoodName4 = :foodName4, FoodName5 = :foodName5, FoodName6 = :foodName6 WHERE Idset = :id");
         $sql->bindParam(":village", $Village);
-        $sql->bindParam(":img", $img, PDO::PARAM_LOB);
+        for ($g = 1; $g <= $maxImg; $g++) {
+            for ($iii = 1; $iii <= $numImages; $iii++) {
+                $ImgFood = 'ImgSet'.$iii;
+                $sql->bindParam(":".$ImgFood, $images[$iii-1], PDO::PARAM_LOB);
+            }
+            for ($a = $g+1 ; $a <= $maxImg; $a++) {
+                $ImgFood = 'ImgSet'.$a;
+                $emptyValue = "";
+                $sql->bindParam(":".$ImgFood,$emptyValue);
+            }
+            }
         $sql->bindParam(":setName", $set);
         $sql->bindParam(":id", $id);
-        
-        // Bind the food names dynamically
         for ($i = 0; $i < 7; $i++) {
             $foodNameKey = 'foodName' . $i;
             if (isset($_POST[$foodNameKey])) {
@@ -28,48 +46,16 @@ if (isset($_POST['UpdateSet'])) {
                 $sql->bindValue(":foodName" . $i, null, PDO::PARAM_NULL);
             }
         }
-    
-        // Execute the SQL statement
         $executeResult = $sql->execute();
     
-        if ($executeResult) {
-            $_SESSION['success'] = "เพิ่มข้อมูลเรียบร้อย";
-        } else {
-            $_SESSION['error'] = "Data has not been updated successfully";
-        }
+
+    if ($executeResult) {
+        $_SESSION['success'] = "Data has been updated successfully";
         header("location: indexSetFood.php");
-        exit();
-    }else {
-        $sql = $conn->prepare("UPDATE setfood SET VillageSet = :village, SetName = :setName, FoodName0 = :foodName0, FoodName1 = :foodName1, FoodName2 = :foodName2, FoodName3 = :foodName3, FoodName4 = :foodName4, FoodName5 = :foodName5, FoodName6 = :foodName6 WHERE Idset = :id");
-    
-        // Bind parameters
-        $sql->bindParam(":village", $Village);
-        $sql->bindParam(":setName", $set);
-        $sql->bindParam(":id", $id);
-        
-        // Bind the food names dynamically
-        for ($i = 0; $i < 7; $i++) {
-            $foodNameKey = 'foodName' . $i;
-            if (isset($_POST[$foodNameKey])) {
-                $sql->bindValue(":foodName" . $i, $_POST[$foodNameKey]);
-            } else {
-                $sql->bindValue(":foodName" . $i, null, PDO::PARAM_NULL);
-            }
-        }
-    
-        // Execute the SQL statement
-        $executeResult = $sql->execute();
-    
-        if ($executeResult) {
-            $_SESSION['success'] = "เพิ่มข้อมูลเรียบร้อย";
-        } else {
-            $_SESSION['error'] = "Data has not been updated successfully";
-        }
+    } else {
+        $_SESSION['error'] = "Data has not been updated successfully";
         header("location: indexSetFood.php");
-        exit();
-    
-    
-    }   
+    }
 }
 $sql1 = "SELECT Name FROM village ";
 $userVillage = $conn->prepare($sql1);
@@ -128,7 +114,7 @@ $foodId = $foodId->fetchAll(PDO::FETCH_COLUMN);
                 <?php 
                 if(isset($_POST['userid'])){ 
                     $Id = $_POST['userid'];
-                    $stmt = $conn->query("SELECT S.Idset, S.ImgSet, V.Name, S.SetName,V.Id,
+                    $stmt = $conn->query("SELECT S.Idset, S.ImgSet1, S.ImgSet2, S.ImgSet3,S.ImgSet4, V.Name, S.SetName,V.Id,
 					S.FoodName0 AS FoodId0,
                     S.FoodName1 AS FoodId1,
                     S.FoodName2 AS FoodId2,
@@ -177,9 +163,23 @@ $foodId = $foodId->fetchAll(PDO::FETCH_COLUMN);
                 </select>
                     </div>
                     <div>
+                    <?php  $totalImg = 1;
+                    for ($i = 1; $i < 5; $i++) { 
+                        if ($data['ImgSet' . $i] != null) {
+                            $totalImg++;
+                        } else {
+                            break; 
+                        }
+                    } ?>
                         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">รูปภาพอาหาร :</label>
-                        <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="imgInput1" type="file" name="imgfood" >
-                        <img src="data:image/jpeg;base64,<?php echo base64_encode($data['ImgSet']); ?>" alt="" width="100%" id="previewImg1" class="rounded-lg" />
+                        <input multiple class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 img-input" id="imgInput" type="file" name="imgSet[]">
+                        <div id="previewContainer" class="mt-4 grid grid-cols-2 gap-2">
+                        <?php for ($i = 1; $i < $totalImg; $i++) {
+                        $Imgingre = $data['ImgSet' . $i];
+                    ?>
+                        <img src="data:image/jpeg;base64,<?php echo base64_encode($Imgingre); ?>" alt="" width="100%" id="previewImg2" class="w-full h-full rounded-lg"/>
+                        <?php } ?>
+                        </div>
                     </div>
                     <div>
                         <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">ชื่อสำรับ</label>
@@ -242,16 +242,46 @@ for ($i = 0; $i < $totalFoodNames; $i++) {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
-        let imgInput1 = document.getElementById('imgInput1');
-        let previewImg1 = document.getElementById('previewImg1');
+  let imgInput = document.getElementById('imgInput');
+  let previewContainer = document.getElementById('previewContainer');
 
-        imgInput1.onchange = evt => { //OnChange  การดำเนินการเพื่อดำเนินการเมื่อผู้ใช้เปลี่ยนแปลงค่าของตัวควบคุม ใช้กับตัวควบคุม เพิ่มรูปภาพ, ดรอปดาวน์
-            const [file] = imgInput1.files;
-                if (file) {
-                    previewImg1.src = URL.createObjectURL(file)
-            }
-        }
+  imgInput.onchange = evt => {
+    // Clear previous previews
+    previewContainer.innerHTML = '';
+
+    const files = imgInput.files;
+
+    for (const file of files) {
+      const imgElement = document.createElement('img');
+      imgElement.src = URL.createObjectURL(file);
+      imgElement.className = 'w-full h-full rounded';
+      previewContainer.appendChild(imgElement);
+    }
+  }
 </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let imgInputs = document.querySelectorAll('.img-input');
+
+        imgInputs.forEach(imgInput => {
+            imgInput.onchange = evt => {
+                const files = imgInput.files;
+                const previewContainer = imgInput.nextElementSibling;
+
+                // Clear previous previews
+                previewContainer.innerHTML = '';
+
+                for (const file of files) {
+                    const imgElement = document.createElement('img');
+                    imgElement.src = URL.createObjectURL(file);
+                    imgElement.className = 'w-full h-full rounded';
+                    previewContainer.appendChild(imgElement);
+                }
+            }
+        });
+    });
+</script>
+
 <script>
     $(document).ready(function () {
         var counter = <?php echo $totalFoodNames; ?>;

@@ -53,8 +53,9 @@ if(isset($_GET['delete'])){
                 <form class="space-y-6" action="insert.php" method="post" enctype="multipart/form-data">
                     <div>
                         <label for="email" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white font">รูปภาพของหมู่บ้าน</label>
-                        <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="imgInput" type="file" name="img">
-                        <img class="h-auto max-w-lg rounded-lg" width="100%" id="previewImg" alt="">
+                        <input multiple class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="imgInput" type="file" name="img[]">
+                        <!-- <img class="h-auto max-w-lg rounded-lg" width="100%" id="previewImg" alt=""> -->
+                        <div id="previewContainer" class="mt-4 grid grid-cols-2 gap-2"></div>
                     </div>
                     <div>
                         <label for="text" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white font">ชื่อหมู่บ้าน</label>
@@ -66,8 +67,7 @@ if(isset($_GET['delete'])){
                     </div>
                     <div>
                         <label for="text" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white font">ความหมาย</label>
-                        <textarea 
-                        type="text" name="Meaning" id="text"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                        <textarea type="text" name="Meaning" id="text"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
                         </textarea>
                     </div>
                     <div>
@@ -235,7 +235,7 @@ if(isset($_GET['delete'])){
                     <thead class=" bg-gray-100 dark:bg-gray-900">
                             <tr>
 
-    <th scope="col" class="px-6 py-3  text-l font-medium  text-gray-500 dark:text-gray-400 font ">Id</th>
+    <th scope="col" class="px-6 py-3  text-l font-medium  text-gray-500 dark:text-gray-400 font ">ลำดับ</th>
       <th scope="col" class="px-6 py-3 text-l font-medium  text-gray-500 dark:text-gray-400 font">รูปภาพของหมู่บ้าน</th>
       <th scope="col" class="px-6 py-3 text-l font-medium  text-gray-500 dark:text-gray-400 font">ชื่อหมู่บ้าน</th>
       <th scope="col" class="px-6 py-3 text-l font-medium  text-gray-500 dark:text-gray-400 font">ที่อยู่</th>
@@ -246,22 +246,25 @@ if(isset($_GET['delete'])){
   </thead>
   <tbody>
     <?php
-      $stmt = $conn->query("SELECT * FROM village ");
-      $stmt -> execute();
-      $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
-       // Fetch ข้อมูลทั้งหมดมาเก็บไว้ในตัวแปร
-
-       //หน้า page
-       $page = isset($_GET['page']) ? $_GET['page'] : 1;
-       $displayLimit = 10;
-       $offset = ($page - 1) * $displayLimit;
-
-       $stmt = $conn->query("SELECT COUNT(*) as total FROM village");
-       $stmt->execute();
-       $totalRows = $stmt->fetch()['total'];
-
-       $totalPages = ceil($totalRows / $displayLimit);
-       
+            $page = isset($_GET['page']) ? $_GET['page'] : 1;
+            $displayLimit = 15;
+            $offset = ($page - 1) * $displayLimit;
+            
+            $stmt = $conn->prepare("SELECT * FROM village LIMIT :limit OFFSET :offset");
+            $stmt->bindParam(':limit', $displayLimit, PDO::PARAM_INT);
+            $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+            $stmt->execute();
+            $user = $stmt->fetchAll();
+            
+            $stmt = $conn->query("SELECT COUNT(*) as total FROM village");
+            $stmt->execute();
+            $totalRows = $stmt->fetch()['total'];
+            
+            $totalPages = ceil($totalRows / $displayLimit);
+            $startRowNumber = ($page - 1) * $displayLimit + 1;
+            
+            $totalPages = ceil($totalRows / $displayLimit);
+                
        if (isset($_POST['search'])){//ถ้าไม่มีข้อมูลใน user
         $search = $_POST['search'];
         $query = $conn->query("SELECT * FROM village WHERE Name LIKE '%$search%' ");
@@ -275,7 +278,7 @@ if(isset($_GET['delete'])){
                 ?>
               <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
         <td scope="row" class="px-6 py-4 font-normal text-gray-600 font"><?php echo $result['Id']; ?></td>
-        <td class="p-2"><?php echo '<img src="data:image/jpeg;base64,'.base64_encode($result['Img']).'" alt="Upload Image"  style="width: 150px; height: 100px" class="rounded-md images "  "/>' ?></td>
+        <td class="p-2"><?php echo '<img src="data:image/jpeg;base64,'.base64_encode($result['Img1']).'" alt="Upload Image"  style="width: 150px; height: 100px" class="rounded-md images "  "/>' ?></td>
         <td class="px-6 py-4 font-normal text-gray-600 font"><?php echo $result['Name']; ?></td>
         <td class="px-6 py-4 font-normal text-gray-600 text-container font"><?php echo $result['Location']; ?></td>
         <td >
@@ -291,12 +294,12 @@ if(isset($_GET['delete'])){
         } 
       } else {
         
-         foreach ($user as $user){ // loop ข้อมูล 
+         foreach ($user as $row => $user){ // loop ข้อมูล 
            
     ?>
         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-        <td scope="row" class="px-6 py-4 font-normal text-gray-600 font"><?php echo $user['Id']; ?></td>
-        <td class="p-2"><?php echo '<img src="data:image/jpeg;base64,'.base64_encode($user['Img']).'" alt="Upload Image"  style="width: 150px; height: 100px" class="rounded-md images "  "/>' ?></td>
+        <td scope="row" class="px-6 py-4 font-normal text-gray-600 font"><?php echo $startRowNumber + $row ?></td>
+        <td class="p-2"><?php echo '<img src="data:image/jpeg;base64,'.base64_encode($user['Img1']).'" alt="Upload Image"  style="width: 150px; height: 100px" class="rounded-md images "  "/>' ?></td>
         <td class="px-6 py-4 font-normal text-gray-600 font"><?php echo $user['Name']; ?></td>
         <td class="px-6 py-4 font-normal text-gray-600 text-container font"><?php echo $user['Location']; ?></td>
         <td >
@@ -361,7 +364,7 @@ if(isset($_GET['delete'])){
         </div>
           </div>
         <div class="popup-image">            
-        <?php   echo '<img src="data:image/jpeg;base64,'.base64_encode($user['Img']).'" alt="img" " class="rounded-lg " "/>'  ?>
+        <?php   echo '<img src="data:image/jpeg;base64,'.base64_encode($user['Img1']).'" alt="img" " class="rounded-lg " "/>'  ?>
         <button type="button" class="absolute top-6 right-6 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white ">
                 <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
@@ -384,15 +387,22 @@ if(isset($_GET['delete'])){
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
-        let imgInput = document.getElementById('imgInput');
-        let previewImg = document.getElementById('previewImg');
+  let imgInput = document.getElementById('imgInput');
+  let previewContainer = document.getElementById('previewContainer');
 
-        imgInput.onchange = evt => {
-            const [file] = imgInput.files;
-                if (file) {
-                    previewImg.src = URL.createObjectURL(file)
-            }
-        }
+  imgInput.onchange = evt => {
+    // Clear previous previews
+    previewContainer.innerHTML = '';
+
+    const files = imgInput.files;
+
+    for (const file of files) {
+      const imgElement = document.createElement('img');
+      imgElement.src = URL.createObjectURL(file);
+      imgElement.className = 'w-full h-full rounded';
+      previewContainer.appendChild(imgElement);
+    }
+  }
 </script>
 <script type='text/javascript'>
             $(document).ready(function(){

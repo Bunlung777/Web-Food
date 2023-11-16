@@ -56,8 +56,8 @@ if (isset($_GET['delete'])) {
                     <form class="space-y-6" action="insertingre.php" method="post" enctype="multipart/form-data">
                         <div>
                             <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">รูปภาพส่วนประกอบ : </label>
-                            <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="imgInput" type="file" name="imgIngre">
-                            <img class="h-auto max-w-lg rounded-lg" width="100%" id="previewImg" alt="">
+                            <input multiple class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="imgInput" type="file" name="imgIngre[]">
+                            <div id="previewContainer" class="mt-4 grid grid-cols-2 gap-2"></div>
                         </div>
                         <div>
                             <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">ชื่อส่วนประกอบ : </label>
@@ -230,24 +230,30 @@ if (isset($_GET['delete'])) {
 
         <tbody>
             <?php
-            $stmt = $conn->query("SELECT * FROM ingredients ");
-            $stmt->execute();
-            $ingredients = $stmt->fetchAll(); // Fetch ข้อมูลทั้งหมดมาเก็บไว้ในตัวแปร
-
             $stmt = $conn->query("SELECT * FROM food ");
             $stmt->execute();
             $food = $stmt->fetchAll(); // Fetch ข้อมูลทั้งหมดมาเก็บไว้ในตัวแปร
             //หน้า page
             $page = isset($_GET['page']) ? $_GET['page'] : 1;
-            $displayLimit = 10;
+            $displayLimit = 15;
             $offset = ($page - 1) * $displayLimit;
-     
+
+            if(isset($_GET['page'])){
+                $_SESSION['page'] = $_GET['page'];
+                }
+                
+            $stmt = $conn->prepare("SELECT * FROM ingredients  LIMIT :limit OFFSET :offset");
+            $stmt->bindParam(':limit', $displayLimit, PDO::PARAM_INT);
+            $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+            $stmt->execute();
+            $ingredients = $stmt->fetchAll();
+            
             $stmt = $conn->query("SELECT COUNT(*) as total FROM ingredients");
             $stmt->execute();
             $totalRows = $stmt->fetch()['total'];
             
             $totalPages = ceil($totalRows / $displayLimit);
-
+            $startRowNumber = ($page - 1) * $displayLimit + 1;
 
             if (isset($_POST['search'])){//ถ้าไม่มีข้อมูลใน user
                 $search = $_POST['search'];
@@ -263,7 +269,7 @@ if (isset($_GET['delete'])) {
 
                         <td scope="row" class="px-6 py-4 font-normal text-gray-600 font-medium text-gray-900 whitespace-nowrap dark:text-white font"><?php echo $row +1 ?></td>
                         <div>
-                            <td class="p-2"><?php echo '<img src="data:image/jpeg;base64,' . base64_encode($result['ImgIngre']) . '" alt="Upload Image"  style="width: 150px; height: 100px" class="rounded-lg thumbnail "  "/>' ?></td>
+                            <td class="p-2"><?php echo '<img src="data:image/jpeg;base64,' . base64_encode($result['ImgIngre1']) . '" alt="Upload Image"  style="width: 150px; height: 100px" class="rounded-lg thumbnail "  "/>' ?></td>
                         </div>
                         <td class="px-6 py-4 font-normal text-gray-600 font"><?php echo $result['ingredientsName']; ?></td>
                         <td>
@@ -281,9 +287,9 @@ if (isset($_GET['delete'])) {
                 foreach ($ingredients as $row => $ingredients) { // loop ข้อมูล 
             ?> <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
 
-            <td scope="row" class="px-6 py-4 font-normal text-gray-600 font-medium text-gray-900 whitespace-nowrap dark:text-white font"><?php echo $row +1 ?></td>
+            <td scope="row" class="px-6 py-4 font-normal text-gray-600 font-medium text-gray-900 whitespace-nowrap dark:text-white font"><?php echo $startRowNumber + $row ?></td>
             <div>
-                <td class="p-2"><?php echo '<img src="data:image/jpeg;base64,' . base64_encode($ingredients['ImgIngre']) . '" alt="Upload Image"  style="width: 150px; height: 100px" class="rounded-lg thumbnail "  "/>' ?></td>
+                <td class="p-2"><?php echo '<img src="data:image/jpeg;base64,' . base64_encode($ingredients['ImgIngre1']) . '" alt="Upload Image"  style="width: 150px; height: 100px" class="rounded-lg thumbnail "  "/>' ?></td>
             </div>
             <td class="px-6 py-4 font-normal text-gray-600 font"><?php echo $ingredients['ingredientsName']; ?></td>
             <td>
@@ -346,8 +352,9 @@ if (isset($_GET['delete'])) {
             </div>
         </div>
           </div>
+          
     <div class="popup-image">
-        <?php echo '<img src="data:image/jpeg;base64,' . base64_encode($ingredients['ImgIngre']) . '" alt="img" " class="rounded-lg " "/>'  ?>
+        <?php echo '<img src="data:image/jpeg;base64,' . base64_encode($ingredients['ImgIngre1']) . '" alt="img" " class="rounded-lg " "/>'  ?>
         <button type="button" class="absolute top-6 right-6 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white ">
             <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
@@ -369,15 +376,22 @@ if (isset($_GET['delete'])) {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
-    let imgInput = document.getElementById('imgInput');
-    let previewImg = document.getElementById('previewImg');
+  let imgInput = document.getElementById('imgInput');
+  let previewContainer = document.getElementById('previewContainer');
 
-    imgInput.onchange = evt => {
-        const [file] = imgInput.files;
-        if (file) {
-            previewImg.src = URL.createObjectURL(file)
-        }
+  imgInput.onchange = evt => {
+    // Clear previous previews
+    previewContainer.innerHTML = '';
+
+    const files = imgInput.files;
+
+    for (const file of files) {
+      const imgElement = document.createElement('img');
+      imgElement.src = URL.createObjectURL(file);
+      imgElement.className = 'w-full h-full rounded';
+      previewContainer.appendChild(imgElement);
     }
+  }
 </script>
 
 <script type='text/javascript'>
@@ -406,11 +420,9 @@ if (isset($_GET['delete'])) {
             document.querySelector('.popup-image img').src = image.getAttribute('src');
         }
     })
-
     document.querySelector('.popup-image button').onclick = () => {
         document.querySelector('.popup-image').style.display = 'none';
     }
-
     document.querySelector('.popup-image').addEventListener('click', (e) => {
         if (e.target === document.querySelector('.popup-image')) {
             document.querySelector('.popup-image').style.display = 'none';
@@ -425,7 +437,6 @@ if (isset($_GET['delete'])) {
         setTimeout(hideNotification, 4000);
     </script>
     
-
 </body>
 
 </html>

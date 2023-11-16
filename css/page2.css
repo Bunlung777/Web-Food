@@ -27,77 +27,6 @@ body {
   font-family: "Niramit", sans-serif;
 }
 
-header {
-  width: 100%;
-  background-color: rgb(255, 255, 255);
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-  z-index: 3;
-}
-
-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-nav .logo {
-  display: flex;
-}
-
-nav .logo i {
-  color: rgb(156, 156, 156);
-  font-weight: bold;
-  font-size: 40px;
-  transition: 0.4s;
-}
-
-nav .logo i:hover {
-  color: #061171;
-}
-
-nav ul {
-  display: flex;
-  list-style: none;
-}
-
-nav ul li {
-  padding: 0 1rem;
-  margin: 1rem 0;
-}
-
-nav ul li a {
-  text-decoration: none;
-  font-size: 16px;
-  color: rgb(139, 138, 138);
-  transition: 0.4s;
-}
-
-nav ul li a:hover {
-  color: rgb(4, 131, 142);
-}
-
-nav ul li a i {
-  margin: 0 0.1rem;
-}
-/* Style the hamburger menu for small screens */
-.hamburger-menu {
-  display: none;
-  flex-direction: column;
-  cursor: pointer;
-  padding: 0.5rem;
-}
-
-.bar {
-  width: 30px;
-  height: 3px;
-  background-color: #fff;
-  margin: 4px 0;
-}
-
 /* main-village */
 .main-village {
   background-color: #ffffff;
@@ -123,6 +52,7 @@ nav ul li a i {
 }
 .image-village img {
   width: 100%;
+  height: 24rem;
 }
 
 .village-story {

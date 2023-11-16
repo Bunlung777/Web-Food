@@ -9,31 +9,36 @@ if (isset($_POST['Update'])) {
     $Detail = $_POST['Detail'];
     $Meaning = $_POST['Meaning'];
     $Location = $_POST['Location'];
-
     $img2 = $_FILES['img']['name'];
 
-    if($img2 != ''){    
-        $img = file_get_contents($_FILES['img']['tmp_name']);
-        $sql = $conn->prepare("UPDATE village SET Name = :name, Img = :img, Detail = :Detail, Meaning = :Meaning, Location = :Location WHERE id = :id");
-        $sql->bindParam(":id", $id);
-        $sql->bindParam(":name", $name);
-        $sql->bindParam(":img", $img);
-        $sql->bindParam(":Detail", $Detail);
-        $sql->bindParam(":Meaning", $Meaning);
-        $sql->bindParam(":Location", $Location);
-        $sql->execute();
-        if ($sql) {
-            $_SESSION['editsuccess'] = "";
-            header("location: index.php");
+    foreach ($_FILES['img']['tmp_name'] as $key => $imgTmpName) {
+        if ($_FILES['img']['error'][$key] === UPLOAD_ERR_OK) {
+            // Read the file content
+            $img = file_get_contents($imgTmpName);
+            $images[] = $img;
         } else {
-            $_SESSION['error'] = "";
-            header("location: index.php");
+            $_SESSION['error'] = "Error uploading file " . $key;
+            header("location: indexingre.php");
+            exit();
         }
-    }else {
+    }
+    $numImages = count($images);
+    $maxImg = 4;
 
-        $sql = $conn->prepare("UPDATE village SET Name = :name, Detail = :Detail, Meaning = :Meaning, Location = :Location WHERE id = :id");
+        $sql = $conn->prepare("UPDATE village SET Name = :name, Img1 = :img1, Img2 = :img2, Img3 = :img3, Img4 = :img4, Detail = :Detail, Meaning = :Meaning, Location = :Location WHERE id = :id");
         $sql->bindParam(":id", $id);
         $sql->bindParam(":name", $name);
+        for ($g = 1; $g <= $maxImg; $g++) {
+            for ($iii = 1; $iii <= $numImages; $iii++) {
+                $ImgSet = 'img'.$iii;
+                $sql->bindParam(":".$ImgSet, $images[$iii-1], PDO::PARAM_LOB);
+            }
+            for ($a = $g+1 ; $a <= $maxImg; $a++) {
+                $ImgSet = 'img'.$a;
+                $emptyValue = "";
+                $sql->bindParam(":".$ImgSet,$emptyValue);
+            }
+        }
         $sql->bindParam(":Detail", $Detail);
         $sql->bindParam(":Meaning", $Meaning);
         $sql->bindParam(":Location", $Location);
@@ -48,7 +53,6 @@ if (isset($_POST['Update'])) {
     }
     
 
-}
 ?>
 
 <!DOCTYPE html>
@@ -92,10 +96,23 @@ if (isset($_POST['Update'])) {
                         <input type="text" hidden value="<?php echo $data['Id']; ?>" required name="idd" id="text"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
                     </div>
                     <div>
+                    <?php  $totalImg = 1;
+                    for ($i = 1; $i < 5; $i++) { 
+                        if ($data['Img' . $i] != null) {
+                            $totalImg++;
+                        } else {
+                            break; 
+                        }
+                    } ?>
                         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">รูปภาพของหมู่บ้าน</label>
-                        <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="imgInputs" type="file" name="img">
-                        <img src="data:image/jpeg;base64,<?php echo base64_encode($data['Img']); ?>" alt="" width="100%" id="previewImgs" class="rounded-lg" name="img2" />
-                        
+                        <input multiple class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="imgInputs" type="file" name="img[]">
+                        <div id="previewContainer3" class="mt-4 grid grid-cols-2 gap-2">
+                       <?php for ($i = 1; $i < $totalImg; $i++) {
+                        $Imgvillage = $data['Img' . $i];
+                    ?>
+                        <img src="data:image/jpeg;base64,<?php echo base64_encode($Imgvillage); ?>" alt="" width="100%" id="previewImgs" class="rounded-lg" name="img2" />
+                        <?php } ?>
+                        </div>
                     </div>
                     <div>
                         <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">รายละเอียด</label>
@@ -131,15 +148,22 @@ if (isset($_POST['Update'])) {
 <script src="https://cdn.tailwindcss.com"></script>
 
 <script>
-        let imgInput = document.getElementById('imgInputs');
-        let previewImg = document.getElementById('previewImgs');
+  let imgInput = document.getElementById('imgInputs');
+  let previewContainer = document.getElementById('previewContainer3');
 
-        imgInput.onchange = evt => { //OnChange  การดำเนินการเพื่อดำเนินการเมื่อผู้ใช้เปลี่ยนแปลงค่าของตัวควบคุม ใช้กับตัวควบคุม เพิ่มรูปภาพ, ดรอปดาวน์
-            const [file] = imgInput.files;
-                if (file) {
-                    previewImg.src = URL.createObjectURL(file)
-            }
-        }
+  imgInput.onchange = evt => {
+    // Clear previous previews
+    previewContainer.innerHTML = '';
+
+    const files = imgInput.files;
+
+    for (const file of files) {
+      const imgElement = document.createElement('img');
+      imgElement.src = URL.createObjectURL(file);
+      imgElement.className = 'w-full h-full rounded';
+      previewContainer.appendChild(imgElement);
+    }
+  }
 </script>
 
 </body>

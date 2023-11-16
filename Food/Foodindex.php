@@ -15,11 +15,10 @@ if (isset($_GET['delete'])) {
     }
 }
 
-$sql = "SELECT * FROM ingredients";
+$sql = "SELECT Idingre,ingredientsName	FROM ingredients";
 $foodName = $conn->prepare($sql);
 $foodName->execute();
 $ingredient = $foodName->fetchAll();
-
 
 
 ?>
@@ -63,8 +62,9 @@ $ingredient = $foodName->fetchAll();
                     <form class="space-y-6" action="insertFood.php" method="post" enctype="multipart/form-data">
                         <div>
                             <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">รูปภาพอาหาร : </label>
-                            <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="imgInput" type="file" name="imgSet" required>
-                            <img class="h-auto max-w-lg rounded-lg" width="100%" id="previewImg" alt="">
+                            <input multiple class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="imgInput" type="file" name="ImgFood[]" required>
+                            <!-- <img class="h-auto max-w-lg rounded-lg" width="100%" id="previewImg" alt=""> -->
+                            <div id="previewContainer" class="mt-4 grid grid-cols-2 gap-2"></div>
                         </div>
                         <div>
                             <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">ชื่ออาหาร : </label>
@@ -246,7 +246,7 @@ $ingredient = $foodName->fetchAll();
 
                     <thead class=" bg-gray-100 dark:bg-gray-900">
                             <tr>
-                    <th scope="col" class="px-6 py-3  text-l font-normal  text-gray-500 dark:text-gray-400 font">ID</th>
+                    <th scope="col" class="px-6 py-3  text-l font-normal  text-gray-500 dark:text-gray-400 font">ลำดับ</th>
                     <th scope="col" class=" py-3  text-l font-normal  text-gray-500 dark:text-gray-400 font">รูปภาพสำรับอาหาร</th>
                     <th scope="col" class="px-6 py-3  text-l font-normal  text-gray-500 dark:text-gray-400 font">ชื่ออาหาร</th>
                     <!-- <th scope="col" class=" py-3  text-l font-normal  text-gray-500 dark:text-gray-400 font">รายละเอียดอาหาร</th> -->
@@ -255,19 +255,25 @@ $ingredient = $foodName->fetchAll();
         </thead>
         <tbody>
             <?php
-            $stmt = $conn->query("SELECT * FROM food ");
-            $stmt->execute();
-            $food = $stmt->fetchAll(); // Fetch ข้อมูลทั้งหมดมาเก็บไว้ในตัวแปร
             //หน้า page
             $page = isset($_GET['page']) ? $_GET['page'] : 1;
-            $displayLimit = 10;
+            $displayLimit = 15;
             $offset = ($page - 1) * $displayLimit;
-     
+            
+            $stmt = $conn->prepare("SELECT * FROM food LIMIT :limit OFFSET :offset");
+            $stmt->bindParam(':limit', $displayLimit, PDO::PARAM_INT);
+            $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+            $stmt->execute();
+            $food = $stmt->fetchAll();
+            
             $stmt = $conn->query("SELECT COUNT(*) as total FROM food");
             $stmt->execute();
             $totalRows = $stmt->fetch()['total'];
             
             $totalPages = ceil($totalRows / $displayLimit);
+            $startRowNumber = ($page - 1) * $displayLimit + 1;
+            
+
 
             if (isset($_POST['search'])){//ถ้าไม่มีข้อมูลใน user
                 $search = $_POST['search'];
@@ -281,9 +287,9 @@ $ingredient = $foodName->fetchAll();
                         ?>
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
 
-                        <td scope="row" class="px-6 py-4 font-normal text-gray-600 font-medium text-gray-900 whitespace-nowrap dark:text-white font"><?php echo $row + 1?></td>
+                        <td scope="row" class="px-6 py-4 font-normal text-gray-600 font-medium text-gray-900 whitespace-nowrap dark:text-white font"><?php echo $row+1 ?></td>
                         <div>
-                            <td class="p-2"><?php echo '<img src="data:image/jpeg;base64,' . base64_encode($result['ImgFood']) . '" alt="Upload Image"  style="width: 150px; height: 100px" class="rounded-lg thumbnail "  "/>' ?></td>
+                            <td class="p-2"><?php echo '<img src="data:image/jpeg;base64,' . base64_encode($result['ImgFood1']) . '" alt="Upload Image"  style="width: 150px; height: 100px" class="rounded-lg thumbnail "  "/>' ?></td>
                         </div>
                         <td class="px-6 py-4 font-normal text-gray-600 font"><?php echo $result['FoodName']; ?></td>
                         <td class="px-6 py-4 font-normal text-gray-600 font text-container"><?php echo $result['Detail']; ?></td>
@@ -301,9 +307,9 @@ $ingredient = $foodName->fetchAll();
             } else {
                 foreach ($food as $row => $item) {
             ?><tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-            <td scope="row" class="px-6 py-4 font-normal text-gray-600 font-medium text-gray-900 whitespace-nowrap dark:text-white font"><?php echo $row + 1; ?></td>
+            <td scope="row" class="px-6 py-4 font-normal text-gray-600 font-medium text-gray-900 whitespace-nowrap dark:text-white font"><?php echo $startRowNumber + $row; ?></td>
             <td class="p-2">
-                <img src="data:image/jpeg;base64,<?php echo base64_encode($item['ImgFood']); ?>" alt="Food Image" style="width: 150px; height: 100px" class="rounded-lg thumbnail">
+                <img src="data:image/jpeg;base64,<?php echo base64_encode($item['ImgFood1']); ?>" alt="Food Image" style="width: 150px; height: 100px" class="rounded-lg thumbnail">
             </td>
             <td class="px-6 py-4 font-normal text-gray-600 font"><?php echo $item['FoodName']; ?></td>
             <!-- <td class="px-6 py-4 font-normal text-gray-600 font text-container" maxlength="8"><?php echo $item['Detail']; ?></td> -->
@@ -389,15 +395,22 @@ $ingredient = $foodName->fetchAll();
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
-    let imgInput = document.getElementById('imgInput');
-    let previewImg = document.getElementById('previewImg');
+  let imgInput = document.getElementById('imgInput');
+  let previewContainer = document.getElementById('previewContainer');
 
-    imgInput.onchange = evt => {
-        const [file] = imgInput.files;
-        if (file) {
-            previewImg.src = URL.createObjectURL(file)
-        }
+  imgInput.onchange = evt => {
+    // Clear previous previews
+    previewContainer.innerHTML = '';
+
+    const files = imgInput.files;
+
+    for (const file of files) {
+      const imgElement = document.createElement('img');
+      imgElement.src = URL.createObjectURL(file);
+      imgElement.className = 'w-full h-full rounded';
+      previewContainer.appendChild(imgElement);
     }
+  }
 </script>
 
 <script type='text/javascript'>

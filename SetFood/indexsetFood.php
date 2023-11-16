@@ -26,7 +26,7 @@ $Idvillage = $conn->prepare($sqlvillage);
 $Idvillage->execute();
 $Idvill = $Idvillage->fetchAll(PDO::FETCH_COLUMN);
 
-$sqls = "SELECT ImgFood FROM food";
+$sqls = "SELECT ImgFood1 FROM food";
 $foodimg = $conn->prepare($sqls);
 $foodimg->execute();
 $imgFood = $foodimg->fetchAll(PDO::FETCH_COLUMN);
@@ -92,8 +92,9 @@ if (isset($_GET['delete'])) {
                         </div>
                         <div>
                             <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">รูปภาพสำรับอาหาร : </label>
-                            <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="imgInput" type="file" name="imgSet" require>
-                            <img class="h-auto max-w-lg rounded-lg" width="100%" id="previewImg" alt="">
+                            <input multiple class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="imgInput" type="file" name="imgSet[]" required>
+                            <div id="previewContainer" class="mt-4 grid grid-cols-2 gap-2"></div>
+                            <!-- <img class="h-auto max-w-lg rounded-lg" width="100%" id="previewImg" alt=""> -->
                         </div>
                         <div>
                             <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">ชื่อสำรับ : </label>
@@ -285,7 +286,7 @@ if (isset($_GET['delete'])) {
 
                     <thead class=" bg-gray-100 dark:bg-gray-900">
                             <tr>
-                    <th scope="col" class="px-6 py-3  text-l font-normal  text-gray-500 dark:text-gray-400 font">Id</th>
+                    <th scope="col" class="px-6 py-3  text-l font-normal  text-gray-500 dark:text-gray-400 font">ลำดับ</th>
                     <th scope="col" class="px-6 py-3  text-l font-normal  text-gray-500 dark:text-gray-400 font">รูปภาพสำรับอาหาร</th>
                     <th scope="col" class="px-6 py-3  text-l font-normal  text-gray-500 dark:text-gray-400 font">ชื่อหมู่บ้าน</th>
                     <th scope="col" class="px-6 py-3  text-l font-normal  text-gray-500 dark:text-gray-400 font">ชื่อสำรับ</th>
@@ -304,6 +305,7 @@ if (isset($_GET['delete'])) {
             $totalRows = $stmt->fetch()['total'];
             
             $totalPages = ceil($totalRows / $displayLimit);
+            $startRowNumber = ($page - 1) * $displayLimit + 1;
 
             $stmt = $conn->prepare("SELECT * FROM setfood AS S JOIN village AS V ON S.VillageSet = V.Id LIMIT :limit OFFSET :offset");
             $stmt->bindParam(':limit', $displayLimit, PDO::PARAM_INT);
@@ -324,7 +326,7 @@ if (isset($_GET['delete'])) {
                         ?>
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                 <td scope="row" class="px-6 py-4 font-normal text-gray-600 font "><?php echo $result['Idset']; ?></td>
-                <td><?php echo '<img src="data:image/jpeg;base64,'.base64_encode($result['ImgSet']).'" alt="Upload Image"  style="width: 150px; height: 100px" class="rounded-lg thumbnail "  "/>' ?></td>
+                <td><?php echo '<img src="data:image/jpeg;base64,'.base64_encode($result['ImgSet1']).'" alt="Upload Image"  style="width: 150px; height: 100px" class="rounded-lg thumbnail "  "/>' ?></td>
         
                 <td class="px-6 py-4 font-normal text-gray-600 font"><?php echo $result['Name']; ?></td>
                 <td class="px-6 py-4 font-normal text-gray-600 font"><?php echo $result['SetName']; ?></td>
@@ -341,11 +343,11 @@ if (isset($_GET['delete'])) {
                     }
                 } 
             } else
-            foreach ($setfood as $setfood) { // loop ข้อมูล 
+            foreach ($setfood as $row => $setfood) { // loop ข้อมูล 
             ?>
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <td scope="row" class="px-6 py-4 font-normal text-gray-600 font"><?php echo $setfood['Idset']; ?></td>
-                <td><?php echo '<img src="data:image/jpeg;base64,'.base64_encode($setfood['ImgSet']).'" alt="Upload Image"  style="width: 150px; height: 100px" class="rounded-lg thumbnail "  "/>' ?></td>
+                <td scope="row" class="px-6 py-4 font-normal text-gray-600 font"><?php echo $startRowNumber + $row ; ?></td>
+                <td><?php echo '<img src="data:image/jpeg;base64,'.base64_encode($setfood['ImgSet1']).'" alt="Upload Image"  style="width: 150px; height: 100px" class="rounded-lg thumbnail "  "/>' ?></td>
         
                 <td class="px-6 py-4 font-normal text-gray-600 font"><?php echo $setfood['Name']; ?></td>
                 <td class="px-6 py-4 font-normal text-gray-600 font"><?php echo $setfood['SetName']; ?></td>
@@ -411,7 +413,7 @@ if (isset($_GET['delete'])) {
         </div>
           </div>
     <div class="popup-image">
-        <?php echo '<img src="data:image/jpeg;base64,' . base64_encode($setfood['ImgSet']) . '" alt="img" " class="rounded-lg " "/>'  ?>
+        <?php echo '<img src="data:image/jpeg;base64,' . base64_encode($setfood['ImgSet1']) . '" alt="img" " class="rounded-lg " "/>'  ?>
         <button type="button" class="absolute top-6 right-6 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white ">
             <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
@@ -437,17 +439,23 @@ if (isset($_GET['delete'])) {
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-    let imgInput = document.getElementById('imgInput');
-    let previewImg = document.getElementById('previewImg');
+  let imgInput = document.getElementById('imgInput');
+  let previewContainer = document.getElementById('previewContainer');
 
-    imgInput.onchange = evt => {
-        const [file] = imgInput.files;
-        if (file) {
-            previewImg.src = URL.createObjectURL(file)
-        }
+  imgInput.onchange = evt => {
+    // Clear previous previews
+    previewContainer.innerHTML = '';
+
+    const files = imgInput.files;
+
+    for (const file of files) {
+      const imgElement = document.createElement('img');
+      imgElement.src = URL.createObjectURL(file);
+      imgElement.className = 'w-full h-full rounded';
+      previewContainer.appendChild(imgElement);
     }
+  }
 </script>
-
 <script type='text/javascript'>
     $(document).ready(function() {
         $('.userinfo').click(function() {
@@ -496,7 +504,6 @@ if (isset($_GET['delete'])) {
 $(document).ready(function () {
     var counter = 1;
     var timesToClone = 12; 
-
     $("#addaaa").click(function () {
         if (counter < timesToClone) {
             var clonedSelect = $(".food").first().clone();
@@ -509,7 +516,6 @@ $(document).ready(function () {
         }
     });
 });
-
 </script>
 </body>
 
