@@ -9,12 +9,12 @@ include "../Config/DB.php";
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>หมู่บ้านในโครงการ</title>
-  <link rel="stylesheet" href="../css/page1.css">
+  <link rel="stylesheet" href="../css/village.css">
   <link rel="stylesheet" href="../css/tailwind.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="../css/responsive1.css">
+  <link rel="stylesheet" href="../css/villagerespon.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Niramit:wght@500&family=Taviraj&display=swap" rel="stylesheet">
@@ -96,7 +96,7 @@ foreach($user as $user){
    <div class="slide">
           <div class="image">
             <a href=""><img
-            <?php echo 'src="data:image/jpeg;base64,'.base64_encode($user['Img']).'" ' ?>
+            <?php echo 'src="data:image/jpeg;base64,'.base64_encode($user['Img1']).'" ' ?>
                 alt="Image 1" /></a>
           </div>
           <div class="text_slide">

@@ -10,6 +10,10 @@ body{
   display: flex;
   background-color: white;
   box-shadow: 0px 1px 4px rgba(0,0,0);
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 999;
 }
 .main-login{
   display: flex;
@@ -31,7 +35,7 @@ body{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 60%;
+  width: 50%;
   margin: 0 auto;
 }
 .nav-main{
@@ -73,6 +77,7 @@ display: none;
   top: 40px;
   left: 0;
   background-color: #ffffff;
+  z-index: 999;
 }
 
 .nav-main.show {
@@ -122,7 +127,6 @@ display: none;
   display: none;
   position: absolute;
   top: 0;
-  
   max-width: 100px;
   background-color:rgb(0, 0, 0) ;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -175,9 +179,6 @@ display: none;
   width: 100%;
   border: 1px solid rgb(249, 245, 245);
 }
-.drop-menu:hover .drop-item{
-  display: block;
-}
 
 .dropdown-content a {
   color: black;
@@ -190,5 +191,4 @@ display: none;
 
 .dropdown:hover .dropdown-content {
   display: block;
-  
 }

@@ -4,14 +4,14 @@
 include ("../Config/DB.php");
 include '../include/navbar.php';
 $id = $_GET['id'];
-$village = $conn->query("SELECT S.Idset, S.ImgSet, V.Name, S.SetName,V.Id,
-F.ImgFood AS ImgFood0,
-F1.ImgFood AS ImgFood1,
-F2.ImgFood AS ImgFood2,
-F3.ImgFood AS ImgFood3,
-F4.ImgFood AS ImgFood4,
-F5.ImgFood AS ImgFood5,
-F6.ImgFood AS ImgFood6,
+$village = $conn->query("SELECT S.Idset, S.ImgSet1, V.Name, S.SetName,V.Id,
+F.ImgFood1 AS ImgFood0,
+F1.ImgFood1 AS ImgFood1,
+F2.ImgFood1 AS ImgFood2,
+F3.ImgFood1 AS ImgFood3,
+F4.ImgFood1 AS ImgFood4,
+F5.ImgFood1 AS ImgFood5,
+F6.ImgFood1 AS ImgFood6,
 F.Detail AS FoodDetail0,
 F1.Detail AS FoodDetail1,
 F2.Detail AS FoodDetail2,
@@ -25,7 +25,14 @@ F2.FoodName AS FoodName2,
 F3.FoodName AS FoodName3, 
 F4.FoodName AS FoodName4, 
 F5.FoodName AS FoodName5, 
-F6.FoodName AS FoodName6 
+F6.FoodName AS FoodName6,
+F.IdFood AS IdFood0, 
+F1.IdFood AS IdFood1, 
+F2.IdFood AS IdFood2, 
+F3.IdFood AS IdFood3, 
+F4.IdFood AS IdFood4, 
+F5.IdFood AS IdFood5,
+F6.IdFood AS IdFood6
 FROM setfood AS S 
 LEFT JOIN village AS V ON S.VillageSet = V.Id 
 LEFT JOIN food AS F ON S.FoodName0 = F.IdFood 
@@ -48,8 +55,8 @@ $setfood = $village->fetch();
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="../css/page3.css">
-  <link rel="stylesheet" href="../css/responsive3.css">
+  <link rel="stylesheet" href="../css/menu.css">
+  <link rel="stylesheet" href="../css/menurespon.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -72,13 +79,13 @@ $setfood = $village->fetch();
     <div class="control_village">
       <div class="image-village">
         <img
-        <?php echo 'src="data:image/jpeg;base64,'.base64_encode($setfood['ImgSet']).'" ' ?> 
+        <?php echo 'src="data:image/jpeg;base64,'.base64_encode($setfood['ImgSet1']).'" ' ?> 
           onclick="mainopenPopup()" class="flex1"
           />
           <div id="mainopenPopup" class="popup">
             <span class="close-button" onclick="mainclosePopup()">&times;</span>
             <img
-            <?php echo 'src="data:image/jpeg;base64,'.base64_encode($setfood['ImgSet']).'" ' ?> 
+            <?php echo 'src="data:image/jpeg;base64,'.base64_encode($setfood['ImgSet1']).'" ' ?> 
           onclick="mainopenPopup()" class="flex1"
               alt="Image" />
           </div>
@@ -160,6 +167,7 @@ $setfood = $village->fetch();
                       $food = $setfood['FoodName' . $i];
                       $detail = $setfood['FoodDetail' . $i];
                       $ImgFood = $setfood['ImgFood' . $i];
+                      $IdFood = $setfood['IdFood'.$i];
                     ?>
       <div class="food-item">
         <div class="food-image">
@@ -196,6 +204,9 @@ $setfood = $village->fetch();
           <p class="text_v">
           <?php echo $detail ?>
           </p>
+          <a href="/Web-Food/website/recipe.php?id=<?php echo $IdFood ?>" type="button" class="btn-food" >
+            ข้อมูลเพิ่มเติม
+          </a>
         </div>
       </div>
       <?php } ?>
