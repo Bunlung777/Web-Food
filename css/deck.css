@@ -91,63 +91,6 @@ body {
   flex-direction: column;
 }
 
-/* food-village */
-.food-village {
-  margin: 2rem auto;
-  max-width: 1000px;
-  border-radius: 0.5rem;
-  padding: 1rem;
-}
-.food-village .food-item {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  border: 1px solid rgb(219, 218, 218);
-  box-shadow: 0px 10px 15px rgb(225, 225, 225);
-  margin: 1rem 0;
-  border-radius: 0.5rem;
-}
-
-.food-village .food-item .food-image {
-  margin: 0.5rem;
-  width: 100%;
-  overflow: hidden;
-  transition: 0.4s;
-  border-radius: 1rem;
-}
-.food-village .food-item .food-image img {
-  width: 100%;
-  height: 100%;
-}
-.food-village .food-item .food-image:hover {
-  transform: scale(1.01);
-  box-shadow: 0px 10px 15px rgb(122, 122, 122);
-}
-.food-village .food-item .food-text {
-  width: 100%;
-  padding: 0 0.5rem;
-}
-.food-village .food-item .food-text p {
-  padding: 0 1rem;
-}
-.btn-food {
-  border-radius: 5px;
-  width: 30%;
-  display: flex;
-  margin: 1rem auto;
-  height: 35px;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid rgb(119, 119, 119);
-  color: #713f06;
-  transition: 0.4s;
-}
-.btn-food:hover {
-  background-color: #ff8d0b;
-  color: #fff;
-  border: 1px solid rgb(194, 194, 194);
-}
-
 /* popup */
 /* ซ่อน Popup Image เริ่มต้น */
 .popup {

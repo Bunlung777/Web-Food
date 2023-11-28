@@ -1,9 +1,3 @@
-<?php 
-
-$stmt = $conn->query("SELECT * FROM village");
-$stmt->execute();
-$village = $stmt->fetchAll();            
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,129 +10,64 @@ $village = $stmt->fetchAll();
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <header class="container-main">
-      <nav class="nav-head">
-        <div class="logo text-xl">โครงการหมู่บ้าน</div>
-        <ul class="nav-main">
-          <li>
-            <a href="../website/village.php">หน้าหลัก</a>
-          </li>
-          <li>
-            <div class="dropdown">
-              <div >
-              <a  class="dropbtn">หมู่บ้าน<i class="ml-2 fa-solid fa-caret-down"></i></a>
-              </div>
-              <div class="dropdown-content" >
-                <div class="drop-menu">
-                <?php        
-                  foreach($village as $village) { ?>
-                  <a href="/Web-Food/website/deck.php?id=<?php echo $village['Id']; ?>"><?php echo $village['Name'] ?></a>
-                   <?php } ?>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="dropdown">
-              <a class="dropbtn">สำรับอาหาร</a>
-              <div class="dropdown-content">
-                <div class="drop-menu">
-                 <div>
-                 <?php        
-                 $stmt = $conn->query("SELECT * FROM village WHERE Id = 64");
-                 $stmt->execute();
-                 $village = $stmt->fetch();?>
-                 <a><?php echo $village['Name'] ?><i class="ml-2 fa-solid fa-caret-right"></i></a>
-                 </div>
-                  <div class="drop-item" >
-                  <?php 
-                    if($village['Id'] = 64){
-                    $stmt = $conn->query("SELECT * FROM setfood WHERE VillageSet = 64");
-                    $stmt->execute();
-                    $setfood = $stmt->fetchAll(); 
-                  foreach($setfood as $setfood) { ?>
-                  <a href="/Web-Food/website/deck.php?id=<?php echo $setfood['Idset']; ?>"><?php echo $setfood['SetName'] ?></a>
-                  <?php }} ?> 
-                  </div>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="dropdown">
-              <a class="dropbtn">ตำรับอาหาร</a>
-              <div class="dropdown-content">
-                <div class="drop-menu">
-                 <div>
-                  <a >บ้านหาดเบี้ย <i class="ml-2 fa-solid fa-caret-right"></i></a>
-                 </div>
-                  <div class="drop-item" >
-                   <div class="drop-menu">
-                    <?php                    
-                    $stmt = $conn->query("SELECT * FROM food");
-                    $stmt->execute();
-                    $setfood = $stmt->fetchAll(); 
-                  foreach($setfood as $setfood) { ?>
-                  <a href="/Web-Food/website/deck.php?id=<?php echo $setfood['IdFood']; ?>"><?php echo $setfood['FoodName'] ?></a>
-                  <?php } ?> 
-                      <div class="drop-item" >
-                       </div>
-                   </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="dropdown">
-              <a  class="dropbtn"><i class="fa-solid fa-caret-down"></i></a>
-              <div class="dropdown-content">
-                <div class="drop-menu">
-                  <a href="#">เข้าสู่ระบบ</a>
-                </div>
-              </div>
-            </div>
-          </li>
-        </ul>
-        <div class="menu-toggle" id="mobile-menu">
-          <span class="bar"></span>
-          <span class="bar"></span>
-          <span class="bar"></span>
-          <span class="bar"></span>
-        </div>
-      </nav>
+<header>
+        <a href="#" class="logo">โครงการหมู่บ้าน</a>
+
+        <input type="checkbox" id="menu-bar">
+        <label for="menu-bar"><i class="fa-solid fa-bars"></i></label>
+
+        <nav class="navbar">
+            <ul>
+                <li><a href="../website/home.php">หน้าหลัก</a></li>
+                <li><a href="#">หมู่บ้าน</a>
+                    <ul>
+                    <?php $stmt = $conn->query("SELECT * FROM village");
+                                $village = $stmt->fetchAll();
+                                foreach ($village as $village){ ?>
+                        <li><a href="../website/village.php?id=<?php echo $village['Id']?>"><?php echo $village['Name'] ?></a></li>
+                    <?php } ?>
+                    </ul>
+                </li>
+                <li><a href="#">สำรับ <i class="fa-solid fa-caret-down"></i></a>
+                    <ul>
+                        <li><a href="../website/menu-all.php">สำรับอาหารทั้งหมด</a>
+                        <?php $stmt = $conn->query("SELECT * FROM village");
+                                $village = $stmt->fetchAll();
+                                foreach ($village as $village){ ?>
+                        <li><a href="#"><?php echo $village['Name'] ?> +</a>
+                                        <?php
+                $villageId = $village['Id'];
+                $stmt = $conn->prepare("SELECT * FROM setfood WHERE VillageSet = :villageId");
+                $stmt->bindParam(':villageId', $villageId);
+                $stmt->execute();
+                $navset = $stmt->fetchAll();
+                ?>
+
+                            <ul>
+                                <?php foreach ($navset as $navset){ ?>
+                                <li><a href="../website/menu.php?id=<?php echo $navset['Idset']?>"><?php echo $navset['SetName'] ?></a></li>
+                                <?php } ?>
+                            </ul>
+                            <?php } ?>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="#">ตำรับ <i class="fa-solid fa-caret-down"></i></a>
+                    <ul class="recipe">
+                    <?php $stmt = $conn->query("SELECT * FROM food");
+                                $food = $stmt->fetchAll();
+                                foreach ($food as $food){ ?>
+                        <li><a href="../website/recipe.php?id=<?php echo $food['IdFood']?>"><?php echo $food['FoodName'] ?></a></li>
+                        <?php } ?>
+                    </ul>
+                </li>
+                <li><a href="#"><i class="fa-solid fa-arrow-right-to-bracket"></i></i></a>
+                    <ul>
+                        <li><a href="#">เข้าสู่ระบบ</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
     </header>
-    <script>
-      document.getElementById('mobile-menu').addEventListener('click', function() {
-      var navList = document.querySelector('.nav-main');
-      navList.classList.toggle('show');
-    });
-
-
-       // เลือกทุกองค์ประกอบที่มี class "drop-menu"
-      var dropMenus = document.querySelectorAll(".drop-menu");
-
-        // Iterate ผ่านทุก drop menu
-        dropMenus.forEach(function(dropMenu) {
-          // เพิ่ม event listener สำหรับคลิกที่ drop menu
-          dropMenu.addEventListener("click", function() {
-            // หากมี dropdown content ที่เกี่ยวข้อง
-            var dropdownContent = this.querySelector(".drop-item");
-            if (dropdownContent) {
-              // เพิ่มหรือลบ class "show" ที่ dropdown content
-              dropdownContent.classList.toggle("show");
-
-              // ตรวจสอบ class "show" เพื่อปรับ display
-              if (dropdownContent.classList.contains("show")) {
-                dropdownContent.style.display = "block";
-                
-              } else {
-                dropdownContent.style.display = "none";
-
-              }
-            }
-          });
-        }); 
-    </script>
   </body>
 </html>

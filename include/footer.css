@@ -21,16 +21,16 @@
     margin: 1rem;
   }
   
-  .logo-foot i {
+  .logo-foot h1 {
     display: flex;
     justify-content: center;
-    font-size: 5rem;
+    font-size: 2rem;
     color: rgb(255, 255, 255);
     transition: 0.4s;
   }
   
-  .logo-foot i:hover {
-    color: rgb(0, 255, 255);
+  .logo-foot h1:hover {
+    color: rgb(176, 180, 180);
   }
   
   .about-footer {
@@ -143,9 +143,12 @@
       align-items: center;
     }
   
-    .logo-foot i {
-      font-size: 2rem;
-      color: #ffffff;
+    .logo-foot h1 {
+      display: flex;
+      justify-content: center;
+      font-size: 1rem;
+      color: rgb(255, 255, 255);
+      transition: 0.4s;
     }
   
     .about-footer {
@@ -186,11 +189,6 @@
     .contact-footer p {
       font-size: 0.5rem;
     }
-  
-    .contact-footer i {
-      font-size: 0.5rem;
-      line-height: 20px;
-    }
   }
   @media (max-width: 550px) {
     .contact-footer {
@@ -218,7 +216,7 @@
       display: flex;
     }
   }
-  @media (max-width: 350px) {
+  @media (max-width: 400px) {
     .footer {
       height: 100%;
     }
@@ -230,9 +228,16 @@
   
     .address-footer {
       max-width: 45%;
+      line-height: 0;
     }
-    .address p {
-      font-size: 0.5px;
+    .address{
+      line-height: 10px;
+    }
+    .address h1{
+      line-height: 15px;
+    }
+    .address{
+      line-height: 10px;
     }
   }
   

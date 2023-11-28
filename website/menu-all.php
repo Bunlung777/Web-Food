@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
 <?php
-include ("../Config/DB.php");
-include '../include/navbar.php';
-$id = $_GET['id'];
-$village = $conn->query("SELECT S.Idset, S.ImgSet1, V.Name, S.SetName,V.Id,
+include("../Config/DB.php");
+$stmt = $conn->query("SELECT S.Idset, S.ImgSet1, V.Name, S.SetName,V.Id,
 F.ImgFood1 AS ImgFood0,
 F1.ImgFood1 AS ImgFood1,
 F2.ImgFood1 AS ImgFood2,
@@ -42,12 +38,14 @@ LEFT JOIN food AS F3 ON S.FoodName3 = F3.IdFood
 LEFT JOIN food AS F4 ON S.FoodName4 = F4.IdFood 
 LEFT JOIN food AS F5 ON S.FoodName5 = F5.IdFood 
 LEFT JOIN food AS F6 ON S.FoodName6 = F6.IdFood
-WHERE S.Idset = $id;
 ");
-$village->execute();
-$setfood = $village->fetch();
-
+$setfood = $stmt->fetchAll();
 ?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -55,26 +53,23 @@ $setfood = $village->fetch();
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="../css/menu.css">
+  <link rel="stylesheet" href="../css/menu-all.css">
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Taviraj:ital,wght@1,200&display=swap" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Niramit:wght@500&family=Taviraj&display=swap" rel="stylesheet">
-<style>
-    .font-body{
-      font-family: 'Taviraj', serif;
-      font-family: 'Niramit', sans-serif;
-    }
-</style>
 </head>
 
-<body class="font-body">
+<body class="body-main">
+<?php include '../include/navbar.php' ?>
   <div class="content">
     <div class="content_village">
-      <h1 class="text-content">สำรับอาหาร <?php echo $setfood['Name'] ?></h1>
+    <h1 class="text-content">สำรับอาหาร</h1>
     </div>
   </div>
   <!--  -->
+  <?php foreach($setfood as $setfood){ ?>
   <div class="container-main">
       <div class="box-main">
         <div class="image-main">
@@ -121,40 +116,49 @@ $setfood = $village->fetch();
           />
         </div>
         <div class="text-main">
-          <h1 class="text-left mt-1 "><b><?php echo $setfood['SetName'] ?></b></h1>
-          <p class="">  
-            <?php  $totalsetfood = 0;
-                    for ($i = 0; $i < 7; $i++) { 
-                        if ($setfood['FoodName' . $i] != null) {
-                            $totalsetfood++;
-                        } else {
-                            break; 
-                        }
-                    } 
-                    for ($i = 0; $i < $totalsetfood; $i++) {
-                      $food = $setfood['FoodName' . $i];
-                      $Idfood = $setfood['IdFood' . $i];
-                    ?>
-               <a class="text-respon" href="../website/recipe.php?id=<?php echo $Idfood ?>"><?php echo ($i+1),". ",$food; ?><i class="ml-1 fa-solid fa-caret-left"></i></a><br>
-            </p>
-            <?php } ?>
+        <h1 class="text-left mt-1 text_h1"><?php echo $setfood['SetName'] ?></h1>
+                      <h1 class="text_h1 text-left mt-3">มีตำรับอาหารดังนี้</h1>
+                      <p class="text_v"> 
+                      <?php  $totalsetfood = 0;
+                              for ($i = 0; $i < 7; $i++) { 
+                                  if ($setfood['FoodName' . $i] != null) {
+                                      $totalsetfood++;
+                                  } else {
+                                      break; 
+                                  }
+                              } 
+                              for ($i = 0; $i < $totalsetfood; $i++) {
+                                $food = $setfood['FoodName' . $i];
+                                $Idfood = $setfood['IdFood' . $i];
+                              ?> 
+                        <a class="text-respon" href="../website/recipe.php?id=<?php echo $Idfood?>"><?php echo $i+1,'.', $food ?><i class="ml-1 fa-solid fa-caret-left"></i></a><br>
+                        <?php } ?>
         </div>
       </div>
     </div>
+    <?php } ?>
   <!--  -->
+
   <?php include '../include/footer.php' ?>
   <script>
-      document.querySelectorAll(".image-main img").forEach((image) => {
-        image.onclick = () => {
-          document.querySelector(".popup-image").style.display = "block";
-          document.querySelector(".popup-image img").src =
-            image.getAttribute("src");
-        };
-      });
-      document.querySelector(".popup-image span").onclick = () => {
-        document.querySelector(".popup-image").style.display = "none";
-      };
-    </script>
+    document.querySelectorAll('.image-contaner img').forEach(image =>{
+            image.onclick = () =>{
+                document.querySelector('.popup-image').style.display = "block";
+                document.querySelector('.popup-image img').src = image.getAttribute('src');
+            }
+
+        })
+        document.querySelectorAll('.image-main img').forEach(image =>{
+            image.onclick = () =>{
+                document.querySelector('.popup-image').style.display = "block";
+                document.querySelector('.popup-image img').src = image.getAttribute('src');
+            }
+
+        })
+        document.querySelector('.popup-image span').onclick = () =>{
+            document.querySelector('.popup-image').style.display = "none";
+        }
+  </script>
 </body>
 
 </html>

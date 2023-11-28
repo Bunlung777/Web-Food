@@ -92,8 +92,8 @@ if (isset($_GET['delete'])) {
                         </div>
                         <div>
                             <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">รูปภาพสำรับอาหาร : </label>
-                            <input multiple class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="imgInput" type="file" name="imgSet[]" required>
-                            <div id="previewContainer" class="mt-4 grid grid-cols-2 gap-2"></div>
+                            <input multiple class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="imgInput22" type="file" name="imgSet[]" required>
+                            <div id="previewContainer22" class="mt-4 grid grid-cols-2 gap-2"></div>
                             <!-- <img class="h-auto max-w-lg rounded-lg" width="100%" id="previewImg" alt=""> -->
                         </div>
                         <div>
@@ -439,8 +439,8 @@ if (isset($_GET['delete'])) {
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-  let imgInput = document.getElementById('imgInput');
-  let previewContainer = document.getElementById('previewContainer');
+  let imgInput = document.getElementById('imgInput22');
+  let previewContainer = document.getElementById('previewContainer22');
 
   imgInput.onchange = evt => {
     // Clear previous previews

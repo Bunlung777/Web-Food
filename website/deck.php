@@ -47,14 +47,14 @@ $setfood = $village->fetchAll();
     <div class="control_village">
       <div class="image-village">
         <img
-        <?php echo 'src="data:image/jpeg;base64,'.base64_encode($data['Img1']).'" ' ?>
+        <?php echo 'src="data:image/jpeg;base64,'.base64_encode($data['Img']).'" ' ?>
           alt="" 
           onclick="mainopenPopup()" class="flex1"
           />
           <div id="mainopenPopup" class="popup">
             <span class="close-button" onclick="mainclosePopup()">&times;</span>
             <img
-            <?php echo 'src="data:image/jpeg;base64,'.base64_encode($data['Img1']).'" ' ?>
+            <?php echo 'src="data:image/jpeg;base64,'.base64_encode($data['Img']).'" ' ?>
               alt="Image" />
           </div>
         <div class="flex_village">
@@ -128,23 +128,6 @@ $setfood = $village->fetchAll();
           </div>
         </div>
       </div>
-    </div>
-    <div class="food-village" id="food-table">
-      <h1 class="text-2xl text-left text-slate-700">สำรับอาหาร</h1>
-      <?php foreach($setfood as $row => $setfood){ ?>
-      <div class="food-item">
-        <div class="food-image">
-          <a href="/joinweb/php/page3.php"><img
-          <?php echo 'src="data:image/jpeg;base64,'.base64_encode($setfood['ImgSet1']).'" ' ?> /></a>
-        </div>
-        <div class="food-text">
-          <h1 class="fs-4 text-left text-xl mt-2 text_h1">สำรับอาหารชุดที่ <?php echo $row+1 ?> </h1>
-          <a href="/Web-Food/website/menu.php?id=<?php echo $setfood['Idset']; ?>" type="button" class="btn-food" >
-            ข้อมูลเพิ่มเติม
-          </a>
-        </div>
-      </div>
-      <?php } ?>
     </div>
   </div>
  <?php include '../include/footer.php' ?>

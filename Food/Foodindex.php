@@ -72,7 +72,7 @@ $ingredient = $foodName->fetchAll();
                         </div>
                         <div>
                             <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">รายละเอียดอาหาร : </label>
-                            <textarea type="text" name="detail" id="text" class="h-[100px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required></textarea>
+                            <textarea type="text" name="detail" id="textDetail" class="h-[100px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required></textarea>
                         </div>
                         <div id="field">
                             <div class="food">
@@ -394,6 +394,13 @@ $ingredient = $foodName->fetchAll();
 <script type="text/javascript" src="https://cdn.rawgit.com/prashantchaudhary/ddslick/master/jquery.ddslick.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
+ <!-- <script>
+        function convertToBR() {
+            const textArea = document.getElementById('textDetail');
+            const text = textArea.value.replace(/\n/g, '<br>');
+            textArea.value = text;
+        }
+    </script> -->
 <script>
   let imgInput = document.getElementById('imgInput');
   let previewContainer = document.getElementById('previewContainer');

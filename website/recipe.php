@@ -1,34 +1,33 @@
 <?php
 include ("../Config/DB.php");
 $id = $_GET['id'];
-$village = $conn->query("SELECT F.Detail,
-I.ImgIngre AS ImgIngre0,
-I1.ImgIngre AS ImgIngre1,
-I2.ImgIngre AS ImgIngre2,
-I3.ImgIngre AS ImgIngre3,
-I4.ImgIngre AS ImgIngre4,
-I5.ImgIngre AS ImgIngre5,
-I6.ImgIngre AS ImgIngre6,
-I7.ImgIngre AS ImgIngre7,
-I8.ImgIngre AS ImgIngre8,
-I9.ImgIngre AS ImgIngre9,
-I10.ImgIngre AS ImgIngre10,
-I11.ImgIngre AS ImgIngre11,
-I12.ImgIngre AS ImgIngre12,
-I.ingredientsName AS IngreName0,
-I1.ingredientsName AS IngreName1,
-I2.ingredientsName AS IngreName2,
+$village = $conn->query("SELECT F.Detail,FoodName,F.ImgFood1, 
+I.ImgIngre1 AS ImgIngre0, 
+I1.ImgIngre1 AS ImgIngre1, 
+I2.ImgIngre1 AS ImgIngre2, 
+I3.ImgIngre1 AS ImgIngre3, 
+I4.ImgIngre1 AS ImgIngre4, 
+I5.ImgIngre1 AS ImgIngre5, 
+I6.ImgIngre1 AS ImgIngre6, 
+I7.ImgIngre1 AS ImgIngre7, 
+I8.ImgIngre1 AS ImgIngre8, 
+I9.ImgIngre1 AS ImgIngre9, 
+I10.ImgIngre1 AS ImgIngre10, 
+I11.ImgIngre1 AS ImgIngre11, 
+I12.ImgIngre1 AS ImgIngre12, 
+I.ingredientsName AS IngreName0, 
+I1.ingredientsName AS IngreName1, 
+I2.ingredientsName AS IngreName2, 
 I3.ingredientsName AS IngreName3,
-I4.ingredientsName AS IngreName4,
+I4.ingredientsName AS IngreName4, 
 I5.ingredientsName AS IngreName5,
-I6.ingredientsName AS IngreName6,
+I6.ingredientsName AS IngreName6, 
 I7.ingredientsName AS IngreName7,
-I8.ingredientsName AS IngreName8,
+I8.ingredientsName AS IngreName8, 
 I9.ingredientsName AS IngreName9,
-I10.ingredientsName AS IngreName10,
+I10.ingredientsName AS IngreName10, 
 I11.ingredientsName AS IngreName11,
-I12.ingredientsName AS IngreName12
-FROM food AS F
+I12.ingredientsName AS IngreName12 FROM food AS F 
 LEFT JOIN ingredients AS I ON F.Ingredients0 = I.Idingre 
 LEFT JOIN ingredients AS I1 ON F.Ingredients1 = I1.Idingre 
 LEFT JOIN ingredients AS I2 ON F.Ingredients2 = I2.Idingre 
@@ -41,117 +40,96 @@ LEFT JOIN ingredients AS I8 ON F.Ingredients8 = I8.Idingre
 LEFT JOIN ingredients AS I9 ON F.Ingredients9 = I9.Idingre 
 LEFT JOIN ingredients AS I10 ON F.Ingredients10 = I10.Idingre 
 LEFT JOIN ingredients AS I11 ON F.Ingredients11 = I11.Idingre 
-LEFT JOIN ingredients AS I12 ON F.Ingredients12 = I12.Idingre 
-WHERE F.IdFood = $id;
-");
-$village->execute();
-$ingredients = $village->fetch();
-
-?>
+LEFT JOIN ingredients AS I12 ON F.Ingredients12 = I12.Idingre WHERE F.IdFood = $id;");
+$village->execute(); $ingredients = $village->fetch(); ?>
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ตำรับอาหาร</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="../css/recipe.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Niramit:wght@500&family=Taviraj&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ตำรับอาหาร</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="../css/recipe.css" />
-  <link rel="stylesheet" href="../css/reciperespon.css" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Taviraj:ital,wght@1,200&display=swap" rel="stylesheet" />
-</head>
-
-<body>
-<?php include '../include/navbar.php' ?>
-  <div class="content">
-    <div class="content_village">
-      <h1>ตำรับอาหาร</h1>
+  <body class="body-main">
+    <?php include '../include/navbar.php' ?>
+    <div class="content">
+      <div class="content_village">
+        <h1>ตำรับอาหาร</h1>
+      </div>
     </div>
-  </div>
-  <div class="main-village">
-    <div class="control_village">
-      <div class="image-village">
-        <img
-          src="https://static.thairath.co.th/media/Dtbezn3nNUxytg04aoZ9f77r0DH1c3am84CfR9LvDIvVHh.webp"
-          alt="" 
-          onclick="mainopenPopup()" class="flex1"
+    <!--  -->
+    <div class="container-main">
+      <div class="box-main">
+        <div class="image-main">
+          <div>
+            <div class="img-main"> 
+              <img
+              <?php echo 'src="data:image/jpeg;base64,'.base64_encode($ingredients['ImgFood1']).'" ' ?>
+                alt=""
+              />
+            </div>
+            <div class="image-flex">
+              <div class="flex">
+                <img
+                  src="https://images.unsplash.com/photo-1684610525381-34b7e6a098ef?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDI0fENEd3V3WEpBYkV3fHxlbnwwfHx8fHw%3D"
+                  alt=""
+                />
+              </div>
+              <div class="flex">
+                <img
+                  src="https://images.unsplash.com/photo-1699614614449-d19235e38574?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt=""
+                />
+              </div>
+              <div class="flex">
+                <img
+                  src="https://images.unsplash.com/photo-1700578075560-ebacba6e5d22?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt=""
+                />
+              </div>
+              <div class="flex">
+                <img
+                  src="https://images.unsplash.com/photo-1700403748616-94e54842caf1?q=80&w=1933&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="popup-image">
+          <span>&times;</span>
+          <img
+            src="https://images.unsplash.com/photo-1699614614449-d19235e38574?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt=""
           />
-          <div id="mainopenPopup" class="popup">
-            <span class="close-button" onclick="mainclosePopup()">&times;</span>
-            <img
-              src="https://static.thairath.co.th/media/Dtbezn3nNUxytg04aoZ9f77r0DH1c3am84CfR9LvDIvVHh.webp"
-              alt="Image" />
-          </div>
-        <div class="flex_village">
-          <div class="Vill-flex">
-            <img
-              src="https://images.unsplash.com/photo-1682686580391-615b1f28e5ee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=600&q=60"
-              alt="" onclick="openPopup()" class="flex1" />
-            <div id="image-popup" class="popup">
-              <span class="close-button" onclick="closePopup()">&times;</span>
-              <img
-                src="https://images.unsplash.com/photo-1682686580391-615b1f28e5ee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=600&q=60"
-                alt="Image" />
-            </div>
-          </div>
-          <div class="Vill-flex">
-            <img
-              src="https://images.unsplash.com/photo-1695418624968-d027093abdb9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8&auto=format&fit=crop&w=600&q=60"
-              alt="" onclick="openPopup1()" class="flex1" />
-            <div id="image-popup1" class="popup">
-              <span class="close-button" onclick="closePopup1()">&times;</span>
-              <img
-                src="https://images.unsplash.com/photo-1695418624968-d027093abdb9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8&auto=format&fit=crop&w=600&q=60"
-                alt="Image" />
-            </div>
-          </div>
-          <div class="Vill-flex">
-            <img
-              src="https://images.unsplash.com/photo-1695751240056-c9aea1e799df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxM3x8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60"
-              alt="" onclick="openPopup2()" class="flex1" />
-            <div id="image-popup2" class="popup">
-              <span class="close-button" onclick="closePopup2()">&times;</span>
-              <img
-                src="https://images.unsplash.com/photo-1695751240056-c9aea1e799df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxM3x8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60"
-                alt="Image" />
-            </div>
-          </div>
-          <div class="Vill-flex">
-            <img
-              src="https://images.unsplash.com/photo-1682685797660-3d847763208e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60"
-              alt="" onclick="openPopup3()" class="flex1" />
-            <div id="image-popup3" class="popup">
-              <span class="close-button" onclick="closePopup3()">&times;</span>
-              <img
-                src="https://images.unsplash.com/photo-1682685797660-3d847763208e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60"
-                alt="Image" />
-            </div>
-          </div>
         </div>
-      </div>
-      <div class="village-story">
-        <div class="text-village">
-          <div class="text_vill">
-            <h1 class=" font-100 text-left mt-1 text_h1">ตำรับอาหารที่1. หมกหน่อไม้</h1>
-            <h1 class="text-left mt-3  text_h1">ส่วนผสม</h1>
-            <p class="text_v">-</p>
-            <h1 class="text-left mt-3  text_h1">หน่วยนับ</h1>
-            <p class="text_v">-</p>
-            <h1 class="text-left mt-3  text_h1">น้ำหนัก</h1>
-            <p class="text_v">-</p>
-            <h1 class="text-left mt-3  text_h1">วิธีการทำ</h1>
-            <p class="text_v"><?php echo $ingredients['Detail'] ?></p>
-          </div>
+        <div class="text-main">
+          <h1 class="text-left mt-1 "><b><?php echo $ingredients['FoodName'] ?></b></h1>
+          <h1 class="text-left mt-3"><b>วิธีการทำ</b></h1>
+          <p class="text-respon"><?php echo nl2br($ingredients['Detail']); ?></p>   
         </div>
       </div>
     </div>
-    
+    <!--  -->
+    <div class="container-main mt-6">
     <h1 class="text-2xl text-left text-slate-700">วัตถุดิบ</h1>
-    <div class="food-village" id="food-table">
-    <?php  $total = 0;
+      <div class="food-village" id="food-table">
+        <?php  $total = 0;
                     for ($i = 0; $i < 13; $i++) { 
                         if ($ingredients['ImgIngre' . $i] != null) {
                             $total++;
@@ -161,25 +139,36 @@ $ingredients = $village->fetch();
                     } 
                     for ($i = 0; $i < $total; $i++) {
                       $ImgIngre= $ingredients['ImgIngre' . $i];
-                      $ImgName= $ingredients['IngreName' . $i];
-                    ?>  
-      <div class="food-item">
-        <div class="food-image">
-          <img
-          <?php echo 'src="data:image/jpeg;base64,'.base64_encode($ImgIngre).'" ' ?>
-              alt=""
-              >
+                      $IngreName= $ingredients['IngreName' . $i];
+                    ?>
+        <div class="food-item">
+          <div class="food-image">
+            <img
+            <?php echo 'src="data:image/jpeg;base64,'.base64_encode($ImgIngre).'" ' ?>
+            alt="" >
+          </div>
+          <div class="food-text">
+            <p class="fs-4 text-center text-respon mt-2">
+              <?php echo $IngreName ?>
+            </p>
+          </div>
         </div>
-        <div class="food-text">
-          <h1 class="fs-4 text-center text-xl mt-2 text_h1"><?php echo $ImgName ?></h1>
-        </div>
+        <?php } ?>
       </div>
-      <?php } ?>
-      </div>
-
-
- <?php include '../include/footer.php' ?>
-  <script src="../js/recipe.js"></script>
-</body>
-
+    </div>
+    <!--  -->
+    <?php include '../include/footer.php' ?>
+    <script>
+      document.querySelectorAll(".image-main img").forEach((image) => {
+        image.onclick = () => {
+          document.querySelector(".popup-image").style.display = "block";
+          document.querySelector(".popup-image img").src =
+            image.getAttribute("src");
+        };
+      });
+      document.querySelector(".popup-image span").onclick = () => {
+        document.querySelector(".popup-image").style.display = "none";
+      };
+    </script>
+  </body>
 </html>

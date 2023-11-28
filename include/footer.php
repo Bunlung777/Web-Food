@@ -9,7 +9,7 @@
 <section id="contact" class="main-footer">
     <div class="footer p-5">
       <div class="logo-foot">
-        <i class="fa-solid fa-font-awesome"></i>
+        <h1>โครงการหมู่บ้าน</h1>
       </div>
       <div class="about-footer">
         <div class="flex-footer  text-white text-center">
@@ -32,11 +32,6 @@
         <div class="contact text-dark">
           <h1 class="text-center text-xl">ติดต่อ</h1>
           <h1 class=" text-l">เบอร์โทร: 042 808 000</h1>
-          <h1 class=" text-l">ติดต่อ:
-            <i class="text-3xl fa-brands fa-square-facebook"></i>
-            <i class="text-3xl fa-brands fa-square-instagram"></i>
-            <i class="text-3xl fa-brands fa-square-x-twitter"></i>
-          </h1>
         </div>
       </div>
     </div>

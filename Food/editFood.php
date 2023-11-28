@@ -10,6 +10,34 @@ if (isset($_POST['UpdateFood'])) {
     $img2 = $_FILES['imgfood']['name'];
     $images = array();
 
+    if($_FILES['imgfood']['error'][0] !== UPLOAD_ERR_OK){
+        $sql = $conn->prepare("UPDATE food SET FoodName = :FoodName, Detail= :Detail, Ingredients0 = :Ingredients0, 
+        Ingredients1 = :Ingredients1, Ingredients2 = :Ingredients2, Ingredients3 = :Ingredients3, Ingredients4 = :Ingredients4, 
+        Ingredients5 = :Ingredients5, Ingredients6 = :Ingredients6 , Ingredients7 = :Ingredients7, 
+        Ingredients8 = :Ingredients8, Ingredients9 = :Ingredients9, Ingredients10 = :Ingredients10, Ingredients11 = :Ingredients11 
+         WHERE IdFood = :id");
+        $sql->bindParam(":FoodName", $name);
+        $sql->bindParam(":Detail", $detail);
+        $sql->bindParam(":id", $id);
+        
+        for ($i = 0; $i < 12; $i++) {
+            $Ingredients = 'Ingredients' . $i;
+            if (isset($_POST[$Ingredients])) {
+                $sql->bindValue(":Ingredients" . $i, $_POST[$Ingredients]);
+            } else {
+                $sql->bindValue(":Ingredients" . $i, null, PDO::PARAM_NULL);
+            }
+        }
+        $executeResult = $sql->execute();
+    
+        if ($executeResult) {
+            $_SESSION['success'] = "เพิ่มข้อมูลเรียบร้อย";
+        } else {
+            $_SESSION['error'] = "Data has not been updated successfully";
+        }
+        header("location: Foodindex.php");
+        exit();
+    }else{
     foreach ($_FILES['imgfood']['tmp_name'] as $key => $imgTmpName) {
         if ($_FILES['imgfood']['error'][$key] === UPLOAD_ERR_OK) {
             // Read the file content
@@ -17,7 +45,7 @@ if (isset($_POST['UpdateFood'])) {
             $images[] = $img;
         } else {
             $_SESSION['error'] = "Error uploading file " . $key;
-            header("location: indexingre.php");
+            header("location: Foodindex.php");
             exit();
         }
     }
@@ -62,7 +90,7 @@ if (isset($_POST['UpdateFood'])) {
         header("location: Foodindex.php");
         exit();
     }
-    
+}
 
     $sql = "SELECT ingredientsName	FROM ingredients";
     $foodName = $conn->prepare($sql);

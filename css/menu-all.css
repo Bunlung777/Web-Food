@@ -22,10 +22,11 @@ html {
   color: #ffffff;
 }
 
-body {
-  font-family: "Taviraj", serif;
-  font-family: "Niramit", sans-serif;
+.body-main{
+    font-family: 'Taviraj', serif;
+    font-family: 'Niramit', sans-serif;
 }
+
 
 .container-main {
   position: relative;
@@ -41,7 +42,7 @@ body {
   gap: 1rem;
   border: 1px solid rgb(221, 221, 221);
   border-radius: 5px;
-  box-shadow: 0px 5px 10px rgba(0, 0, 0);
+  box-shadow: 0px 2px 5px rgb(171, 171, 171);
 }
 
 .container-main .box-main .image-main {
@@ -139,7 +140,7 @@ body {
     gap: 1rem;
     border: 1px solid rgb(221, 221, 221);
     border-radius: 5px;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0);
+    box-shadow: 0px 2px 5px rgb(171, 171, 171);
   }
 }
 
@@ -226,7 +227,7 @@ body {
     padding: 1rem;
     border: 1px solid rgb(221, 221, 221);
     border-radius: 5px;
-    box-shadow: 0px 5px 10px rgb(212, 212, 212);
+    box-shadow: 0px 2px 5px rgb(171, 171, 171);
   }
 
   .container-main .box-main .image-main {

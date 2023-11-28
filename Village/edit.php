@@ -11,6 +11,22 @@ if (isset($_POST['Update'])) {
     $Location = $_POST['Location'];
     $img2 = $_FILES['img']['name'];
 
+    if($_FILES['img']['error'][0] !== UPLOAD_ERR_OK){
+        $sql = $conn->prepare("UPDATE village SET Name = :name, Detail = :Detail, Meaning = :Meaning, Location = :Location WHERE id = :id");
+        $sql->bindParam(":id", $id);
+        $sql->bindParam(":name", $name);
+        $sql->bindParam(":Detail", $Detail);
+        $sql->bindParam(":Meaning", $Meaning);
+        $sql->bindParam(":Location", $Location);
+        $sql->execute();
+        if ($sql) {
+            $_SESSION['editsuccess'] = "";
+            header("location: index.php");
+        } else {
+            $_SESSION['error'] = "";
+            header("location: index.php");
+        }
+    }else{
     foreach ($_FILES['img']['tmp_name'] as $key => $imgTmpName) {
         if ($_FILES['img']['error'][$key] === UPLOAD_ERR_OK) {
             // Read the file content
@@ -18,7 +34,7 @@ if (isset($_POST['Update'])) {
             $images[] = $img;
         } else {
             $_SESSION['error'] = "Error uploading file " . $key;
-            header("location: indexingre.php");
+            header("location: index.php");
             exit();
         }
     }
@@ -51,6 +67,7 @@ if (isset($_POST['Update'])) {
             header("location: index.php");
         }
     }
+}
     
 
 ?>

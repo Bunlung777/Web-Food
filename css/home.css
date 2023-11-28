@@ -3,13 +3,15 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 html {
   scroll-behavior: smooth;
 }
+
 .content {
   margin: 0rem 0rem;
-  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)),
-    url("https://images.unsplash.com/photo-1693237476029-f8469bb756a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1932&q=80");
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url("../img/francesco-ungaro-3_MEgdUNMH0-unsplash.jpg");
   background-position: center;
   background-size: cover;
   height: 40vh;
@@ -17,6 +19,7 @@ html {
   justify-content: center;
   align-items: center;
 }
+
 .content .content_village h1 {
   font-size: 30px;
   color: #ffffff;
@@ -26,6 +29,7 @@ body {
   font-family: "Taviraj", serif;
   font-family: "Niramit", sans-serif;
 }
+
 
 .container-main {
   position: relative;
@@ -41,7 +45,7 @@ body {
   gap: 1rem;
   border: 1px solid rgb(221, 221, 221);
   border-radius: 5px;
-  box-shadow: 0px 5px 10px rgba(0, 0, 0);
+  box-shadow: 0px 2px 5px rgb(171, 171, 171);
 }
 
 .container-main .box-main .image-main {
@@ -115,13 +119,6 @@ body {
   object-fit: cover;
   padding: 1rem 5rem;
 }
-.text-respon:hover i{
-  color: rgb(255,255,255);
-  text-shadow: 0px 2px 5px rgb(0, 26, 255);
-}
-.text-respon:hover{
-  color: rgb(50, 50, 50);
-}
 
 @media (max-width: 1050px) {
   .container-main {
@@ -139,7 +136,7 @@ body {
     gap: 1rem;
     border: 1px solid rgb(221, 221, 221);
     border-radius: 5px;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0);
+    box-shadow: 0px 2px 5px rgb(171, 171, 171);
   }
 }
 
@@ -226,7 +223,7 @@ body {
     padding: 1rem;
     border: 1px solid rgb(221, 221, 221);
     border-radius: 5px;
-    box-shadow: 0px 5px 10px rgb(212, 212, 212);
+    box-shadow: 0px 2px 5px rgb(171, 171, 171);
   }
 
   .container-main .box-main .image-main {

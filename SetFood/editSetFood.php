@@ -7,8 +7,33 @@ if (isset($_POST['UpdateSet'])) {
     $Village = $_POST['villageName'];
     $set = $_POST['setName'];
     $img2 = $_FILES['imgSet']['name'];
+    $images = array();
+
+    if($_FILES['imgSet']['error'][0] !== UPLOAD_ERR_OK){
+        $sql = $conn->prepare("UPDATE setfood SET VillageSet = :village, SetName = :setName, FoodName0 = :foodName0, FoodName1 = :foodName1, 
+        FoodName2 = :foodName2, FoodName3 = :foodName3, FoodName4 = :foodName4, FoodName5 = :foodName5, FoodName6 = :foodName6 WHERE Idset = :id");
+        $sql->bindParam(":village", $Village);
+        $sql->bindParam(":setName", $set);
+        $sql->bindParam(":id", $id);
+        for ($i = 0; $i < 7; $i++) {
+            $foodNameKey = 'foodName' . $i;
+            if (isset($_POST[$foodNameKey])) {
+                $sql->bindValue(":foodName" . $i, $_POST[$foodNameKey]);
+            } else {
+                $sql->bindValue(":foodName" . $i, null, PDO::PARAM_NULL);
+            }
+        }
+        $executeResult = $sql->execute();
     
-        $images = array();
+
+    if ($executeResult) {
+        $_SESSION['success'] = "Data has been updated successfully";
+        header("location: indexSetFood.php");
+    } else {
+        $_SESSION['error'] = "Data has not been updated successfully";
+        header("location: indexSetFood.php");
+    }
+    }else{
         foreach ($_FILES['imgSet']['tmp_name'] as $key => $imgTmpName) {
             if ($_FILES['imgSet']['error'][$key] === UPLOAD_ERR_OK) {
                 $img = file_get_contents($imgTmpName);
@@ -56,6 +81,7 @@ if (isset($_POST['UpdateSet'])) {
         $_SESSION['error'] = "Data has not been updated successfully";
         header("location: indexSetFood.php");
     }
+}
 }
 $sql1 = "SELECT Name FROM village ";
 $userVillage = $conn->prepare($sql1);

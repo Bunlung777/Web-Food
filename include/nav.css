@@ -1,194 +1,286 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  text-transform: capitalize;
+  text-decoration: none;
 }
+
 body{
   font-family: 'Taviraj', serif;
 }
-.container-main{
-  display: flex;
-  background-color: white;
-  box-shadow: 0px 1px 4px rgba(0,0,0);
-  position: -webkit-sticky;
+
+header {
+  position: -webkit-sticky; /* Safari */
   position: sticky;
   top: 0;
-  z-index: 999;
-}
-.main-login{
-  display: flex;
-  justify-content: end;
-  background-color: rgb(177, 177, 177);
-}
-.main-login ul{
-  list-style: none;
-}
-.main-login ul li a:hover{
-  color: rgb(123, 124, 123);
-}
-.main-login ul li a{
-  text-decoration: none;
-  color: white;
-  margin: 0 1rem;
-}
-.nav-head{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 50%;
-  margin: 0 auto;
-}
-.nav-main{
-  display: flex;
-  list-style: none;
-}
-.nav-main li{
-  display: inline;
-}
-.nav-main li a:hover{
-  background-color: rgb(86, 86, 86);
-  color: white;
-}
-.nav-main li a{
-  display: block;
-  padding: 1rem 0.7rem;
-  text-decoration: none;
-  color: rgb(4, 4, 4);
-}
-.menu-toggle {
-cursor: pointer;
-display: none;
-}
-@media (max-width: 768px) {
-.nav-head{
-  padding: 0.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  margin: 0 auto;
-  background-color: #fdfdfd;
-}
-.nav-main {
-  display: none;
-  flex-direction: column;
-  width: 100%;
-  position: absolute;
-  top: 40px;
   left: 0;
-  background-color: #ffffff;
-  z-index: 999;
-}
-
-.nav-main.show {
+  right: 0;
+  background-color: white;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  padding: 0px 20%;
   display: flex;
-}
-
-.nav-main li {
-  margin: 10px 0;
-}
-
-.menu-toggle {
-  display: flex;
-  justify-content: left;
-  width: 25px;
-  height: 100%;
-  flex-direction: column;
-  z-index: 999;
   align-items: center;
+  justify-content: space-between;
+  z-index: 10;
 }
-.bar {
-  height: 2px;
-  width: 100%;
-  background-color: rgb(88, 86, 86);
-  margin: 2px 0;
+
+header .logo {
+  font-weight: bolder;
+  font-size: 25px;
+  color: #333;
 }
-.nav-main li a:hover{
-  background-color: rgb(255, 255, 255);
-  color: rgb(0, 0, 0);
+
+/* header .navbar{
+  border: 1px solid red;
+} */
+
+header .navbar ul {
+  list-style: none;
 }
-@media (max-width: 300px) {
-.dropdown {
+
+header .navbar ul li {
   position: relative;
-  display: inline-block;
+  float: left;
 }
 
-.dropdown-content {
-  display: none;
-  position: absolute;
-  max-width: 150px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-  top: 50px;
-  background-color: white;
-}
-
-.drop-item{
-  display: none;
-  position: absolute;
-  top: 0;
-  max-width: 100px;
-  background-color:rgb(0, 0, 0) ;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 2;
-}
-
-}
-
-}
-
-/* ส่วน dropdown */
-.dropbtn {
-  color: white;
-  padding: 16px;
+header .navbar ul li a {
   font-size: 16px;
-  border: none;
-  cursor: pointer;
+  padding: 20px;
+  color: #333;
+  display: block;
 }
 
-.dropdown {
-  position: relative;
-  display: inline-block;
+header .navbar ul li a:hover {
+  background: #333;
+  color: white;
 }
 
-.dropdown-content {
-  display: none;
+header .navbar ul li ul {
   position: absolute;
-  width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-  top: 50px;
-  background-color: white;
-}
-
-.drop-item{
-  display: none;
-  position: absolute;
-  top: 0;
-  margin-left: 10rem;
+  left: 0;
   width: 200px;
-  background-color:rgb(255, 255, 255) ;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 2;
+  background: white;
+  display: none;
+  flex-direction: column;
 }
-.drop-item a{
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
+header .navbar ul li .recipe{
+  position: absolute;
+  left: 0;
+  width: 200px;
+  background: white;
+  display: none;
+  flex-direction: column;
+  overflow: auto; 
+  height: 200px;
+}
+
+header .navbar ul li ul li {
   width: 100%;
-  border: 1px solid rgb(249, 245, 245);
+  border-top:2px solid rgba(0,0,0,.1);  
 }
 
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  z-index: 2;
+header .navbar ul li ul li ul{
+  left: 200px;
+  top: 0;
 }
-.dropdown-content a:hover {background-color: #ada9a9}
+header .navbar ul li:focus-within > ul,
+header .navbar ul li:hover > ul{
+  display: initial;
+}
 
-.dropdown:hover .dropdown-content {
-  display: block;
+#menu-bar{
+  display: none;
+}
+
+header label{
+  color: #131313;
+  cursor: pointer;
+  display: none;
+}
+
+
+
+
+/* @media(max-width:1100px){
+  header .navbar ul li{
+      width: 100%;
+  }
+  header .navbar{
+      position: relative;
+      width: 100%;
+      overflow: auto;
+  }
+  header .navbar ul li ul{
+      position: relative;
+      width: 100%;
+      overflow: auto;
+  }
+  header .navbar ul li ul li{
+      background: #eee;
+  }
+  header .navbar ul li ul li ul{
+      width: 100%;
+      left: 0;
+  }
+
+} */
+@media(max-width:1024px){
+  header{
+      padding: 15px;
+  }
+  header label{
+      display: block;
+  }
+  header .navbar{
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-top: 1px solid rgba(162, 162, 162, 0.9);
+      display: none;
+      overflow: auto;
+      height: 320px;
+  }
+  header .navbar ul li{
+    width: 100%;
+  }
+  header .navbar ul li ul{
+      position: relative;
+      width: 100%;
+      overflow: auto;
+  }
+  header .navbar ul li .recipe{
+    position: relative;
+    left: 0;
+    width: 200px;
+    background: white;
+    display: none;
+    flex-direction: column;
+    overflow: none; 
+    height: auto;
+  }
+  header .navbar ul li ul li{
+      background: #eee;
+  }
+  header .navbar ul li ul li ul{
+      width: 100%;
+      left: 0;
+  }
+
+  #menu-bar:checked ~ .navbar{
+      display: initial;
+  }
+}
+@media(max-width:990px){
+  header .navbar{
+      position: absolute;
+      max-width: 100%;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-top: 1px solid rgba(162, 162, 162, 0.9);
+      display: none;
+      
+  }
+  header .navbar ul li{
+      max-width: 100%;
+  }
+  header .navbar ul li ul{
+      position: relative;
+      max-width: 100%;
+  }
+}
+@media(max-width:720px){
+  header .navbar{
+      position: absolute;
+      max-width: 100%;
+      top: 100%;
+      background: #fff;
+      border-top: 1px solid rgba(162, 162, 162, 0.9);
+      display: none;
+  }
+  header .navbar ul li{
+      max-width: 100%;
+  }
+  header .navbar ul li ul{
+      position: relative;
+      max-width: 100%;
+  }
+}
+@media(max-width:690px){
+  header .navbar{
+      position: absolute;
+      max-width: 100%;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-top: 1px solid rgba(162, 162, 162, 0.9);
+      display: none;
+      
+  }
+  header .navbar ul li{
+      max-width: 100%;
+  }
+  header .navbar ul li ul{
+      position: relative;
+      max-width: 100%;
+  }
+}
+@media(max-width:520px){
+  header .navbar{
+      position: absolute;
+      max-width: 100%;
+      top: 100%;
+      background: #fff;
+      border-top: 1px solid rgba(162, 162, 162, 0.9);
+      display: none;
+  }
+  header .navbar ul li{
+      max-width: 100%;
+  }
+  header .navbar ul li ul{
+      position: relative;
+      max-width: 100%;
+  }
+}
+@media(max-width:500px){
+  header .navbar{
+      position: absolute;
+      max-width: 100%;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-top: 1px solid rgba(162, 162, 162, 0.9);
+      display: none;
+      
+  }
+  header .navbar ul li{
+      max-width: 100%;
+  }
+  header .navbar ul li ul{
+      position: relative;
+      max-width: 100%;
+  }
+}
+@media(max-width:520px){
+  header .navbar{
+      position: absolute;
+      max-width: 100%;
+      top: 100%;
+      background: #fff;
+      border-top: 1px solid rgba(162, 162, 162, 0.9);
+      display: none;
+  }
+  header .navbar ul li{
+      max-width: 100%;
+  }
+  header .navbar ul li ul{
+      position: relative;
+      max-width: 100%;
+  }
 }

@@ -10,6 +10,23 @@ if (isset($_POST['UpdateIngre'])) {
 
     $images = array();
 
+
+    if($_FILES['imgIngre']['error'][0] !== UPLOAD_ERR_OK){
+        $sql = $conn->prepare("UPDATE ingredients SET ingredientsName = :ingredientsName WHERE Idingre = :Idingre");
+        $sql->bindParam(":ingredientsName", $ingreName);
+        $sql->bindParam(":Idingre", $id);
+    
+    $sql->execute();
+
+    if ($sql && (isset($_SESSION['page']))) {
+        $i = $_SESSION['page'];
+        $_SESSION['editsuccess'] = "Data has been updated successfully";
+        header("location: indexingre.php?page=$i");
+    } else {
+        $_SESSION['error'] = "Data has not been updated successfully";
+        header("location: indexingre.php");
+    }
+    }else{
     foreach ($_FILES['imgIngre']['tmp_name'] as $key => $imgTmpName) {
         if ($_FILES['imgIngre']['error'][$key] === UPLOAD_ERR_OK) {
             // Read the file content
@@ -50,6 +67,7 @@ if (isset($_POST['UpdateIngre'])) {
         $_SESSION['error'] = "Data has not been updated successfully";
         header("location: indexingre.php");
     }
+}
 }
 ?>
 
