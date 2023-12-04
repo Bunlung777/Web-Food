@@ -74,3 +74,14 @@
         max-width: 20em; 
         margin: auto;
     }    
+
+  .ingredientid {
+      display: flex;
+      flex-wrap: wrap;
+  }
+  
+  .ingredient-row-item {
+      flex: 1 30%;
+      margin-right: 10px; 
+  }
+  

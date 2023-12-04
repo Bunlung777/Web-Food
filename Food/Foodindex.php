@@ -74,20 +74,43 @@ $ingredient = $foodName->fetchAll();
                             <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">รายละเอียดอาหาร : </label>
                             <textarea type="text" name="detail" id="textDetail" class="h-[100px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required></textarea>
                         </div>
-                        <div id="field">
-                            <div class="food">
-                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">ส่วนประกอบที่ 1 </label>
-                            <select class="mt-1 mb-1 additem w-full inline-block bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="ingredients">
-                            <?php
-                            // Generate the dropdown options
-                            foreach ($ingredient as $row => $ingredient) {
-                            ?>
-                                <option value="<?php echo $ingredient['Idingre']; ?>"><?php echo $row+1 ,". ",$ingredient['ingredientsName']; ?></option>
-                            <?php } ?>
-                            <option>ไม่มี</option>
-                            </select>
-                            </div>
+                        <div>
+                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">เทคนิคพิเศษ : </label>
+                            <textarea type="text" name="DetailSp" id="textDetail" class="h-[100px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"></textarea>
                         </div>
+                        <div id="field">
+                    <div class="food" style="display: flex; align-items: center;">
+                        <div style="flex: 3; margin-right: 10px;">
+                            <label for="text" id="NameIngre" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">ส่วนประกอบที่ 1</label>
+                            <select id="SelectIngre" class="mt-1 mb-1 additem w-full inline-block bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="ingredients">
+                                <?php
+                                // Generate the dropdown options
+                                foreach ($ingredient as $row => $ingredient) {
+                                ?>
+                                    <option value="<?php echo $ingredient['Idingre']; ?>"><?php echo $row + 1, ". ", $ingredient['ingredientsName']; ?></option>
+                                <?php } ?>
+                                <option>ไม่มี</option>
+                            </select>
+                        </div>
+                        <div style="flex: 1;">
+                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">ปริมาณ :</label>
+                            <input id="VolumeId" class="mt-1 mb-1 additem w-full inline-block bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-blue-700 dark:border-blue-600 dark:placeholder-blue-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="Volume">
+                        </div>
+                        <div style="flex: 1;">
+                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">หน่วย :</label>
+                            <select id="UnitId" class="mt-1 mb-1 additem w-full inline-block bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="Unit">
+                                <option value="กรัม">กรัม</option>
+                                <option value="กิโลกรัม">กิโลกรัม</option>
+                                <option value="หัว">หัว</option>
+                                <option value="เม็ด">เม็ด</option>
+                                <option value="ช้อนโต๊ะ">ช้อนโต๊ะ</option>
+                                <option value="ช้อนชา">ช้อนชา</option>
+                                <option value="ต้น">ต้น</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
                         <div class="flex justify-end space-x-4">
                         <input type="button" name="addaaa" id="addaaa" value="เพิ่ม" class="inline-block h-12 px-6 text-white bg-gradient-to-r from-gray-400 via-Neutral-500 to-gray-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800 font-medium rounded-lg text-sm py-2.5 text-center">
                         </div>
@@ -232,8 +255,8 @@ $ingredient = $foodName->fetchAll();
                         
                         <div>
                         <form method="post">
-            <div class="flex justify-end mt-3 mb-4 ">
-            <div class="relative flex items-center ">
+            <div class="flex justify-end mt-3 mb-4">
+            <div class="relative flex items-center">
             <div class="mr-4 text-l font-medium  text-gray-500 dark:text-gray-400">
                 <label for="">Seach: </label>
             </div>
@@ -255,8 +278,12 @@ $ingredient = $foodName->fetchAll();
         </thead>
         <tbody>
             <?php
-            //หน้า page
+            //หน้า page+
+            if(isset($_GET['page'])){
+                $_SESSION['page'] = $_GET['page'];
+                }
             $page = isset($_GET['page']) ? $_GET['page'] : 1;
+            
             $displayLimit = 15;
             $offset = ($page - 1) * $displayLimit;
             
@@ -473,8 +500,10 @@ $(document).ready(function () {
         if (counter < timesToClone) {
             var clonedSelect = $(".food").first().clone();
 
-            clonedSelect.find("label").text("ส่วนประกอบที่ " + (counter + 1));
-            clonedSelect.find("select").attr("name", "ingredients" + counter);
+            clonedSelect.find("#NameIngre").text("ส่วนประกอบที่ " + (counter + 1));
+            clonedSelect.find("#SelectIngre").attr("name", "ingredients" + counter);
+            clonedSelect.find("#VolumeId").attr("name", "Volume" + counter);
+            clonedSelect.find("#UnitId").attr("name", "Unit" + counter);
             counter++;
 
             $("#field").append(clonedSelect);
