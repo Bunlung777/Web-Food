@@ -7,26 +7,30 @@ if (isset($_POST['UpdateFood'])) {
     $id = $_POST['idd'];
     $name = $_POST['FoodName'];
     $detail = $_POST['detail'];
+    $DetailSp = $_POST['DetailSp'];
+    $note = $_POST['note'];
     $img2 = $_FILES['imgfood']['name'];
     $images = array();
 
     if($_FILES['imgfood']['error'][0] !== UPLOAD_ERR_OK){
-        $sql = $conn->prepare("UPDATE food SET FoodName = :FoodName, Detail= :Detail, Ingredients0 = :Ingredients0, 
+        $sql = $conn->prepare("UPDATE food SET FoodName = :FoodName, Detail= :Detail, DetailSp = :DetailSp, Ingredients0 = :Ingredients0, 
         Ingredients1 = :Ingredients1, Ingredients2 = :Ingredients2, Ingredients3 = :Ingredients3, Ingredients4 = :Ingredients4, 
         Ingredients5 = :Ingredients5, Ingredients6 = :Ingredients6 , Ingredients7 = :Ingredients7, 
-        Ingredients8 = :Ingredients8, Ingredients9 = :Ingredients9, Ingredients10 = :Ingredients10, Ingredients11 = :Ingredients11, Ingredients12 = :Ingredients12, Volume0 = :Volume0, 
+        Ingredients8 = :Ingredients8, Ingredients9 = :Ingredients9, Ingredients10 = :Ingredients10, Ingredients11 = :Ingredients11, Ingredients12 = :Ingredients12, Ingredients13 = :Ingredients13, Volume0 = :Volume0, 
         Volume1 = :Volume1, Volume2 = :Volume2, Volume3 = :Volume3, Volume4 = :Volume4, 
         Volume5 = :Volume5, Volume6 = :Volume6 , Volume7 = :Volume7, 
-        Volume8 = :Volume8, Volume9 = :Volume9, Volume10 = :Volume10, Volume11 = :Volume11, Volume12 = :Volume12, Unit0 = :Unit0, 
+        Volume8 = :Volume8, Volume9 = :Volume9, Volume10 = :Volume10, Volume11 = :Volume11, Volume12 = :Volume12, Volume13 = :Volume13, Unit0 = :Unit0, 
         Unit1 = :Unit1, Unit2 = :Unit2, Unit3 = :Unit3, Unit4 = :Unit4, 
         Unit5 = :Unit5, Unit6 = :Unit6 , Unit7 = :Unit7, 
-        Unit8 = :Unit8, Unit9 = :Unit9, Unit10 = :Unit10, Unit11 = :Unit11, Unit12 = :Unit12
+        Unit8 = :Unit8, Unit9 = :Unit9, Unit10 = :Unit10, Unit11 = :Unit11, Unit12 = :Unit12, Unit13 = :Unit13, note = :note
          WHERE IdFood = :id");
         $sql->bindParam(":FoodName", $name);
         $sql->bindParam(":Detail", $detail);
+        $sql->bindParam(":DetailSp", $DetailSp);
+        $sql->bindParam(":note", $note);
         $sql->bindParam(":id", $id);
         
-        for ($i = 0; $i <= 12; $i++) {
+        for ($i = 0; $i <= 13; $i++) {
             $Ingredients = 'Ingredients' . $i;
             if (isset($_POST[$Ingredients])) {
                 $sql->bindValue(":Ingredients" . $i, $_POST[$Ingredients]);
@@ -34,7 +38,7 @@ if (isset($_POST['UpdateFood'])) {
                 $sql->bindValue(":Ingredients" . $i, null, PDO::PARAM_NULL);
             }
         }
-        for ($i = 0; $i <= 12; $i++) {
+        for ($i = 0; $i <= 13; $i++) {
             $Volume = 'Volume' . $i;
             if (isset($_POST[$Volume])) {
                 $sql->bindValue(":Volume" . $i, $_POST[$Volume]);
@@ -42,7 +46,7 @@ if (isset($_POST['UpdateFood'])) {
                 $sql->bindValue(":Volume" . $i, null, PDO::PARAM_NULL);
             }
         }
-        for ($i = 0; $i <= 12; $i++) {
+        for ($i = 0; $i <= 13; $i++) {
             $Unit = 'Unit' . $i;
             if (isset($_POST[$Unit])) {
                 $sql->bindValue(":Unit" . $i, $_POST[$Unit]);
@@ -74,17 +78,17 @@ if (isset($_POST['UpdateFood'])) {
     }
     $numImages = count($images);
     $maxImg = 4;
-        $sql = $conn->prepare("UPDATE food SET FoodName = :FoodName, Detail= :Detail, ImgFood1 = :ImgFood1, ImgFood2 = :ImgFood2, ImgFood3 = :ImgFood3 
+        $sql = $conn->prepare("UPDATE food SET FoodName = :FoodName, Detail= :Detail, DetailSp = :DetailSp, ImgFood1 = :ImgFood1, ImgFood2 = :ImgFood2, ImgFood3 = :ImgFood3 
         , ImgFood4 = :ImgFood4, Ingredients0 = :Ingredients0, 
         Ingredients1 = :Ingredients1, Ingredients2 = :Ingredients2, Ingredients3 = :Ingredients3, Ingredients4 = :Ingredients4, 
         Ingredients5 = :Ingredients5, Ingredients6 = :Ingredients6 , Ingredients7 = :Ingredients7, 
-        Ingredients8 = :Ingredients8, Ingredients9 = :Ingredients9, Ingredients10 = :Ingredients10, Ingredients11 = :Ingredients11, Ingredients12 = :Ingredients12, Volume0 = :Volume0, 
+        Ingredients8 = :Ingredients8, Ingredients9 = :Ingredients9, Ingredients10 = :Ingredients10, Ingredients11 = :Ingredients11, Ingredients12 = :Ingredients13, Ingredients13 = :Ingredients12, Volume0 = :Volume0, 
         Volume1 = :Volume1, Volume2 = :Volume2, Volume3 = :Volume3, Volume4 = :Volume4, 
         Volume5 = :Volume5, Volume6 = :Volume6 , Volume7 = :Volume7, 
-        Volume8 = :Volume8, Volume9 = :Volume9, Volume10 = :Volume10, Volume11 = :Volume11, Volume12 = :Volume12, Unit0 = :Unit0, 
+        Volume8 = :Volume8, Volume9 = :Volume9, Volume10 = :Volume10, Volume11 = :Volume11, Volume12 = :Volume12, Volume13 = :Volume13, Unit0 = :Unit0, 
         Unit1 = :Unit1, Unit2 = :Unit2, Unit3 = :Unit3, Unit4 = :Unit4, 
         Unit5 = :Unit5, Unit6 = :Unit6 , Unit7 = :Unit7, 
-        Unit8 = :Unit8, Unit9 = :Unit9, Unit10 = :Unit10, Unit11 = :Unit11, Unit12 = :Unit12
+        Unit8 = :Unit8, Unit9 = :Unit9, Unit10 = :Unit10, Unit11 = :Unit11, Unit12 = :Unit12, Unit13 = :Unit13
          WHERE IdFood = :id");
         for ($g = 1; $g <= $maxImg; $g++) {
             for ($iii = 1; $iii <= $numImages; $iii++) {
@@ -99,9 +103,10 @@ if (isset($_POST['UpdateFood'])) {
             }
         $sql->bindParam(":FoodName", $name);
         $sql->bindParam(":Detail", $detail);
+        $sql->bindParam(":DetailSp", $DetailSp);
         $sql->bindParam(":id", $id);
         
-        for ($i = 0; $i <= 12; $i++) {
+        for ($i = 0; $i <= 13; $i++) {
             $Ingredients = 'Ingredients' . $i;
             if (isset($_POST[$Ingredients])) {
                 $sql->bindValue(":Ingredients" . $i, $_POST[$Ingredients]);
@@ -109,7 +114,7 @@ if (isset($_POST['UpdateFood'])) {
                 $sql->bindValue(":Ingredients" . $i, null, PDO::PARAM_NULL);
             }
         }
-        for ($i = 0; $i <= 12; $i++) {
+        for ($i = 0; $i <= 13; $i++) {
             $Volume = 'Volume' . $i;
             if (isset($_POST[$Volume])) {
                 $sql->bindValue(":Volume" . $i, $_POST[$Volume]);
@@ -117,7 +122,7 @@ if (isset($_POST['UpdateFood'])) {
                 $sql->bindValue(":Volume" . $i, null, PDO::PARAM_NULL);
             }
         }
-        for ($i = 0; $i <= 12; $i++) {
+        for ($i = 0; $i <= 13; $i++) {
             $Unit = 'Unit' . $i;
             if (isset($_POST[$Unit])) {
                 $sql->bindValue(":Unit" . $i, $_POST[$Unit]);
@@ -177,7 +182,7 @@ if (isset($_POST['UpdateFood'])) {
             <?php 
                 if(isset($_POST['userid'])){ //รับค่าจาก id มาจาก index     ฟังก์ชั่น isset เป็นฟังก์ชั่นที่ใช้ในการตรวจสอบว่าตัวแปรนั้นมีการกำหนดค่าไว้หรือไม่
                     $Id = $_POST['userid'];
-                    $stmt = $conn->query("SELECT F.IdFood,F.ImgFood1,F.ImgFood2,F.ImgFood3,F.ImgFood4,F.FoodName,F.Detail,F.DetailSp,
+                    $stmt = $conn->query("SELECT F.IdFood,F.ImgFood1,F.ImgFood2,F.ImgFood3,F.ImgFood4,F.FoodName,F.Detail,F.DetailSp,F.note,
                     F.Ingredients0 AS Ingredients0,	
                     F.Ingredients1 AS Ingredients1,	
                     F.Ingredients2 AS Ingredients2,	
@@ -191,6 +196,7 @@ if (isset($_POST['UpdateFood'])) {
                     F.Ingredients10 AS Ingredients10,	
                     F.Ingredients11 AS Ingredients11,	
                     F.Ingredients12 AS Ingredients12,
+                    F.Ingredients13 AS Ingredients13,
                     F.Volume0 AS Volume0,
                     F.Volume1 AS Volume1,
                     F.Volume2 AS Volume2,
@@ -204,6 +210,7 @@ if (isset($_POST['UpdateFood'])) {
                     F.Volume10 AS Volume10,
                     F.Volume11 AS Volume11,
                     F.Volume12 AS Volume12,
+                    F.Volume13 AS Volume13,
                     F.Unit0 AS Unit0,
                     F.Unit1 AS Unit1,
                     F.Unit2 AS Unit2,
@@ -217,6 +224,7 @@ if (isset($_POST['UpdateFood'])) {
                     F.Unit10 AS Unit10,
                     F.Unit11 AS Unit11,
                     F.Unit12 AS Unit12,
+                    F.Unit13 AS Unit13,
                     I.ingredientsName AS IngredientsName0, 
                     I1.ingredientsName AS IngredientsName1, 
                     I2.ingredientsName AS IngredientsName2, 
@@ -229,7 +237,8 @@ if (isset($_POST['UpdateFood'])) {
                     I9.ingredientsName AS IngredientsName9, 
                     I10.ingredientsName AS IngredientsName10, 
                     I11.ingredientsName AS IngredientsName11,
-                    I11.ingredientsName AS IngredientsName12
+                    I12.ingredientsName AS IngredientsName12,
+                    I13.ingredientsName AS IngredientsName13
                     FROM food AS F 
              LEFT JOIN ingredients AS I ON F.Ingredients0 = I.Idingre
              LEFT JOIN ingredients AS I1 ON F.Ingredients1 = I1.Idingre
@@ -244,6 +253,7 @@ if (isset($_POST['UpdateFood'])) {
              LEFT JOIN ingredients AS I10 ON F.Ingredients10 = I10.Idingre 
              LEFT JOIN ingredients AS I11 ON F.Ingredients11 = I11.Idingre 
              LEFT JOIN ingredients AS I12 ON F.Ingredients12 = I12.Idingre 
+             LEFT JOIN ingredients AS I13 ON F.Ingredients13 = I13.Idingre 
              WHERE IdFood = $Id");
                     $stmt->execute();
                     $data = $stmt->fetch();
@@ -278,16 +288,20 @@ if (isset($_POST['UpdateFood'])) {
                     </div>
                     <div>
                         <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">วิธีทำอาหาร</label>
-                        <textarea name="detail" id="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 h-[100px]" required><?php echo $data['Detail']; ?></textarea>
+                        <textarea name="detail" id="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 h-[100px]" ><?php echo $data['Detail']; ?></textarea>
                     </div>
                     <div>
                         <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">เทคนิคพิเศษ</label>
-                        <textarea name="detail" id="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 h-[100px]" required><?php echo $data['DetailSp']; ?></textarea>
+                        <textarea name="DetailSp" id="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 h-[100px]" ><?php echo $data['DetailSp']; ?></textarea>
+                    </div>
+                    <div>
+                        <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">หมายเหตุ</label>
+                        <input type="text" value="<?php echo $data['note']; ?>" name="note" id="text"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
                     </div>
                     <div class="field">
                                         <?php
                     $totalIngredients = 0;
-                    for ($i = 0; $i < 13; $i++) { 
+                    for ($i = 0; $i < 14; $i++) { 
                         if ($data['IngredientsName' . $i] != null) {
                             $totalIngredients++;
                         } else {
@@ -328,6 +342,7 @@ if (isset($_POST['UpdateFood'])) {
                                 <option value="กิโลกรัม">กิโลกรัม</option>
                                 <option value="หัว">หัว</option>
                                 <option value="เม็ด">เม็ด</option>
+                                <option value="เม็ด">ลูก</option>
                                 <option value="ช้อนโต๊ะ">ช้อนโต๊ะ</option>
                                 <option value="ช้อนชา">ช้อนชา</option>
                                 <option value="ต้น">ต้น</option>
@@ -338,7 +353,7 @@ if (isset($_POST['UpdateFood'])) {
     </div>
 
     <div class="flex justify-end">
-    <input type="button" name="add" id="add" value="Add" class="inline-block h-12 px-6 text-white bg-gradient-to-r from-gray-400 via-Neutral-500 to-gray-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800 font-medium rounded-lg text-sm py-2.5 text-center">
+    <input type="button" name="add" id="add" value="เพิ่ม" class="inline-block h-12 px-6 text-white bg-gradient-to-r from-gray-400 via-Neutral-500 to-gray-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800 font-medium rounded-lg text-sm py-2.5 text-center">
 </div>
 
 
@@ -385,7 +400,7 @@ if (isset($_POST['UpdateFood'])) {
 <script>
     $(document).ready(function () {
         var counterIngredients = <?php echo $totalIngredients; ?>;
-        var timesToCloneIngredients = 13;
+        var timesToCloneIngredients = 14;
 
         $("#add").click(function () {
             if (counterIngredients < timesToCloneIngredients) {

@@ -1,46 +1,74 @@
 <?php
 include ("../Config/DB.php");
 $id = $_GET['id'];
-$village = $conn->query("SELECT F.Detail,FoodName,F.ImgFood1, 
-I.ImgIngre1 AS ImgIngre0, 
-I1.ImgIngre1 AS ImgIngre1, 
-I2.ImgIngre1 AS ImgIngre2, 
-I3.ImgIngre1 AS ImgIngre3, 
-I4.ImgIngre1 AS ImgIngre4, 
-I5.ImgIngre1 AS ImgIngre5, 
-I6.ImgIngre1 AS ImgIngre6, 
-I7.ImgIngre1 AS ImgIngre7, 
-I8.ImgIngre1 AS ImgIngre8, 
-I9.ImgIngre1 AS ImgIngre9, 
-I10.ImgIngre1 AS ImgIngre10, 
-I11.ImgIngre1 AS ImgIngre11, 
-I12.ImgIngre1 AS ImgIngre12, 
-I.ingredientsName AS IngreName0, 
-I1.ingredientsName AS IngreName1, 
-I2.ingredientsName AS IngreName2, 
-I3.ingredientsName AS IngreName3,
-I4.ingredientsName AS IngreName4, 
-I5.ingredientsName AS IngreName5,
-I6.ingredientsName AS IngreName6, 
-I7.ingredientsName AS IngreName7,
-I8.ingredientsName AS IngreName8, 
-I9.ingredientsName AS IngreName9,
-I10.ingredientsName AS IngreName10, 
-I11.ingredientsName AS IngreName11,
-I12.ingredientsName AS IngreName12 FROM food AS F 
-LEFT JOIN ingredients AS I ON F.Ingredients0 = I.Idingre 
-LEFT JOIN ingredients AS I1 ON F.Ingredients1 = I1.Idingre 
-LEFT JOIN ingredients AS I2 ON F.Ingredients2 = I2.Idingre 
-LEFT JOIN ingredients AS I3 ON F.Ingredients3 = I3.Idingre 
-LEFT JOIN ingredients AS I4 ON F.Ingredients4 = I4.Idingre 
-LEFT JOIN ingredients AS I5 ON F.Ingredients5 = I5.Idingre 
-LEFT JOIN ingredients AS I6 ON F.Ingredients6 = I6.Idingre 
-LEFT JOIN ingredients AS I7 ON F.Ingredients7 = I7.Idingre 
-LEFT JOIN ingredients AS I8 ON F.Ingredients8 = I8.Idingre 
-LEFT JOIN ingredients AS I9 ON F.Ingredients9 = I9.Idingre 
-LEFT JOIN ingredients AS I10 ON F.Ingredients10 = I10.Idingre 
-LEFT JOIN ingredients AS I11 ON F.Ingredients11 = I11.Idingre 
-LEFT JOIN ingredients AS I12 ON F.Ingredients12 = I12.Idingre WHERE F.IdFood = $id;");
+$village = $conn->query("SELECT F.Detail,FoodName,F.ImgFood1,F.DetailSp,F.note, 
+                    I.ImgIngre1 AS ImgIngre0, 
+                    I1.ImgIngre1 AS ImgIngre1, 
+                    I2.ImgIngre1 AS ImgIngre2, 
+                    I3.ImgIngre1 AS ImgIngre3, 
+                    I4.ImgIngre1 AS ImgIngre4, 
+                    I5.ImgIngre1 AS ImgIngre5, 
+                    I6.ImgIngre1 AS ImgIngre6, 
+                    I7.ImgIngre1 AS ImgIngre7, 
+                    I8.ImgIngre1 AS ImgIngre8, 
+                    I9.ImgIngre1 AS ImgIngre9, 
+                    I10.ImgIngre1 AS ImgIngre10, 
+                    I11.ImgIngre1 AS ImgIngre11, 
+                    I12.ImgIngre1 AS ImgIngre12,
+                    F.Volume0 AS Volume0,
+                    F.Volume1 AS Volume1,
+                    F.Volume2 AS Volume2,
+                    F.Volume3 AS Volume3,
+                    F.Volume4 AS Volume4,
+                    F.Volume5 AS Volume5,
+                    F.Volume6 AS Volume6,
+                    F.Volume7 AS Volume7,
+                    F.Volume8 AS Volume8,
+                    F.Volume9 AS Volume9,
+                    F.Volume10 AS Volume10,
+                    F.Volume11 AS Volume11,
+                    F.Volume12 AS Volume12,
+                    F.Volume13 AS Volume13,
+                    F.Unit0 AS Unit0,
+                    F.Unit1 AS Unit1,
+                    F.Unit2 AS Unit2,
+                    F.Unit3 AS Unit3,
+                    F.Unit4 AS Unit4,
+                    F.Unit5 AS Unit5,
+                    F.Unit6 AS Unit6,
+                    F.Unit7 AS Unit7,
+                    F.Unit8 AS Unit8,
+                    F.Unit9 AS Unit9,
+                    F.Unit10 AS Unit10,
+                    F.Unit11 AS Unit11,
+                    F.Unit12 AS Unit12,
+                    F.Unit13 AS Unit13, 
+                    I.ingredientsName AS IngreName0, 
+                    I1.ingredientsName AS IngreName1, 
+                    I2.ingredientsName AS IngreName2, 
+                    I3.ingredientsName AS IngreName3,
+                    I4.ingredientsName AS IngreName4, 
+                    I5.ingredientsName AS IngreName5,
+                    I6.ingredientsName AS IngreName6, 
+                    I7.ingredientsName AS IngreName7,
+                    I8.ingredientsName AS IngreName8, 
+                    I9.ingredientsName AS IngreName9,
+                    I10.ingredientsName AS IngreName10, 
+                    I11.ingredientsName AS IngreName11,
+                    I12.ingredientsName AS IngreName12 FROM food AS F 
+                    LEFT JOIN ingredients AS I ON F.Ingredients0 = I.Idingre 
+                    LEFT JOIN ingredients AS I1 ON F.Ingredients1 = I1.Idingre 
+                    LEFT JOIN ingredients AS I2 ON F.Ingredients2 = I2.Idingre 
+                    LEFT JOIN ingredients AS I3 ON F.Ingredients3 = I3.Idingre 
+                    LEFT JOIN ingredients AS I4 ON F.Ingredients4 = I4.Idingre 
+                    LEFT JOIN ingredients AS I5 ON F.Ingredients5 = I5.Idingre 
+                    LEFT JOIN ingredients AS I6 ON F.Ingredients6 = I6.Idingre 
+                    LEFT JOIN ingredients AS I7 ON F.Ingredients7 = I7.Idingre 
+                    LEFT JOIN ingredients AS I8 ON F.Ingredients8 = I8.Idingre 
+                    LEFT JOIN ingredients AS I9 ON F.Ingredients9 = I9.Idingre 
+                    LEFT JOIN ingredients AS I10 ON F.Ingredients10 = I10.Idingre 
+                    LEFT JOIN ingredients AS I11 ON F.Ingredients11 = I11.Idingre 
+                    LEFT JOIN ingredients AS I12 ON F.Ingredients12 = I12.Idingre WHERE F.IdFood = $id;");
 $village->execute(); $ingredients = $village->fetch(); ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -122,6 +150,8 @@ $village->execute(); $ingredients = $village->fetch(); ?>
           <h1 class="text-left mt-1 "><b><?php echo $ingredients['FoodName'] ?></b></h1>
           <h1 class="text-left mt-3"><b>วิธีการทำ</b></h1>
           <p class="text-respon"><?php echo nl2br($ingredients['Detail']); ?></p>   
+          <h1 class="text-left mt-3"><b>เทคนิคพิเศษในการปรุงประกอบ<?php echo $ingredients['FoodName'] ?></b></h1>
+          <p class="text-respon"><?php echo nl2br($ingredients['DetailSp']); ?></p>
         </div>
       </div>
     </div>
@@ -138,8 +168,10 @@ $village->execute(); $ingredients = $village->fetch(); ?>
                         }
                     } 
                     for ($i = 0; $i < $total; $i++) {
-                      $ImgIngre= $ingredients['ImgIngre' . $i];
-                      $IngreName= $ingredients['IngreName' . $i];
+                      $ImgIngre = $ingredients['ImgIngre' . $i];
+                      $IngreName = $ingredients['IngreName' . $i];
+                      $Volume = $ingredients['Volume' . $i];
+                      $Unit = $ingredients['Unit' . $i];
                     ?>
         <div class="food-item">
           <div class="food-image">
@@ -148,13 +180,20 @@ $village->execute(); $ingredients = $village->fetch(); ?>
             alt="" >
           </div>
           <div class="food-text">
-            <p class="fs-4 text-center text-respon mt-2">
-              <?php echo $IngreName ?>
+            <p class="fs-4 text-left text-respon mt-2">
+              ชื่อ : <?php echo $IngreName ?>
+            </p>
+            <p class="fs-4 text-left text-respon mt-2">
+              ปริมาณ : <?php echo $Volume ?>
+            </p>
+            <p class="fs-4 text-left text-respon mt-2">
+              หน่วย : <?php echo $Unit ?>
             </p>
           </div>
         </div>
         <?php } ?>
       </div>
+      <p><b>หมายเหตุ</b> <?php echo $ingredients['note'] ?></p>
     </div>
     <!--  -->
     <?php include '../include/footer.php' ?>

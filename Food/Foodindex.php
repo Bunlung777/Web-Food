@@ -78,6 +78,10 @@ $ingredient = $foodName->fetchAll();
                             <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">เทคนิคพิเศษ : </label>
                             <textarea type="text" name="DetailSp" id="textDetail" class="h-[100px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"></textarea>
                         </div>
+                        <div>
+                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font">หมายเหตุ : </label>
+                            <input type="text" name="note" id="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                        </div>
                         <div id="field">
                     <div class="food" style="display: flex; align-items: center;">
                         <div style="flex: 3; margin-right: 10px;">
@@ -103,6 +107,7 @@ $ingredient = $foodName->fetchAll();
                                 <option value="กิโลกรัม">กิโลกรัม</option>
                                 <option value="หัว">หัว</option>
                                 <option value="เม็ด">เม็ด</option>
+                                <option value="เม็ด">ลูก</option>
                                 <option value="ช้อนโต๊ะ">ช้อนโต๊ะ</option>
                                 <option value="ช้อนชา">ช้อนชา</option>
                                 <option value="ต้น">ต้น</option>
@@ -494,7 +499,7 @@ $ingredient = $foodName->fetchAll();
 <script>
 $(document).ready(function () {
     var counter = 1;
-    var timesToClone = 13; 
+    var timesToClone = 14; 
 
     $("#addaaa").click(function () {
         if (counter < timesToClone) {

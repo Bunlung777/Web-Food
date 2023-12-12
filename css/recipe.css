@@ -55,7 +55,7 @@ html {
 }
 .food-village .food-item .food-image img {
   width: 100%;
-  height: 100%;
+  height: 200px;
 }
 .food-village .food-item:hover {
   transform: scale(1.01);
