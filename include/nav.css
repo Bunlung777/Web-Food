@@ -1,0 +1,286 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-transform: capitalize;
+  text-decoration: none;
+}
+
+body{
+  font-family: 'Taviraj', serif;
+}
+
+header {
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  padding: 0px 20%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10;
+}
+
+header .logo {
+  font-weight: bolder;
+  font-size: 25px;
+  color: #333;
+}
+
+/* header .navbar{
+  border: 1px solid red;
+} */
+
+header .navbar ul {
+  list-style: none;
+}
+
+header .navbar ul li {
+  position: relative;
+  float: left;
+}
+
+header .navbar ul li a {
+  font-size: 16px;
+  padding: 20px;
+  color: #333;
+  display: block;
+}
+
+header .navbar ul li a:hover {
+  background: #333;
+  color: white;
+}
+
+header .navbar ul li ul {
+  position: absolute;
+  left: 0;
+  width: 200px;
+  background: white;
+  display: none;
+  flex-direction: column;
+}
+header .navbar ul li .recipe{
+  position: absolute;
+  left: 0;
+  width: 200px;
+  background: white;
+  display: none;
+  flex-direction: column;
+  overflow: auto; 
+  height: 200px;
+}
+
+header .navbar ul li ul li {
+  width: 100%;
+  border-top:2px solid rgba(0,0,0,.1);  
+}
+
+header .navbar ul li ul li ul{
+  left: 200px;
+  top: 0;
+}
+header .navbar ul li:focus-within > ul,
+header .navbar ul li:hover > ul{
+  display: initial;
+}
+
+#menu-bar{
+  display: none;
+}
+
+header label{
+  color: #131313;
+  cursor: pointer;
+  display: none;
+}
+
+
+
+
+/* @media(max-width:1100px){
+  header .navbar ul li{
+      width: 100%;
+  }
+  header .navbar{
+      position: relative;
+      width: 100%;
+      overflow: auto;
+  }
+  header .navbar ul li ul{
+      position: relative;
+      width: 100%;
+      overflow: auto;
+  }
+  header .navbar ul li ul li{
+      background: #eee;
+  }
+  header .navbar ul li ul li ul{
+      width: 100%;
+      left: 0;
+  }
+
+} */
+@media(max-width:1024px){
+  header{
+      padding: 15px;
+  }
+  header label{
+      display: block;
+  }
+  header .navbar{
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-top: 1px solid rgba(162, 162, 162, 0.9);
+      display: none;
+      overflow: auto;
+      height: 320px;
+  }
+  header .navbar ul li{
+    width: 100%;
+  }
+  header .navbar ul li ul{
+      position: relative;
+      width: 100%;
+      overflow: auto;
+  }
+  header .navbar ul li .recipe{
+    position: relative;
+    left: 0;
+    width: 200px;
+    background: white;
+    display: none;
+    flex-direction: column;
+    overflow: none; 
+    height: auto;
+  }
+  header .navbar ul li ul li{
+      background: #eee;
+  }
+  header .navbar ul li ul li ul{
+      width: 100%;
+      left: 0;
+  }
+
+  #menu-bar:checked ~ .navbar{
+      display: initial;
+  }
+}
+@media(max-width:990px){
+  header .navbar{
+      position: absolute;
+      max-width: 100%;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-top: 1px solid rgba(162, 162, 162, 0.9);
+      display: none;
+      
+  }
+  header .navbar ul li{
+      max-width: 100%;
+  }
+  header .navbar ul li ul{
+      position: relative;
+      max-width: 100%;
+  }
+}
+@media(max-width:720px){
+  header .navbar{
+      position: absolute;
+      max-width: 100%;
+      top: 100%;
+      background: #fff;
+      border-top: 1px solid rgba(162, 162, 162, 0.9);
+      display: none;
+  }
+  header .navbar ul li{
+      max-width: 100%;
+  }
+  header .navbar ul li ul{
+      position: relative;
+      max-width: 100%;
+  }
+}
+@media(max-width:690px){
+  header .navbar{
+      position: absolute;
+      max-width: 100%;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-top: 1px solid rgba(162, 162, 162, 0.9);
+      display: none;
+      
+  }
+  header .navbar ul li{
+      max-width: 100%;
+  }
+  header .navbar ul li ul{
+      position: relative;
+      max-width: 100%;
+  }
+}
+@media(max-width:520px){
+  header .navbar{
+      position: absolute;
+      max-width: 100%;
+      top: 100%;
+      background: #fff;
+      border-top: 1px solid rgba(162, 162, 162, 0.9);
+      display: none;
+  }
+  header .navbar ul li{
+      max-width: 100%;
+  }
+  header .navbar ul li ul{
+      position: relative;
+      max-width: 100%;
+  }
+}
+@media(max-width:500px){
+  header .navbar{
+      position: absolute;
+      max-width: 100%;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-top: 1px solid rgba(162, 162, 162, 0.9);
+      display: none;
+      
+  }
+  header .navbar ul li{
+      max-width: 100%;
+  }
+  header .navbar ul li ul{
+      position: relative;
+      max-width: 100%;
+  }
+}
+@media(max-width:520px){
+  header .navbar{
+      position: absolute;
+      max-width: 100%;
+      top: 100%;
+      background: #fff;
+      border-top: 1px solid rgba(162, 162, 162, 0.9);
+      display: none;
+  }
+  header .navbar ul li{
+      max-width: 100%;
+  }
+  header .navbar ul li ul{
+      position: relative;
+      max-width: 100%;
+  }
+}

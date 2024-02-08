@@ -1,0 +1,76 @@
+.thumbnail {
+    cursor: pointer;
+    transition-duration: 0.3s;
+    overflow: hidden;
+  }
+  .thumbnail:hover {
+    transform: scale(1.5);
+    box-shadow: rgb(0, 0, 0) 10px 15px 30px -10px;
+  }    
+  .modal-backdrop {
+    z-index: -1;
+  }
+  .container .popup-image{
+    position: fixed;
+    top: 0; left: 0;
+    background: rgba(0, 0, 0, 0.9);
+    height: 100%;
+    width: 100%;
+    z-index: 0;
+    display: none;
+  } 
+  .container .popup-image img{
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 1000px;
+    object-fit: cover;
+  }
+  @media (max-width:768px){
+    .container .popup-image img{
+        width: 95%;
+    }
+  }
+  .noti{
+    animation: noti 0.5s forwards;
+    border-left: 6px solid #46c461;
+}
+.notired{
+  animation: noti 0.5s forwards;
+  border-left: 6px solid #db3030;
+}
+    @keyframes noti {
+        from{
+            opacity: 0;
+            transform: translateY(0);
+        }
+        to{
+            opacity: 10 ;
+            transform: translateY(10px);
+        }
+    }
+    .fadeout{
+        animation: fadeout 0.5s forwards;
+    }
+        @keyframes fadeout {
+            from {
+                opacity: 10; 
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-10px); 
+                display: none;
+            }
+        }
+        .prompt{
+          font-family: 'Prompt', sans-serif;
+      }
+      .font {
+        font-family: 'Taviraj', serif;
+        font-family: 'Niramit', sans-serif;
+      }
+      .text-container {
+            max-width: 20em; 
+            margin: auto;
+        }    

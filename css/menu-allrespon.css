@@ -1,0 +1,107 @@
+@media (max-width:1300px) {}
+
+@media (max-width:1100px) {
+  .container-main {
+    max-width: 100%;
+    margin: 1rem auto;
+    padding: 0 10px;
+}
+}
+
+@media (max-width: 950px) {
+  .content {
+    margin: 0rem 0rem;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+      url("https://images.unsplash.com/photo-1693237476029-f8469bb756a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1932&q=80");
+    background-position: center;
+    background-size: cover;
+    height: 25vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+}
+
+@media (max-width:820px) {
+  .content {
+    margin: 0rem 0rem;
+    background: linear-gradient(rgba(0, 0, 0, .7),
+        rgba(0, 0, 0, .7)),
+      url('https://images.unsplash.com/photo-1693237476029-f8469bb756a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1932&q=80');
+    background-position: center;
+    background-size: cover;
+    height: 25vh;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .container-main .box-main .image-main {
+    width: 450px;
+    overflow: hidden;
+    display: block;
+    justify-content: center;
+    
+  }
+
+
+}
+
+@media (max-width: 768px) {
+  .container-main {
+    position: relative;
+    max-width: 100%;
+    margin: 1rem auto;
+    padding: 0 10px;
+  }
+
+  .container-main .popup-image img {
+    width: 95%;
+  }
+
+  .container-main .box-main {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 1rem;
+    border: 1px solid rgb(221, 221, 221);
+    border-radius: 5px;
+    box-shadow: 0px 5px 10px rgb(212, 212, 212);
+  }
+
+  .container-main .box-main .image-main {
+    width: 100%;
+    /* overflow: hidden; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+}
+
+@media (max-width:720px) {
+  .container-main .box-main .image-main {
+    width: 100%;
+    /* overflow: hidden; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .container-main .box-main .image-contaner{
+    display: none;
+  }
+}
+@media (max-width:500px) {
+  .container-main .box-main .image-main {
+    width: 100%;
+    /* overflow: hidden; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 200px;
+  }
+  .container-main .box-main .image-contaner{
+    display: none;
+  }
+}
